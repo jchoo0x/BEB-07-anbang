@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
 
 // stylesheet
-import "../assets/css/header.css";
+import "../assets/css/main.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 import { faWallet } from '@fortawesome/free-solid-svg-icons'
