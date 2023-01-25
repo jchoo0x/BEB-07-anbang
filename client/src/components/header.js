@@ -1,68 +1,55 @@
 // modules
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import ReactDOM from 'react-dom'
 
 // stylesheet
 import "../assets/css/header.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faWallet } from '@fortawesome/free-solid-svg-icons'
 
 export default function Header() {
 
 
 return (
-    <header>
-  <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative flex items-center w-full justify-between">
-    <div class="px-6 w-full flex flex-wrap items-center justify-between">
-      <div class="flex items-center">
-        <button
-          class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContentY"
-          aria-controls="navbarSupportedContentY"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            data-prefix="fas"
-            class="w-5"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 448 512"
-          >
-            <path
-              fill="currentColor"
-              d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-            ></path>
-          </svg>
-        </button>
-      </div>
-      <div class="navbar-collapse collapse grow items-center" id="navbarSupportedContentY">
-        <ul class="navbar-nav mr-auto lg:flex lg:flex-row">
-          <li class="nav-item">
-            <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Pricing</a>
-          </li>
-          <li class="nav-item mb-2 lg:mb-0">
-            <a class="nav-link block pr-2 lg:px-2 py-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out" href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <div class="text-center bg-gray-50 text-gray-800 py-20 px-6">
-    <h1 class="text-5xl font-bold mt-0 mb-6">Heading</h1>
-    <h3 class="text-3xl font-bold mb-8">Subeading</h3>
-    <a class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-mdb-ripple="true" data-mdb-ripple-color="light" href="#!" role="button">Get started</a>
+
+<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+  <div className="container flex flex-wrap items-center justify-between mx-auto">
+  <a href="/" className="flex items-center">
+      <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-1 sm:h-9" alt="Flowbite Logo" />
+      <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white justify-items-start">안방</span>
+  </a>
+  <div className="flex md:order-2">
+  <ul className="flex md:auto">
+        <li className="px-10">
+            <a href = "#">
+            <FontAwesomeIcon icon={faBell} className="fa-lg text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" />
+            </a>
+        </li>
+        <li className="">
+            <a href = "#">
+            <FontAwesomeIcon icon={faWallet} className="fa-lg text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" />
+            </a>
+        </li>
+    </ul>
   </div>
+  <div className="items-center  px-10 hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+    <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+      <li>
+        <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+      </li>
+      <li>
+        <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+      </li>
+      <li>
+        <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
 
-  </header>
 )
 }
