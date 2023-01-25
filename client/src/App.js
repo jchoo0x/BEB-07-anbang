@@ -1,17 +1,24 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Login from "./components/Login";
+
+import './App.css';
+import React, {useState} from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-          <Login />
-        </p>
-      </header>
+    <div className='app'>
+        <Header/>
+        {/* <Routes>
+          <Route path ="/" element={<Main />}/>
+          <Route path="/mypage" element={<Mypage account={account}/>}/>
+          <Route path="/mint" element={<Mint />}/>
+          <Route path="/view" element={<View/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/login" element={<Login />}/>
+        </Routes> */}
+        <Footer/>
+
     </div>
   );
 }
