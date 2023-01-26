@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [userName, setUserName] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -30,6 +31,15 @@ function Register() {
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Password Confirm:
+          <input
+            type="password"
+            value={passwordConfirm}
+            onChange={(event) => setPasswordConfirm(event.target.value)}
           />
         </label>
         <br />
