@@ -33,11 +33,11 @@ class User extends Sequelize.Model{
                 type : Sequelize.STRING(10),
                 allowNull : false
             },
-            mobile : {
+            phoneNumber : {
                 type : Sequelize.INTEGER(11),
                 allowNull: false
             },
-            address:{
+            walletAddress:{
                 type: Sequelize.STRING(50),
                 allowNull : false,
                 unique : true,
