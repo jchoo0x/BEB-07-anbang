@@ -2,30 +2,31 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
+import { BrowserRouter, Route, Routes, Switch} from 'react-router-dom';
 
 // stylesheet
 import "../assets/css/main.css";
 
 // login & SignUp
-// import Login from "../components/Login";
-// import signUp from "";
+import Login from "./Login";
+import SignUp from "./SignUp";
 
 export default function Preview() {
 
     return(
-        <div className="py-48 mx-8 position: relative justify-center">
+        <div className="mx-8 position: relative justify-center">
             <div className="container flex flex-wrap items-center justify-between mx-auto">
                 <div className="flex flex-row">
                     <div className="mt-36">
                         <h1 className="text-5xl leading-relaxed font-bold">Web 3.0 BlockChain<p>부동산 Dapp</p></h1>
                         <div className="mt-4"><p>안방은 블록체인 기반의 부동산 거래 플랫폼입니다.</p></div>
                         <div className="mt-16">
-                        {/* <Link to = "/login" component={Login}> */}
+                        <Link to = "/Login">
                         <a className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">로그인</a>
-                        {/* </Link> */}
-                        {/* <Link to = "/signUp" component={signUp}> */}
+                        </Link>
+                        <Link to = "/signUp">
                         <a className="mx-4 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">회원가입</a>
-                        {/* </Link> */}
+                        </Link>
                         </div>
                     </div>
                     <div className="ml-36">
@@ -80,12 +81,12 @@ export default function Preview() {
             </div>
             <div className="mt-36 grid place-items-center">
                     <div className="mt-20">
-                        <h1 className="text-3xl leading-relaxed font-bold flex justify-center items-center"><p>다양한 혜택 받아보기</p></h1>
-                        <div className="mt-4 leading-10"><p>다양한 활동을 할 때마다 토큰을 지급받고 이를 다양한 서비스에 이용할 수 있습니다.</p></div>
+                        <h1 className="text-3xl leading-relaxed font-bold flex justify-center items-center"><p>안방 서비스 이용해보기</p></h1>
+                        <div className="mt-4 leading-10"><p>안전한 부동산 거래를 할 수 있고 다양한 활동을 통해 토큰을 얻을 수 있습니다.</p></div>
                             <div className="mt-10 flex justify-center items-center">
-                            {/* <Link to = "/signUp" component={signUp}> */}
+                            <Link to = "/signUp" component={SignUp}>
                                 <a className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">회원가입</a>
-                            {/* </Link> */}
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -38,19 +38,17 @@ return (
   <div className="items-center  px-10 hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
     <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-lg md:font-medium md:border-0 md:bg-white">
       <li>
-        <Link to = "/">
-        <a className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 nsparent ">About</a>
+        <Link to = "/main">
+        <a className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 nsparent ">Main</a>
         </Link>
       </li>
       <li>
-        <Link to = "/">
-        <a className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">NFT Service</a>
+        <Link to = "/token">
+        <a className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Token</a>
         </Link>
       </li>
       <li>
-        <Link to = "/">
-        <a href="#" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Contact</a>
-        </Link>
+        <a href="https://github.com/codestates-beb/BEB-07-anbang" className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Contact</a>
       </li>
     </ul>
   </div>
