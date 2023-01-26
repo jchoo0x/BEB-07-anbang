@@ -5,8 +5,8 @@ import "../assets/css/main.css";
 const Footer = ()=>{
     return (
   
-<div className='flex flex-col h-screen justify-between'> 
-<footer className="p-4 bg-gray-200 sm:p-6 mt-auto w-screen h-25">
+<div className='flex flex-col  min-h-screen justify-between'> 
+<footer className=" bg-gray-200 sm:p-6 mt-auto w-screen h-15">
     <div className="md:flex md:justify-between">
         <div className="mb-6 md:mb-0">
             <a href="/" className="flex items-center">
