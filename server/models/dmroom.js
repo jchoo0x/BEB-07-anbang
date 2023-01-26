@@ -7,38 +7,23 @@
 
 const Sequelize = require('sequelize');
 
-class Estate extends Sequelize.Model{
+class Dmroom extends Sequelize.Model{
     static initiate(sequelize){
-        Estate.init(
+        Dmroom.init(
             {
-            types : {
-                type: Sequelize.STRING(30),
-                allowNull : false,
+            lastChat : {
+                type: Sequelize.STRING,
             },
-            deposit : {
-                type : Sequelize.INTEGER,
-                allowNull: false
-            },
-            rental : {
-                type : Sequelize.INTEGER,
-                allowNull:false
-            },
-            conditions : {
-                type : Sequelize.STRING(10),
-                allowNull : false
-            },
-            createdAt: {
-                type: Sequelize.DATE,
-                allowNull : false,
-                defaultValue : Sequelize.NOW,
+            timeOfLastChat : {
+                type : Sequelize.DATE,
             },
             }, 
             {
                 sequelize,
-                    timestamps: false,
+                    timestamps: true,
                     underscored : false,
-                    modelName : 'Estate',
-                    tableName : 'estates',
+                    modelName : 'Dmroom',
+                    tableName : 'dmrooms',
                     charset : 'utf8',
                     collate : 'utf8_general_ci'
             }
@@ -47,8 +32,8 @@ class Estate extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Estate.belongsTo(db.User, {foreignKey:"owner", targetKey : 'id'})
+        db.Dmroom.belongsTo(db.User, {foreignKey:"owner", targetKey : 'id'})
     };
 }
 
-module.exports= Estate;
+module.exports= Dmroom;

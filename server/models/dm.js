@@ -7,9 +7,9 @@
 
 const Sequelize = require('sequelize');
 
-class DM extends Sequelize.Model{
+class Dm extends Sequelize.Model{
     static initiate(sequelize){
-        DM.init(
+        Dm.init(
             {
             messages : {
                 type: Sequelize.STRING,
@@ -20,7 +20,7 @@ class DM extends Sequelize.Model{
                 sequelize,
                     timestamps: true,
           
-                    modelName : 'DM',
+                    modelName : 'Dm',
                     tableName : 'dms',
                     charset : 'utf8',
                     collate : 'utf8_general_ci'
@@ -34,4 +34,4 @@ class DM extends Sequelize.Model{
     };
 }
 
-module.exports= DM;
+module.exports= Dm;
