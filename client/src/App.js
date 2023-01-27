@@ -5,12 +5,13 @@ import Footer from "./components/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./components/Register";
 import Contract from "./pages/Contract";
+import Login from "./components/Login";
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <Contract />
+      <Login />
       {/* <Routes> 
           <Route path ="/" element={<Main />}/>
           <Route path="/mypage" element={<Mypage account={account}/>}/>
