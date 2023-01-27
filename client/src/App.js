@@ -1,5 +1,5 @@
-import './App.css';
-import React, {useState} from "react";
+import "./App.css";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Preview from "./pages/preview";
@@ -9,7 +9,7 @@ import Main from './pages/Main';
 import Token from './pages/Token';
 import NFTdetail from './pages/NFTdetail';
 
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 function App() {
