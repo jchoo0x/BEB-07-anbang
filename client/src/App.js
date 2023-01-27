@@ -8,8 +8,12 @@ import SignUp from './pages/SignUp';
 import Main from './pages/Main';
 import Token from './pages/Token';
 import NFTdetail from './pages/NFTdetail';
+import Mypage from "./pages/Mypage";
+import Message from "./pages/Message";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+
 
 
 function App() {
@@ -21,8 +25,10 @@ function App() {
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/main" element={<Main />}/>
-            <Route path="/main" element={<Token />}/>
-            <Route path="/main" element={<NFTdetail />}/>
+            <Route path="/token" element={<Token />}/>
+            <Route path="/NFTdetail" element={<NFTdetail />}/>
+            <Route path="/mypage" element={<Mypage />}/>
+            <Route path="/message" element={<Message />}/>
           </Routes> 
         <Footer/>
 
