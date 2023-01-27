@@ -2,6 +2,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
+import useMetamask from "../hooks/useMetamask";
 
 // stylesheet
 import "../assets/css/main.css";
@@ -11,7 +12,14 @@ import { faWallet } from '@fortawesome/free-solid-svg-icons'
 
 export default function Header() {
 
+    const metamask = useMetamask();
 
+    const getAccount = async ()=>{ // 메타마스크에서 계정 가져오기 
+      const account = await window.ethereum.request({ method: 'eth_requestAccounts'})
+      .catch((err)=>{ console.log(err.code); });
+      console.log( account );
+  }
+    
 return (
 
 
@@ -24,14 +32,14 @@ return (
   <div className="flex md:order-2">
   <ul className="flex md:auto">
         <li className="px-10">
-            <a href = "#">
+            <a>
             <FontAwesomeIcon icon={faBell} className="fa-lg text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0" />
             </a>
         </li>
         <li className="">
-            <a href = "#">
+            <div onClick={getAccount}>
             <FontAwesomeIcon icon={faWallet} className="fa-lg text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0" />
-            </a>
+            </div>
         </li>
     </ul>
   </div>
