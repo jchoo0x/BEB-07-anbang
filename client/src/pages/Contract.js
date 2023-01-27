@@ -2,9 +2,9 @@ import React from "react";
 
 function Contract() {
   return (
-    <div class="flex min-h-screen items-center justify-center ">
-      <div class="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
-        <div class="mx-auto space-y-6">
+    <div className="flex min-h-screen items-center justify-center ">
+      <div className="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
+        <div className="mx-auto space-y-6">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -14,10 +14,10 @@ function Contract() {
           the release of Letraset sheets containing Lorem Ipsum passages, and
           more recently with desktop publishing software like Aldus PageMaker
           including versions of Lorem Ipsum.
-          <div class="flex w-full justify-center"></div>
+          <div className="flex w-full justify-center"></div>
           <a
             target="_blank"
-            class="block w-1/4 transform rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
+            className="block w-1/4 transform rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80"
           >
             Confirm
           </a>
