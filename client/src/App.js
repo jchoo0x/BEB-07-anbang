@@ -10,10 +10,12 @@ import Token from "./pages/Token";
 import NFTdetail from "./pages/NFTdetail";
 import Mypage from "./pages/Mypage";
 import Message from "./pages/Message";
-import RegisterNFT from "./pages/RegisterNFT";
+import Minting from "./pages/Minting";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
+  const [isLogin, setIsgLogin] = useState(false);
+
   return (
     <div className="app">
       <Header />
@@ -26,7 +28,7 @@ function App() {
         <Route path="/NFTdetail" element={<NFTdetail />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/message" element={<Message />} />
-        <Route path="/register" element={<RegisterNFT />} />
+        <Route path="/minting" element={<Minting />} />
       </Routes>
       <Footer />
     </div>
