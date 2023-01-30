@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+import DaumPostcode from "react-daum-postcode";
 
 // stylesheet
 import "../assets/css/main.css";
@@ -11,6 +12,11 @@ export default function Register() {
   const [image, setImage] = useState(null);
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
+    console.log(image);
+  };
+  const handlePostcode = (data) => {
+    const fullAddress = data.address;
+    console.log(fullAddress);
   };
 
   return (
@@ -52,6 +58,12 @@ export default function Register() {
           </div>
         </label>
       </div>
+      <div className="py-10">
+        <label class="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+          주소 등록
+        </label>
+      </div>
+      <DaumPostcode autoClose onComplete={handlePostcode} />
     </div>
   );
 }
