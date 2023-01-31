@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
-import DaumPostcode from "react-daum-postcode";
+import Postcode from "../components/Postcode";
 
 // stylesheet
 import "../assets/css/main.css";
@@ -23,15 +23,8 @@ export default function Register() {
     console.log(file);
   };
 
-  const handleAddress = (data) => {
-    const fullAddress = data.address;
-    const zoneCode = data.zonecode;
-    console.log(fullAddress);
-    console.log(zoneCode);
-  };
-
   return (
-    <div class="mb-6 pt-4">
+    <div className="mb-6 pt-4">
       <div className="flex ">
         <div className="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
           <div className="mx-auto space-y-6">
@@ -76,7 +69,7 @@ export default function Register() {
           주소 등록
         </label>
       </div>
-      <DaumPostcode autoClose onComplete={handleAddress} />
+      <Postcode />
       <label class="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
         등기부등본 등록
       </label>
@@ -87,7 +80,7 @@ export default function Register() {
           name="file"
           id="file"
           class="sr-only"
-          onChange={handleImageChange}
+          onChange={handleFileChange}
         />
         <label
           for="file"
