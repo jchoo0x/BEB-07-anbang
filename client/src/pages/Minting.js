@@ -39,11 +39,10 @@ export default function Register() {
 
       <div className="mb-8">
         <input
-          type="image"
-          name="image"
-          id="image"
-          multiple
-          alt=""
+          type="file"
+          name="file"
+          id="file"
+          class="sr-only"
           onChange={handleImageChange}
         />
         {imagePreview && <img src={imagePreview} alt="preview" />}
