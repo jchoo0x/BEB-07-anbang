@@ -38,7 +38,8 @@ export default function Mypage(props) {
             )} 
             className="w-80" src="https://news.samsungdisplay.com/wp-content/uploads/2022/03/IT_tc00480001633_final-1024x449.jpg"></img>
         </div>
-        <p className="mt-10 flex flex-row justify-center items-center">가격 : 1,000,000 KRW</p>
+        <p className="mt-10 flex flex-row justify-center items-center">{`가격 : 1,000,000 KRW`}</p>
+        <p className="mt-5 flex flex-row justify-center items-center">{`임대 종류 : 전세 `}</p>
     </div>
 
     )

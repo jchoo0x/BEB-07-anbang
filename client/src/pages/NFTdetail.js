@@ -21,9 +21,9 @@ export default function NFTdetail() {
     const userId = location.state.userId // 
 
     return(
-        <div>
+        <div className="flex flex-col mt-20 items-center">
             <img src={image}></img>
-            <div id="userId">{`@`+ userId}</div>
+            <div id="userId">{userId}</div>
             <div id="cost">{`월세 or 관리비 ${cost}`}</div>
             <div id="deposit">{`보증금 : ${deposit}`}</div>
             <div id="rentKinds">{`임대 종류 : ${rentKinds}`}</div>

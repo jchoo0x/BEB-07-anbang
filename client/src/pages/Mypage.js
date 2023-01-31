@@ -33,7 +33,8 @@ export default function Mypage() {
             <p className="flex flex-col mt-20 items-center">보유 NFT 리스트</p>
         <NFTList/>
             <div className="flex flex-col mt-20 ml-20 items-left"><p>진행중인 계약</p>
-
+                <div className="mt-20"><p>보유 토큰 : </p>
+                </div>
             </div>
         </div>
     )
