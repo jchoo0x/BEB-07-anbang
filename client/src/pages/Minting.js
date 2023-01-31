@@ -25,7 +25,7 @@ export default function Register() {
       <div className="flex ">
         <div className="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
           <div className="mx-auto space-y-6">
-            설명문
+            설명
             <div className="flex w-full justify-center"></div>
           </div>
         </div>
