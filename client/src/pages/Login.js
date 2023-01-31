@@ -10,7 +10,10 @@ function Login() {
   };
 
   return (
-    <div className="mt-36" style={{ display: "flex", justifyContent: "center" }}>
+    <div
+      className="mt-36"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <form onSubmit={handleSubmit}>
         <input
           type="text"
