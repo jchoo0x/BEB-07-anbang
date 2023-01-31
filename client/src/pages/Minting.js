@@ -2,14 +2,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+import axios from 'axios';
 import DaumPostcode from "react-daum-postcode";
 
 // stylesheet
 import "../assets/css/main.css";
 
 export default function Register() {
-  const [image, setImage] = useState(null);
+  
+    const [image, setImage] = useState(null);
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
     console.log(image);
