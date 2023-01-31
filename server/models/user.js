@@ -22,7 +22,7 @@ class User extends Sequelize.Model{
                 unique : true,
             },
             password : {
-                type : Sequelize.STRING(20),
+                type : Sequelize.STRING(100),
                 allowNull: false
             },
             nickname : {
@@ -42,7 +42,7 @@ class User extends Sequelize.Model{
                 allowNull : false,
                 unique : true,
             },
-            idNumber:{
+            idNumber:{ // 주민등록번호 입력방법 개선
                 type:Sequelize.INTEGER(13),
                 allowNull:false,
             }
@@ -59,6 +59,8 @@ class User extends Sequelize.Model{
 
     }
 
+    
+    
     static associate(db){
         db.User.hasMany(db.Estate, {foreignKey : "owner", sourceKey: 'id'})
     };

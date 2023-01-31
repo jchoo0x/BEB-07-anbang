@@ -3,9 +3,10 @@ const path = require('path');
 const app = express();
 const cors = require('cors');
 const session = require('express-session');
+const {sequelize} =require('./models')
 
 const apiRouter = require('./router/api');
-
+const devRouter = require('./router/devrouter')
 const http = require('http').createServer(app);
 http.listen(8080, function () {
   console.log(`listening port 8080`);
@@ -29,6 +30,16 @@ app.use(
   })
 )
 
+//
+sequelize
+  .sync({force : false})
+  .then(()=>{
+    console.log('connected')
+  })
+  .catch((err)=>{
+    console.log('error')
+  })
+
 app.use(express.json());
 // app.use(cors());
 
@@ -42,6 +53,7 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, `../client/build`)));
 
 app.use('/', apiRouter);
+app.use('/dev', devRouter);
 
 // app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
