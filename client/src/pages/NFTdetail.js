@@ -18,16 +18,22 @@ export default function NFTdetail() {
     const image = location.state.image // 건물 이미지
     const cost = location.state.cost // 월세 or 관리비
     const rentKinds = location.state.rentKinds // 임대 종류 전세 or 월세
+    const description = location.state.description // 설명
     const userId = location.state.userId // 
 
     return(
-        <div className="flex flex-col mt-20 items-center">
-            <img src={image}></img>
-            <div id="userId">{userId}</div>
-            <div id="cost">{`월세 or 관리비 ${cost}`}</div>
-            <div id="deposit">{`보증금 : ${deposit}`}</div>
-            <div id="rentKinds">{`임대 종류 : ${rentKinds}`}</div>
-            <div id="loan">{`대출 유무 : ${loan}`}</div>
+    <div className="relative h-[480px]">
+        <div>
+            <div className="flex flex-col mt-20 items-center">
+                <img src={image}></img>
+                <div id="userId">{userId}</div>
+                <div id="cost">{`월세 or 관리비 ${cost}`}</div>
+                <div id="deposit">{`보증금 : ${deposit}`}</div>
+                <div id="description">{`${description}`}</div>
+                <div id="rentKinds">{`임대 종류 : ${rentKinds}`}</div>
+                <div id="loan">{`대출 유무 : ${loan}`}</div>
+            </div>
         </div>
+    </div>
     )
 }
