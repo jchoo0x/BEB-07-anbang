@@ -10,15 +10,11 @@ import "../assets/css/main.css";
 
 export default function Message() {
 
-    const [selectedUser, setSelectedUser] = useState('User 1');
+    const [selectedUser, setSelectedUser] = useState('나');
     const [messages, setMessages] = useState([
+      
       {
-        user: 'User 1',
-        message: 'Hello!',
-        timestamp: new Date(),
-      },
-      {
-        user: 'User 2',
+        user: '상대방 유저',
         message: 'Hi there!',
         timestamp: new Date(),
       },
@@ -41,7 +37,7 @@ export default function Message() {
     return (
         <div className="flex h-screen bg-gray-100">
           <div className="w-1/3 p-4">
-            <h1 className="text-3xl font-bold mb-4">Chat</h1>
+            <h1 className="text-3xl font-bold mb-4">메세지</h1>
             <div className="mb-4">
               <label
                 className="block text-gray-700 font-medium mb-2"
@@ -55,8 +51,7 @@ export default function Message() {
                 value={selectedUser}
                 onChange={(event) => setSelectedUser(event.target.value)}
               >
-                <option value="User 1">User 1</option>
-                <option value="User 2">User 2</option>
+                <option value="User 2">상대방 유저</option> 
               </select>
             </div>
           </div>
