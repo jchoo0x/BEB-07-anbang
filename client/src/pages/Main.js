@@ -3,20 +3,22 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes, Switch} from 'react-router-dom';
-import NFTList from "../hooks/NFTList";
+import NFTList from "../hooks/NFTs";
 import Minting from "./Minting";
 import Mypage from "./Mypage";
 import Message from "./Message";
+import Hero from "../components/Hero";
 
 // stylesheet
 import "../assets/css/main.css";
+
 
 
 export default function Main() {
 
 
     return(
-        <div className="mx-8 position: relative justify-center h-[480px]">
+        <div className="mx-8 position: relative justify-center h-min">
             <div className="grid place-items-center">
                 <div className="flex flex-row">
                     <div className="mt-10">
@@ -29,6 +31,7 @@ export default function Main() {
                         </div>
                     </div>
                 </div>
+                <Hero />
                 <NFTList/>
             </div>
       </div>

@@ -16,7 +16,7 @@ export default function Token() {
                 <div className='w-full py-[10rem] px-4 bg-white'>
                 <div className='max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8'>
                     <div className='w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300'>
-                        <img className='w-20 mx-auto mt-[-3rem] bg-white' src="" alt="/" />
+                        <img className='w-20 mx-auto mt-[-3rem] bg-white' src="https://play-lh.googleusercontent.com/_ki_xbYoNgr475A2EJKb5YQJjwi3FHZcyDNKtyDemEZjZaMMiE8vF29czk8wxO3tvg" alt="/" />
                         <h2 className='text-2xl font-bold text-center py-8'>각종 비용 납부</h2>
                         <p className='text-center text-4xl font-bold'>1 토큰</p>
                         <div className='text-center font-medium'>
@@ -27,7 +27,7 @@ export default function Token() {
                         <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>납부하기</button>
                     </div>
                     <div className='w-full shadow-xl bg-gray-100 flex flex-col p-4 md:my-0 my-8 rounded-lg hover:scale-105 duration-300'>
-                        <img className='w-20 mx-auto mt-[-3rem] bg-transparent' src="" alt="/" />
+                        <img className='w-20 mx-auto mt-[-3rem] bg-transparent' src="https://cdn-icons-png.flaticon.com/512/5988/5988246.png" alt="/" />
                         <h2 className='text-2xl font-bold text-center py-8'>수수료 결제</h2>
                         <p className='text-center text-4xl font-bold'>안방 서비스 이용</p>
                         <div className='text-center font-medium'>
@@ -38,7 +38,7 @@ export default function Token() {
                         <button className='bg-black text-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>시작하기</button>
                     </div>
                     <div className='w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300'>
-                        <img className='w-20 mx-auto mt-[-3rem] bg-white' src="" alt="/" />
+                        <img className='w-20 mx-auto mt-[-3rem] bg-white' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzkijpvMXVCTOwZYLzzQar9L54ciwrAbJ6JQ&usqp=CAU" alt="/" />
                         <h2 className='text-2xl font-bold text-center py-8'>부가 서비스</h2>
                         <p className='text-center text-4xl font-bold'>편의제공 서비스</p>
                         <div className='text-center font-medium'>
