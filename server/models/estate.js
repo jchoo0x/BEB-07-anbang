@@ -21,12 +21,15 @@ class Estate extends Sequelize.Model{
             },
             rental : {
                 type : Sequelize.INTEGER,
-                allowNull:false
             },
             conditions : {
                 type : Sequelize.STRING(10),
                 allowNull : false
             },
+            contractAddress : {
+                type: Sequelize.STRING(50),
+                allowNull : false
+            }
             }, 
             {
                 sequelize,

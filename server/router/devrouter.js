@@ -5,9 +5,10 @@ const Estate = require('../models/estate');
 const Dm = require('../models/dm');
 const Dmroom = require('../models/dmroom');
 const {Op}= require('sequelize');
-const devRouter = express.Router();
-const bcrypt = require('bcryptjs');
+const bcrypt =require('bcryptjs')
 const jwt = require('jsonwebtoken');
+
+const devRouter = express.Router();
 require('dotenv').config();
 
 
@@ -61,11 +62,11 @@ devRouter.post('/signUp', async(req,res,next) => {
         try{
             //비밀번호 암호화
             // const password = req.body.password;
-            // const salt = await bcrypt.genSalt(5);
+            
             // const hashedPassword = await bcrypt.hash(password, salt);
             const newUser = await User.create({
                 email,
-                password, //: hashedPassword,
+                password, 
                 nickname,
                 name,
                 phoneNumber,
@@ -86,31 +87,35 @@ devRouter.post('/login', async(req,res,next)=>{
         if (!email || !password) {
           return res.status(400).json({ data: null, message: 'Invalid input' });
         }
-        const user = await User.findOne({
+        const userData = await User.findOne({
           where: {
-            email,
-            password,
+            email
           },
         });
-        if (!user) {
-          return res.status(400).send({ data: null, message: 'failed to login' });
+        if (!userData) {
+          return res.status(400).send({ data: null, message: 'no user' });
         }
-        const accessToken = jwt.sign(
-            {
-                email : user.email,
-                nickname : user.nickname,
-                createdAt:user.createAt,
+
+        const match = await bcrypt.compare(password, userData.password);
+        if (!match) {
+          return res.status(400).send('user password invalid');
+        }else{
+            const accessToken = jwt.sign(
+             {
+                email : userData.email,
+                nickname : userData.nickname,
+                createdAt:userData.createAt,
                 iat : Math.floor(Date.now()/1000),
                 exp : Math.floor(Date.now() / 1000 )+ 60 *60,
-            },
-            process.env.ACCESS_SECRET
+             },
+                process.env.ACCESS_SECRET
         );
 
         const refreshToken = jwt.sign(
             {
-                email : user.email,
-                nickname : user.nickname,
-                createdAt:user.createAt,
+                email : userData.email,
+                nickname : userData.nickname,
+                createdAt:userData.createAt,
                 iat : Math.floor(Date.now()/1000),
                 exp : Math.floor(Date.now() / 1000 )+ 60 *60,
             },
@@ -127,6 +132,7 @@ devRouter.post('/login', async(req,res,next)=>{
           res
           .status(200)
           .json({data: {accessToken : accessToken}, message : 'login complete'})
+        }
     }catch(err){
         console.error(err.message);
         next(err);

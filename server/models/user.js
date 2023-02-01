@@ -11,6 +11,7 @@
 
 
 const Sequelize = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 class User extends Sequelize.Model{
     static initiate(sequelize){
@@ -23,27 +24,27 @@ class User extends Sequelize.Model{
             },
             password : {
                 type : Sequelize.STRING(100),
-                allowNull: false
+                allowNull: false,
             },
             nickname : {
                 type : Sequelize.STRING(10),
-                allowNull:false
+                allowNull:false,
             },
             name : {
                 type : Sequelize.STRING(10),
-                allowNull : false
+                allowNull : false,
             },
             phoneNumber : {
-                type : Sequelize.INTEGER(11),
-                allowNull: false
+                type : Sequelize.STRING(20),
+                allowNull: false,
             },
             walletAddress:{
                 type: Sequelize.STRING(50),
                 allowNull : false,
                 unique : true,
             },
-            idNumber:{ // 주민등록번호 입력방법 개선
-                type:Sequelize.INTEGER(13),
+            idNumber:{
+                type:Sequelize.STRING(20),
                 allowNull:false,
             }
             }, 
@@ -56,7 +57,15 @@ class User extends Sequelize.Model{
                     collate : 'utf8_general_ci'
             }
         );
-
+       
+        User.beforeCreate(async (user, options) => {
+     
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(user.password, salt);
+            const hashedIdNumber = await bcrypt.hash(user.idNumber, salt);
+            user.password = hashedPassword;
+            user.idNumber = hashedIdNumber;
+          })
     }
 
     
