@@ -12,23 +12,6 @@ export default function Token() {
     return(
         <div className="mx-8 flex flex-col items-center">
             <div className="">
-                <div className="flex flex-row items-center">
-                    <div className="mt-20 mx-10">
-                        <h1 className="text-5xl leading-relaxed font-bold">토큰 획득 방법<p></p></h1>
-                        <div className="mt-8 font-bold"><p>1. 임대인과 임차인은 계약 성사 시 토큰을 획득합니다</p>
-                        <p className="mt-6 font-bold">2. 임차인은 월세나 공과금을 기간 내 납부하면 토큰을 획득합니다</p>
-                        <p className="mt-6 font-bold">3. 임대인은 건물을 NFT로 등록하면 토큰을 획득합니다</p>
-                        <p className="mt-6 font-bold">4. 누구나 잘못된 정보를 신고하면 토큰을 획득합니다</p>
-                        </div>
-                    </div>
-                    <div className="mt-20 mx-10">
-                        <h1 className="text-5xl leading-relaxed font-bold">토큰 사용처<p></p></h1>
-                        <div className="mt-8 font-bold"><p>1. 부동산 계약 수수료를 위해 토큰이 사용됩니다</p>
-                        <p className="mt-6 font-bold">2. 토큰을 사용해서 플랫폼에서 제공하는 서비스를 이용할 수 있습니다</p>
-                        <p className="mt-6 font-bold">3. 월세나 공과금 납부를 토큰으로 대신 사용할 수 있습니다</p>
-                        </div>
-                    </div>
-                </div>
 
                 <div className='w-full py-[10rem] px-4 bg-white'>
                 <div className='max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8'>
@@ -66,6 +49,23 @@ export default function Token() {
                         <button className='bg-[#00df9a] w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>이용하기</button>
                     </div>
                 </div>
+                </div>
+                <div className="flex flex-row items-center">
+                    <div className="mt-20 mx-10">
+                        <h1 className="text-5xl leading-relaxed font-bold">토큰 획득 방법<p></p></h1>
+                        <div className="mt-8 font-bold"><p>1. 임대인과 임차인은 계약 성사 시 토큰을 획득합니다</p>
+                        <p className="mt-6 font-bold">2. 임차인은 월세나 공과금을 기간 내 납부하면 토큰을 획득합니다</p>
+                        <p className="mt-6 font-bold">3. 임대인은 건물을 NFT로 등록하면 토큰을 획득합니다</p>
+                        <p className="mt-6 font-bold">4. 누구나 잘못된 정보를 신고하면 토큰을 획득합니다</p>
+                        </div>
+                    </div>
+                    <div className="mt-20 mx-10">
+                        <h1 className="text-5xl leading-relaxed font-bold">토큰 사용처<p></p></h1>
+                        <div className="mt-8 font-bold"><p>1. 부동산 계약 수수료를 위해 토큰이 사용됩니다</p>
+                        <p className="mt-6 font-bold">2. 토큰을 사용해서 플랫폼에서 제공하는 서비스를 이용할 수 있습니다</p>
+                        <p className="mt-6 font-bold">3. 월세나 공과금 납부를 토큰으로 대신 사용할 수 있습니다</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
