@@ -146,7 +146,8 @@ devRouter.post('/logout', async(req,res,next)=>{
             maxAge : 1,
             httpOnly : true,
         });
-        return res.status(200).json({
+        return res
+        .status(200).json({
             message : 'logout successfully',
             status :'ok'
         })
@@ -155,11 +156,35 @@ devRouter.post('/logout', async(req,res,next)=>{
         next(err);
     }
 })
-devRouter.post('/minting', async(req,res,next)=>{
-
+devRouter.post('/register', async(req,res,next)=>{
+    const {types, deposit, rental, conditions} = req.body;
+    if (!types || !deposit || !rental || conditions) {
+        return res.status(400).json({ data: null, message: 'Invalid input' });
+      }
+      try{
+        const newEstate = await Estate.create({
+            types,
+            deposit,
+            rental,
+            conditions
+        })
+        return res.status(200).json(newEstate);
+      }
+      catch(err){
+        console.error(err.message);
+        next(err);
+      }
 })
-devRouter.get('/estate', async(req,res,next)=> {
 
+devRouter.get('/estate', async(req,res,next)=> {
+    try {
+        const estates = await Estate.find({}); // 
+  
+        res.json(estates);
+      } catch (err) {
+        console.error(err);
+        next(err);
+      }
 })
 
 module.exports = devRouter;
