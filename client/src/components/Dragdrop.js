@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Dragdrop = () => {
+const DragDrop = () => {
   const [change, setChange] = useState(null);
   const [preview, setPreview] = useState(null);
   const handleChange = (event) => {
@@ -39,4 +39,4 @@ const Dragdrop = () => {
   );
 };
 
-export default Dragdrop;
+export default DragDrop;
