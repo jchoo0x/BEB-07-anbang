@@ -28,7 +28,7 @@ return (
   <div className="container flex flex-wrap items-center justify-between mx-auto">
   <a href="/" className="flex items-center">
       <img src="https://cdn-icons-png.flaticon.com/512/5988/5988246.png" className="h-6 mr-1 sm:h-9" alt="Flowbite Logo" />
-      <span className="self-center text-xl font-semibold whitespace-nowrap  justify-items-start">안방</span>
+      <span className="self-center text-xl font-semibold whitespace-nowrap  justify-items-start">안(安)방</span>
   </a>
   <div className="flex md:order-2">
   <ul className="flex md:auto">
