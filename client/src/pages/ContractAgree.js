@@ -2,8 +2,8 @@ import React from "react";
 
 function ContractAgree() {
   return (
-    <div className="flex min-h-screen  justify-center ">
-      <div className="mx-auto w-full  rounded-lg px-10 py-8 shadow-xl">
+    <div className="flex min-h-screen justify-center ">
+      <div className="mx-auto w-full rounded-lg px-10 py-8 ">
         <div className="mx-auto space-y-6">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -15,12 +15,6 @@ function ContractAgree() {
           more recently with desktop publishing software like Aldus PageMaker
           including versions of Lorem Ipsum.
           <div className="flex w-full justify-center"></div>
-          <a
-            target="_blank"
-            className="block w-1/4 translate-x-full rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
-          >
-            계약합니다
-          </a>
         </div>
         <div className="mt-5 ml-10">
           <p>계약자 정보</p>
@@ -46,6 +40,12 @@ function ContractAgree() {
         <div className="mt-5 ml-10">
           <p>주의사항</p>
         </div>
+        <a
+          target="_blank"
+          className="block w-1/4 translate-x-1/4 translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
+        >
+          계약합니다
+        </a>
       </div>
     </div>
   );
