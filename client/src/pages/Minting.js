@@ -64,7 +64,7 @@ export default function Register() {
       </div>
       <Postcode />
       <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
-        등기부등본 등록
+        등기부 등본 등록
       </label>
       <div className="">
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
