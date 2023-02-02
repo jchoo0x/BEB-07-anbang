@@ -1,5 +1,6 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import axios from "axios";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Preview from "./pages/preview";
@@ -14,15 +15,28 @@ import Minting from "./pages/Minting";
 import Contract from "./pages/Contract";
 import ContractAgree from "./pages/ContractAgree";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 
 function App() {
-  const [isLogin, setIsgLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const navigation = useNavigate();
 
-  // const loginHandler = async () => {
-  //   const loginResult = await axios
-  //   .post("http://localhost:...")
-  // }
+  const loginHandler = async () => {
+    const dataToLogin = await axios.get("http://localhost:8080/login")
+    .then(result=>result.data)
+    .catch(err=>err)
+
+    const loginResult = await axios.post("http://localhost:8080/login", {dataToLogin}, {withCredentials: true})
+    .then(result=>{
+      return result.data;
+    })
+    .catch(console.log)
+
+    if(!loginResult) return;
+    setIsLogin(true);
+  }
+
+
 
   return (
     <div className="app">
@@ -31,6 +45,7 @@ function App() {
         <Route path="/" element={<Preview />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        {/* { isLogin ? <Route path="/main" element={<Main isLogin={isLogin}/>} /> : <Route path="/login"/>} 로그인 되었을 때만 메인보이게 */}
         <Route path="/main" element={<Main />} />
         <Route path="/token" element={<Token />} />
         <Route path="/NFTdetail" element={<NFTdetail />} />

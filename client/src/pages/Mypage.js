@@ -12,10 +12,6 @@ import "../assets/css/main.css";
 export default function Mypage() {
 
     const [NFTInfo, setNFTInfo] = useState([])
-    const [userInfo, setUserInfo] = useState({
-        user_id: "",
-        user_email:"",
-    })
     const [contractStatus, setContractStatus] = useState(false);
 
     // useEffect(() => {
@@ -30,14 +26,23 @@ export default function Mypage() {
     // 추후에 DB에서 데이터 받아서 map 으로 호출
 
     return(
-        <>  <div className="flex flex-col items-center">
-                <p className="flex flex-col mt-20 items-center">보유 NFT 리스트</p>
+
+            <div className="flex flex-col items-center">
+                <div className="flex flex-row mt-20">
+                    <p className="flex items-center font-bold mr-5">보유 NFT 리스트</p>
                 <NFT />
-            </div>
-                <div className="mt-20 ml-20"><p>진행중인 계약</p>
-                    <div className="mt-20"><p>보유 토큰 : </p>
-                    </div>
+                <NFT />
+                <NFT />
                 </div>
-        </>
+                <div className="flex flex-row mt-20">
+                    <p className="flex items-center font-bold mr-5">진행중인 계약</p>
+                <NFT />
+                </div>
+
+                <div className="mt-20">
+                    <p className="font-bold mr-5">내 토큰 : </p>
+                </div>
+
+            </div>
     )
 }
