@@ -1,12 +1,14 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 const cors = require('cors');
 const session = require('express-session');
 const {sequelize} =require('./models')
 
 const apiRouter = require('./router/api');
 const devRouter = require('./router/devrouter')
+const webSocket = require('./socket')
+
+const app = express();
 const http = require('http').createServer(app);
 http.listen(8080, function () {
   console.log(`listening port 8080`);
@@ -54,6 +56,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', apiRouter);
 app.use('/dev', devRouter);
+
+
+webSocket(http, app);
 
 // app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
