@@ -6,7 +6,11 @@ function ContractAgree() {
       <div className="flex ">
         <div className="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
           <div className="mx-auto space-y-6">
-            <p className="ml-10">설명문 상호 동의 하에 진행됩니다.</p>
+            <p>1. 부동산의 표시</p>
+            <p>2. 계약 내용</p>
+            <p>제 1조</p>
+            <p>제 2조</p>
+            <p>제 3조</p>
           </div>
         </div>
       </div>
