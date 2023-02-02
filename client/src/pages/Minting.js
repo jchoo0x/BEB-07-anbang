@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
 import Postcode from "../components/Postcode";
-import DragDrop from "../components/DragDrop";
+
 // stylesheet
 import "../assets/css/main.css";
 

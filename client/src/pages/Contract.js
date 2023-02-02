@@ -2,7 +2,7 @@ import React from "react";
 
 function Contract() {
   return (
-    <div className="flex min-h-screen items-center justify-center ">
+    <div className="flex h-screen items-center justify-center ">
       <div className="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
         <div className="mx-auto space-y-6">
           Lorem Ipsum is simply dummy text of the printing and typesetting
