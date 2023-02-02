@@ -7,6 +7,7 @@ const Dmroom = require('../models/dmroom');
 const {Op}= require('sequelize');
 const bcrypt =require('bcryptjs')
 const jwt = require('jsonwebtoken');
+const { sequelize } = require('../models');
 
 const devRouter = express.Router();
 require('dotenv').config();
@@ -162,21 +163,31 @@ devRouter.post('/logout', async(req,res,next)=>{
         next(err);
     }
 })
+
 devRouter.post('/register', async(req,res,next)=>{
-    const {types, deposit, rental, conditions} = req.body;
-    if (!types || !deposit || !rental || conditions) {
-        return res.status(400).json({ data: null, message: 'Invalid input' });
-      }
-      try{
-        const newEstate = await Estate.create({
-            types,
-            deposit,
-            rental,
-            conditions
-        })
+    const authorization = req.headers['authorization'];
+    if (!authorization) {
+        return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+    try{
+        const token = authorization.split(' ')[1];
+        const data =jwt.verify(token,process.env.ACCESS_SECRET);
+        if(data){
+            const {types, deposit, rental, conditions} = req.body;
+        
+            if (!types || !deposit || !rental || !conditions) {
+                return res.status(400).json({ data: null, message: 'Invalid input' });
+            }
+            
+            const newEstate = await Estate.create({
+                types,
+                deposit,
+                rental,
+                conditions
+            })
         return res.status(200).json(newEstate);
-      }
-      catch(err){
+        }
+    }catch(err){
         console.error(err.message);
         next(err);
       }
@@ -193,4 +204,128 @@ devRouter.get('/estate', async(req,res,next)=> {
       }
 })
 
+//DM방 목록 가져오기
+devRouter.get('/dm/user/:userId',async(req,res,next)=>{
+    
+    const authorization = req.headers['authorization'];
+    if (!authorization) {
+        return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+    try{
+        await Dmroom.findAll({
+            include : [{
+                model : User,
+                required: true,
+                include : [
+                    {
+                        model : Estate,
+                        required : true
+                    }
+                ]
+            }],
+            where :{
+                [Op.or] : [
+                    {'$estate.owner' : req.params.userId},
+                    {buyUserId : req.params.userId}
+                ]
+            },
+            order :[
+                ['updatedAt', 'DESC']
+            ]
+        }).then(function (result){
+            return res.status(200).json({chat:result})
+        })
+
+    }catch(err){
+        console.error(err.message)
+        next(err)
+    }
+})
+
+//DM방 내 DM 불러오기
+devRouter.get('/dm/load/:dmroomId', async(req,res,next)=>{
+    const authorization = req.headers['authorization'];
+    if (!authorization) {
+        return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+    try{
+        await Dm.findAll({
+            include : [
+                {
+                    model : User,
+                    required : true
+                }
+            ],
+            where : {
+                dmroomId : req.params.dmroomId
+            },
+            order : [
+                ['createdAt', 'ASC']
+            ]
+        }).then(function(result){
+            return res.status(200).json({messages : result})
+        });
+    }catch(err){
+        console.error(err.message)
+        next(err)
+    }
+});
+
+//DM방 내에서 DM 보내기
+devRouter.post('/dm/send/:dmroomId', async (req,res,next) => {
+    const authorization = req.headers['authorization'];
+    if (!authorization) {
+        return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+    //dm 발송에 따른 테이블 내용 변경
+    const transaction = await sequelize.transaction();
+    try{
+        await Dmroom.update(
+            {lastchat : req.body.message},
+            {where : {id: req.params.dmroomId}}
+            ,{transaction : transaction}
+        );
+        
+        await Dm.create({
+            messages : req.body.message,
+            userId : req.body.userId,
+            dmroomId : req.body.dmroomId
+        }, {transaction : transaction}
+        );
+    }catch(err){
+        await transaction.rollback();
+        console.error(err.message)
+    }
+})
+
+//새로운 DM 발송
+devRouter.post('/newdm', async(req,res,next)=>{
+    const authorization = req.headers['authorization'];
+    if (!authorization) {
+        return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+
+    const transaction = await sequelize.transaction();
+    try{
+        const newDmroom = await Dmroom.create({
+            lastchat : "",
+            buyUserId: req.body.buyUserId,
+            estateId: req.body.estateId
+        }, {transaction : transaction}
+        );
+
+        await sequelize.query(
+            'UPDATE estates SET dmroomCount = (SELECT CONUT (*) dmrooms WHERE estateId = ${req.body.estateId} WHERE id = ${req.body.estateId}',
+            {transaction : transaction}
+        );
+
+        await transaction.commit.then(function (result){
+            return res.status(201).json({dmroomId : newDmroom.id})
+        })
+    }catch(err){
+        console.error(err.message)
+    }
+})
+
+    
 module.exports = devRouter;
