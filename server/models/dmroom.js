@@ -32,7 +32,9 @@ class Dmroom extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Dmroom.belongsTo(db.User, {foreignKey:"owner", targetKey : 'id'})
+        db.Dmroom.hasMany(db.Dm, {foreignKey : 'dmId', sourceKey : 'id'})
+        db.Dmroom.belongsTo(db.User, {foreignKey:"buyUserId", targetKey : 'id'})
+        db.Dmroom.belongsTo(db.Estate, {foreignKey : "estateId", targetKey : 'id'})
     };
 }
 
