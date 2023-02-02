@@ -5,17 +5,20 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [userName, setUserName] = useState("");
+  const [nickName, setNickName] = useState("");
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
+  const [walletAddress, setWalletAddress] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
   };
 
   return (
-    <div className="mt-36" style={{ display: "flex", justifyContent: "center" }}>
+    <div
+      className="mt-36"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -44,8 +47,8 @@ function Register() {
         <input
           type="text"
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
-          value={userName}
-          onChange={(event) => setUserName(event.target.value)}
+          value={nickName}
+          onChange={(event) => setNickName(event.target.value)}
           placeholder="Username"
         />
         <br />
@@ -68,8 +71,8 @@ function Register() {
         <input
           type="text"
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
-          value={address}
-          onChange={(event) => setAddress(event.target.value)}
+          value={walletAddress}
+          onChange={(event) => setWalletAddress(event.target.value)}
           placeholder="Metamask Address"
         />
         <br />
