@@ -7,7 +7,7 @@ const Dmroom = require('../models/dmroom');
 const {Op}= require('sequelize');
 const bcrypt =require('bcryptjs')
 const jwt = require('jsonwebtoken');
-const { sequelize } = require('../models');
+const { sequelize, Report } = require('../models');
 
 const devRouter = express.Router();
 require('dotenv').config();
@@ -165,6 +165,7 @@ devRouter.post('/logout', async(req,res,next)=>{
 })
 
 devRouter.post('/register', async(req,res,next)=>{
+    //로그인 검증
     const authorization = req.headers['authorization'];
     if (!authorization) {
         return res.status(400).json({ data: null, message: 'invalid access token' });
@@ -212,6 +213,12 @@ devRouter.get('/dm/user/:userId',async(req,res,next)=>{
         return res.status(400).json({ data: null, message: 'invalid access token' });
     }
     try{
+     //로그인 확인
+      const token = authorization.split(' ')[1];
+      // console.log(token);
+      const data = jwt.verify(token, process.env.ACCESS_SECRET);
+      //로그인이 돼있다면
+      if(data){
         await Dmroom.findAll({
             include : [{
                 model : User,
@@ -235,7 +242,7 @@ devRouter.get('/dm/user/:userId',async(req,res,next)=>{
         }).then(function (result){
             return res.status(200).json({chat:result})
         })
-
+    }
     }catch(err){
         console.error(err.message)
         next(err)
@@ -249,6 +256,12 @@ devRouter.get('/dm/load/:dmroomId', async(req,res,next)=>{
         return res.status(400).json({ data: null, message: 'invalid access token' });
     }
     try{
+         //로그인 확인
+      const token = authorization.split(' ')[1];
+      // console.log(token);
+      const data = jwt.verify(token, process.env.ACCESS_SECRET);
+      //로그인이 돼있다면
+      if(data){
         await Dm.findAll({
             include : [
                 {
@@ -264,7 +277,8 @@ devRouter.get('/dm/load/:dmroomId', async(req,res,next)=>{
             ]
         }).then(function(result){
             return res.status(200).json({messages : result})
-        });
+        })
+    };
     }catch(err){
         console.error(err.message)
         next(err)
@@ -280,6 +294,12 @@ devRouter.post('/dm/send/:dmroomId', async (req,res,next) => {
     //dm 발송에 따른 테이블 내용 변경
     const transaction = await sequelize.transaction();
     try{
+         //로그인 확인
+      const token = authorization.split(' ')[1];
+      // console.log(token);
+      const data = jwt.verify(token, process.env.ACCESS_SECRET);
+      //로그인이 돼있다면
+      if(data){
         await Dmroom.update(
             {lastchat : req.body.message},
             {where : {id: req.params.dmroomId}}
@@ -291,7 +311,8 @@ devRouter.post('/dm/send/:dmroomId', async (req,res,next) => {
             userId : req.body.userId,
             dmroomId : req.body.dmroomId
         }, {transaction : transaction}
-        );
+        )
+    }
     }catch(err){
         await transaction.rollback();
         console.error(err.message)
@@ -307,6 +328,12 @@ devRouter.post('/newdm', async(req,res,next)=>{
 
     const transaction = await sequelize.transaction();
     try{
+      //로그인 확인
+      const token = authorization.split(' ')[1];
+      // console.log(token);
+      const data = jwt.verify(token, process.env.ACCESS_SECRET);
+      //로그인이 돼있다면
+      if(data){
         const newDmroom = await Dmroom.create({
             lastchat : "",
             buyUserId: req.body.buyUserId,
@@ -322,10 +349,40 @@ devRouter.post('/newdm', async(req,res,next)=>{
         await transaction.commit.then(function (result){
             return res.status(201).json({dmroomId : newDmroom.id})
         })
+      };
     }catch(err){
         console.error(err.message)
+        next(err)
     }
 })
 
+devRouter.post('/report', async(req,res,next)=>{
+    const authorization = req.headers['authorization'];
+    if (!authorization) {
+        return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+    try{
+        //로그인 확인
+        const token = authorization.split(' ')[1];
+        const data = jwt.verify(token, process.env.ACCESS_SECRET);
+
+        if(data){
+            const {reason, } = req.body
+            if (!reason){
+                return res.status(400).json({ data: null, message: 'Invalid input' });
+            }
+            const newReport = await Report.create({
+                reason,
+            })
+        
+        return res.status(200).json({data : newReport, messgae: 'report success'});
+        }
+        }
+
+    catch(err){
+        console.error(err.message)
+        next(err)
+    }
+})
     
 module.exports = devRouter;
