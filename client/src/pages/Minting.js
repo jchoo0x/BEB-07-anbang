@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+
 import axios from "axios";
 import { create } from "ipfs-http-client";
+
 import Postcode from "../components/Postcode";
 
 // stylesheet
@@ -16,7 +18,6 @@ import "../assets/css/main.css";
 
 export default function Register() {
   // minting NFT
-
   const [mintNFT, setMintNFT] = useState({
     nft_address: "",
     nft_imgURL: "",
@@ -73,10 +74,6 @@ export default function Register() {
     console.log(mintNFT);
   };
 
-  function validateForm() {
-    return mintNFT.nft_name.length > 0 && imgFile != null;
-  }
-
   function handleSubmit(event) {
     let isMintSuccess = false;
     event.preventDefault();
@@ -102,17 +99,12 @@ export default function Register() {
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
-  const [fileChange, setFileChange] = useState(null);
   const [preview, setPreview] = useState(null);
 
-  const handleImgChange = (event) => {
+  const handleImgPreview = (event) => {
     setimgChange(event.target.files[0]);
     console.log(imgChange);
     setPreview(URL.createObjectURL(event.target.files[0]));
-  };
-  const handleFileChange = (event) => {
-    setFileChange(event.target.files[0]);
-    console.log(fileChange);
   };
 
   return (
@@ -156,7 +148,7 @@ export default function Register() {
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgChange}
+              onChange={handleImgPreview}
             />
           </div>
         </label>
@@ -178,7 +170,7 @@ export default function Register() {
               name="file"
               id="file"
               accept="application/pdf"
-              onChange={handleFileChange}
+              onChange={handleInputValue}
             />
           </div>
         </label>

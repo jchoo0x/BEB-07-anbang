@@ -34,7 +34,7 @@ app.use(
 
 //
 sequelize
-  .sync({force : false})
+  .sync({force : true})
   .then(()=>{
     console.log('connected')
   })
