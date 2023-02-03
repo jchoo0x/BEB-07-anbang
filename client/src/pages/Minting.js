@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
 import axios from "axios";
-//import { create } from "ipfs-http-client";
+import { create } from "ipfs-http-client";
 import Postcode from "../components/Postcode";
 
 // stylesheet
