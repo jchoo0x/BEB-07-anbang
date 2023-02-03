@@ -4,7 +4,7 @@ function ContractAgree() {
   return (
     <div>
       <div className="flex ">
-        <div className="mx-auto w-full max-w-lg rounded-lg px-10 py-8 shadow-xl">
+        <div className="mx-auto w-full max-w-2xl rounded-lg px-10 py-8 shadow-xl">
           <div className="mx-auto space-y-6">
             <p>1. 부동산의 표시</p>
             <p>2. 계약 내용</p>
