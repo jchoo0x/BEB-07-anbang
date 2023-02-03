@@ -91,7 +91,7 @@ export default function Register() {
   const [imgChange, setimgChange] = useState(null);
   const [preview, setPreview] = useState(null);
 
-  const handleImgChange = (event) => {
+  const handleImgPreview = (event) => {
     setimgChange(event.target.files[0]);
     console.log(imgChange);
     setPreview(URL.createObjectURL(event.target.files[0]));
@@ -126,7 +126,7 @@ export default function Register() {
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgChange}
+              onChange={handleImgPreview}
             />
           </div>
         </label>
