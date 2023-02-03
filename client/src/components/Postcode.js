@@ -26,9 +26,17 @@ const Postcode = (props) => {
 
   return (
     <form>
-      <input value={addressValue} onChange={addressValue} />
+      <input
+        className="mx-auto flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+        value={addressValue}
+        onChange={addressValue}
+      />
       <br />
-      <input value={zipCodeValue} onchange={zipCodeValue} />
+      <input
+        className="mx-auto flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+        value={zipCodeValue}
+        onchange={zipCodeValue}
+      />
       <DaumPostcodeEmbed onComplete={handleComplete} {...props} />
     </form>
   );
