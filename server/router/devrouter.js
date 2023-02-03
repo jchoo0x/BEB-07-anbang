@@ -163,7 +163,7 @@ devRouter.post('/logout', async(req,res,next)=>{
         next(err);
     }
 })
-
+// 매물등록
 devRouter.post('/register', async(req,res,next)=>{
     const authorization = req.headers['authorization'];
     if (!authorization) {
@@ -180,10 +180,10 @@ devRouter.post('/register', async(req,res,next)=>{
             }
             
             const newEstate = await Estate.create({
-                types,
-                deposit,
-                rental,
-                conditions
+                types, // 월세or 전세 종류
+                deposit, // 보증금
+                rental, // 월세
+                etc // 기타사항 (가구옵션 관리비 기타등등..?)
             })
         return res.status(200).json(newEstate);
         }

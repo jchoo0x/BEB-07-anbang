@@ -67,9 +67,6 @@ export default function Register() {
     console.log(mintNFT)
     }
 
-    function validateForm(){
-    return mintNFT.nft_name.length>0 && imgFile != null;
-    }   
 
     function handleSubmit(event){
     let isMintSuccess=false
@@ -92,17 +89,12 @@ export default function Register() {
 
   // 이미지 미리보기  
   const [imgChange, setimgChange] = useState(null);
-  const [fileChange, setFileChange] = useState(null);
   const [preview, setPreview] = useState(null);
 
   const handleImgChange = (event) => {
     setimgChange(event.target.files[0]);
     console.log(imgChange);
     setPreview(URL.createObjectURL(event.target.files[0]));
-  };
-  const handleFileChange = (event) => {
-    setFileChange(event.target.files[0]);
-    console.log(fileChange);
   };
 
   return (
@@ -156,7 +148,7 @@ export default function Register() {
               name="file"
               id="file"
               accept="application/pdf"
-              onChange={handleFileChange}
+              onChange={handleInputValue}
             />
           </div>
         </label>
