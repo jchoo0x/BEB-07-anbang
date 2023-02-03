@@ -1,14 +1,96 @@
 // modules
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+import axios from "axios"
+import {create} from 'ipfs-http-client';
 import Postcode from "../components/Postcode";
 
 // stylesheet
 import "../assets/css/main.css";
 
+// const projectId = '';   // <---------- your Infura Project ID
+// const projectSecret = '';  // <---------- your Infura Secret
+// const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
 export default function Register() {
+
+    // minting NFT
+    const [mintNFT, setMintNFT]= useState({
+        nft_address: "",
+        nft_imgURL: "",
+        nft_type:""
+      })
+      const [imgFile, setImgFile] = React.useState(null);
+
+    const client = create({
+        host: 'ipfs.infura.io',
+        port: '',
+        protocol: '',
+        apiPath: '',
+        headers: {
+        //   authorization: auth
+        }
+      })
+
+    // ipfs 메타데이터 생성 함수들
+    const submitImage = async () => {
+        
+    if(!imgFile) return false;
+    // console.log(imgFile);
+    try{
+      let added = await client.add(
+        imgFile,
+        {
+            progress: (prog) => console.log(`received: ${prog}`)
+        }
+      )
+      // console.log(added);
+      const url = `https://making.infura-ipfs.io/ipfs/${added.path}`;
+      console.log(url)
+      setMintNFT({nft_address:mintNFT.nft_address, nft_imgURL:url, nft_type:mintNFT.nft_type});
+      return url;
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+    const handleClickCreate = async ()=>{
+    if((mintNFT.nft_address == '' || mintNFT.nft_type == '' || imgFile == null)) 
+    { console.log('빈 칸이 있으면 안됩니다'); return false; }
+    submitImage()
+    }
+
+    const handleInputValue=(key)=>(e)=>{
+    setMintNFT({...mintNFT, [key]: e.target.value})
+    console.log(mintNFT)
+    }
+
+    function validateForm(){
+    return mintNFT.nft_name.length>0 && imgFile != null;
+    }   
+
+    function handleSubmit(event){
+    let isMintSuccess=false
+    event.preventDefault();
+    handleClickCreate();
+    console.log(mintNFT);
+
+    if(mintNFT.nft_imgURL && mintNFT.nft_name){
+      axios.post("http://localhost:8080/mint", mintNFT)
+      .then((res)=>{
+        console.log(res.data.status)
+        res.data.status==="success"?isMintSuccess=true:isMintSuccess=false
+      })
+      .then(()=>{
+        isMintSuccess?alert("매물을 NFT로 등록했습니다"):alert("등록에 실패했습니다")
+      }) 
+    }
+  }
+
+
+  // 이미지 미리보기  
   const [imgChange, setimgChange] = useState(null);
   const [fileChange, setFileChange] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -80,7 +162,8 @@ export default function Register() {
         </label>
       </div>
       <div className="flex flex-col items-center">
-      <button className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
+      <button onSubmit={handleSubmit}
+      className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">매물 등록하기</button>
       </div>
     </div>
