@@ -33,6 +33,11 @@ export default function NFTdetail() {
                     <div id="description">{`${description}`}</div>
                     <div id="rentKinds">{`임대 종류 : ${rentKinds}`}</div>
                     <div id="loan">{`대출 유무 : ${loan}`}</div>
+                    <div className="flex flex-col items-end">
+                    <Link to = "">
+                    <a className="mx-10 inline-flex text-white bg-gray-300 border-0 py-2 px-6 focus:outline-none hover:bg-gray-500 rounded text-lg">오류 신고하기</a>
+                    </Link>
+        </div>
                 </div>
                 <div className="mt-10 flex flex-row items-center">
                         <Link to = "/contract">
