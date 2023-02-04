@@ -1,6 +1,18 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function Contract() {
+  const [agreement, setAgreement] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/contract/check", agreement)
+      .then((result) => {
+        console.log(result);
+      });
+  }
+
   return (
     <div>
       <div className="flex ">
@@ -78,18 +90,21 @@ function Contract() {
         </div>
 
         <div className="mt-5 ml-10">
-          <p>특약 조항</p>
-        </div>
-        <div className="mt-5 ml-10">
-          <p>주의사항</p>
+          특약조항, 주의사항
+          <input
+            className="flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+            onChange={(e) => setAgreement(e.target.value)}
+          />
         </div>
       </div>
-      <button
-        type="button"
-        className="mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
-      >
-        계약합니다
-      </button>
+      <form onSubmit={handleSubmit}>
+        <button
+          type="submit"
+          className="mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
+        >
+          계약합니다
+        </button>
+      </form>
     </div>
   );
 }
