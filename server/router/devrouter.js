@@ -174,7 +174,7 @@ devRouter.post('/logout', async(req,res,next)=>{
         next(err);
     }
 })
-
+// 매물등록
 devRouter.post('/register', async(req,res,next)=>{
     //로그인 검증
     const authorization = req.headers['authorization'];
@@ -192,12 +192,14 @@ devRouter.post('/register', async(req,res,next)=>{
             }
             
             const newEstate = await Estate.create({
+
                 types,
                 deposit,
                 rental,
                 description,
                 owner : data.id,
                 isSelling
+
             })
         return res.status(200).json(newEstate);
         }

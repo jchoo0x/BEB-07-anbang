@@ -40,7 +40,7 @@ export default function Mypage() {
                 </div>
 
                 <div className="mt-20">
-                    <p className="font-bold mr-5">내 토큰 : </p>
+                    <p className="font-bold mr-5">심사중인 NFT 목록</p>
                 </div>
 
             </div>

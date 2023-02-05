@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
 
 const Postcode = (props) => {
+  const [addressValue, setAddressValue] = useState("");
+  const [zipCodeValue, setZipCodeValue] = useState("");
+
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -18,11 +21,26 @@ const Postcode = (props) => {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
-    console.log(fullAddress);
-    console.log(zipCode);
+    setAddressValue(fullAddress);
+    setZipCodeValue(zipCode);
   };
 
-  return <DaumPostcodeEmbed onComplete={handleComplete} {...props} />;
+  return (
+    <form>
+      <input
+        className="mx-auto flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+        value={addressValue}
+        onChange={addressValue}
+      />
+      <br />
+      <input
+        className="mx-auto flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+        value={zipCodeValue}
+        onchange={zipCodeValue}
+      />
+      <DaumPostcodeEmbed onComplete={handleComplete} {...props} />
+    </form>
+  );
 };
 
 export default Postcode;
