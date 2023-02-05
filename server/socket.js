@@ -3,12 +3,12 @@ const SocketIO = require('socket.io');
 module.exports = (http, app) => {
     const io = SocketIO(http, { path: '/socket.io' });
     app.set('io', io);
-    const chat = io.of('/chat');
+    const chat = io.of('/dm');
 
     chat.on('connection', (socket) => {
         socket.on('subscribe', (chatId) => {
             socket.join(`${chatId}`);
-            console.log(`join chat: chatId - ${chatId}`);
+            socket.emit(`join chat: chatId - ${chatId}`);
         });
 
         socket.on('newMessage', (data) => {
@@ -30,7 +30,10 @@ module.exports = (http, app) => {
             };
             socket.broadcast.to(`${chatId}`).emit('updateChat', JSON.stringify(chatData));
         });
-
+        
+        socket.interval = setInterval(()=>{
+            socket.emit('news', "hello!");}, 3000
+        )
         socket.on('disconnect', (chatId) => {
             console.log(`exit chat`);
             socket.leave(chatId);
