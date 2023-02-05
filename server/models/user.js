@@ -23,7 +23,7 @@ class User extends Sequelize.Model{
                 unique : true,
             },
             password : {
-                type : Sequelize.STRING(100),
+                type : Sequelize.STRING,
                 allowNull: false,
             },
             nickname : {
@@ -44,7 +44,7 @@ class User extends Sequelize.Model{
                 unique : true,
             },
             idNumber:{
-                type:Sequelize.STRING(20),
+                type:Sequelize.STRING,
                 allowNull:false,
             }
             }, 

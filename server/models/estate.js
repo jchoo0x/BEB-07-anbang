@@ -1,8 +1,10 @@
-// 1. 전세/월세
-// 2. 보증금
-// 3. 관리비
-// 4. 건물상태
-// 5. 소유주
+// 1. types전세/월세
+// 2. deposit보증금
+// 3. rental 월세
+// 4. description설명
+// 5. tokenId
+// 6. isSelling(매물여부)
+// 7. owner 소유주 - userId 외래키
 
 
 const Sequelize = require('sequelize');
@@ -12,7 +14,7 @@ class Estate extends Sequelize.Model{
         Estate.init(
             {
             types : {
-                type: Sequelize.STRING(30),
+                type: Sequelize.STRING,
                 allowNull : false,
             },
             deposit : {
@@ -22,13 +24,16 @@ class Estate extends Sequelize.Model{
             rental : {
                 type : Sequelize.INTEGER,
             },
-            conditions : {
-                type : Sequelize.STRING(10),
+            description : {
+                type : Sequelize.STRING,
                 allowNull : false
             },
-            contractAddress : {
-                type: Sequelize.STRING(50),
-                allowNull : false
+            tokenId : {
+                type: Sequelize.STRING,
+            },
+            IsSelling :  {
+                type:Sequelize.BOOLEAN,
+                defaultValue : true
             }
             }, 
             {
