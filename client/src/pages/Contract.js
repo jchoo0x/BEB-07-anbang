@@ -1,21 +1,38 @@
 import axios from "axios";
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 function Contract() {
-  const [agreement, setAgreement] = useState("");
+
+  const [agreement, setAgreement] = useState({
+    extraContract : ""
+  });
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    axios
-      .post("http://localhost:8080/contract/check", agreement)
-      .then((result) => {
+    axios.post("http://localhost:8080/contract/check", agreement)
+    .then((result) => {
         console.log(result);
-      });
+        setAgreement({extraContract: agreement.extraContract})
+        navigate("/mypage")
+      })
+      .catch((e)=> console.log(e))
   }
+
+  const handleInputValue = (key) => (e) => {
+    setAgreement({...agreement, [key]: e.target.value})
+}
+
+  const currentTime = new Date();
+  const TwoyearTime = new Date(currentTime.setFullYear(currentTime.getFullYear()+2)); // 2년 후 
+  const realTime = new Date(); // 현재
+
 
   return (
     <div>
-      <div className="flex ">
+      <div className="flex mt-20">
         <div className="mx-auto w-full max-w-2xl rounded-lg px-10 py-8 shadow-xl">
           <div className="mx-auto space-y-6">
             <p>1. 부동산의 표시</p>
@@ -26,8 +43,8 @@ function Contract() {
             </p>
             <p>
               제 2조 (존속기간) 임대인은 위 부동산을 임대차 목적대로 사용,
-              수익할 수 있는 상태로 -년 -월 -일까지 임차인에게 인도하며, 임대차
-              기간은 인도일로부터 -년 -월 -일까지로 한다.
+              수익할 수 있는 상태로 <div className="font-bold">{realTime.toString()}</div>까지 임차인에게 인도하며, 임대차
+              기간은 인도일로부터 24개월 후인 <div className="font-bold">{TwoyearTime.toString()}</div>일까지로 한다.
             </p>
             <p>
               제 3조 (용도변경 및 전대 등) 임차인은 임대인의 동의없이 위
@@ -86,14 +103,16 @@ function Contract() {
           <p>임대료</p>
         </div>
         <div className="mt-5 ml-10">
-          <p>개인정보 동의서</p>
+          <p>개인정보 동의서
+            <input type="checkbox" className="mx-1 "></input>
+          </p>
         </div>
 
         <div className="mt-5 ml-10">
           특약조항, 주의사항
           <input
             className="flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-            onChange={(e) => setAgreement(e.target.value)}
+            onChange={handleInputValue("extraContract")}
           />
         </div>
       </div>

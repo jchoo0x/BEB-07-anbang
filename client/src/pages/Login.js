@@ -20,7 +20,7 @@ function validateForm(){
 
 function handleSubmit(event){
   event.preventDefault();
-  if(account.user_id && account.user_password){
+  if(account.email && account.password){
       axios.post("http://localhost:8080/login", account)
       .then((result) => {
           console.log(result.data.status)

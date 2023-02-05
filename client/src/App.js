@@ -14,8 +14,10 @@ import Message from "./pages/Message";
 import Minting from "./pages/Minting";
 import Contract from "./pages/Contract";
 import ContractAgree from "./pages/ContractAgree";
+import Report from "./hooks/Report";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -54,6 +56,7 @@ function App() {
         <Route path="/minting" element={<Minting />} />
         <Route path="/contract" element={<Contract />} />
         <Route path="/contractagree" element={<ContractAgree />} />
+        <Route path="/report" element={<Report />} />
       </Routes>
       <Footer />
     </div>
