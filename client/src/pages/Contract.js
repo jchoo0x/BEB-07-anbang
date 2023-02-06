@@ -92,7 +92,7 @@ function Contract() {
         <div className="mt-5 ml-10">
           특약조항, 주의사항
           <input
-            className="flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+            className="mx-5 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
             onChange={(e) => setAgreement(e.target.value)}
           />
         </div>
