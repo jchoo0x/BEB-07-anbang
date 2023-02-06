@@ -181,27 +181,31 @@ export default function Register() {
           </div>
         </label>
       </div>
-      <div>
+      <div className="py-10 flex items-center justify-center">
         <button
           className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          onClick={() => handleButtonClick("button1")}
+          onClick={() => handleButtonClick("전세")}
         >
           전세
         </button>
         <button
           className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          onClick={() => handleButtonClick("button2")}
+          onClick={() => handleButtonClick("월세")}
         >
           월세
         </button>
       </div>
 
-      <div className="mt-5 ml-10">
+      <div className="mt-5 flex items-center justify-center">
         보증금
         <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
       </div>
-      <div className="mt-5 ml-10">
+      <div className="mt-5 flex items-center justify-center">
         월세
+        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
+      </div>
+      <div className="mt-5 flex items-center justify-center">
+        건물상태
         <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
       </div>
 
