@@ -14,6 +14,7 @@ import "../assets/css/main.css";
 
 // const projectId = '';   // <---------- your Infura Project ID
 // const projectSecret = '';  // <---------- your Infura Secret
+
 // const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
 
 export default function Register() {
@@ -25,17 +26,18 @@ export default function Register() {
   };
 
   const [mintNFT, setMintNFT] = useState({
-    nft_address: "",
+    nft_address: "", // 건물주소
     nft_imgURL: "",
     nft_type: "",
+    gov_info:"" // 등기부등본
   });
   const [imgFile, setImgFile] = React.useState(null);
 
   const client = create({
     host: "ipfs.infura.io",
-    port: "",
-    protocol: "",
-    apiPath: "",
+    port: 5001,
+    protocol:'https',
+    apiPath: '/api/v0',
     headers: {
       //   authorization: auth
     },
@@ -88,7 +90,7 @@ export default function Register() {
 
     if (mintNFT.nft_imgURL && mintNFT.nft_name) {
       axios
-        .post("http://localhost:8080/mint", mintNFT)
+        .post("http://localhost:8080/minting", mintNFT)
         .then((res) => {
           console.log(res.data.status);
           res.data.status === "success"
@@ -112,6 +114,29 @@ export default function Register() {
     console.log(imgChange);
     setPreview(URL.createObjectURL(event.target.files[0]));
   };
+
+  // 등기부등본 조회
+  function doublecheck(event) {
+    let isCheckSuccess = false;
+    event.preventDefault();
+    handleClickCreate();
+
+    if (mintNFT.gov_info) {
+      axios
+        .get("http://localhost:8080/doublecheck", mintNFT)
+        .then((res) => {
+          console.log(res);
+          mintNFT.gov_info === mintNFT.nft_address
+            ? (isCheckSuccess = true)
+            : (isCheckSuccess = false);
+        })
+        .then(() => {
+          isCheckSuccess
+            ? alert("등기부 등본을 등록했습니다")
+            : alert("등기부 등본 등록에 실패했습니다");
+        });
+    }
+  }
 
   return (
     <div className="mb-6 pt-4 mt-20">
@@ -177,6 +202,7 @@ export default function Register() {
               id="file"
               accept="application/pdf"
               onChange={handleInputValue}
+              onSubmit={doublecheck}
             />
           </div>
         </label>

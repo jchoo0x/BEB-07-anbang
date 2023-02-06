@@ -3,6 +3,7 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes, Switch} from 'react-router-dom';
+import axios from "axios";
 
 // stylesheet
 import "../assets/css/main.css";
@@ -13,8 +14,8 @@ export default function Message() {
     const [messages, setMessages] = useState([
       
       {
-        user: '상대방 유저',
-        message: 'Hi there!',
+        user: '',
+        message: '',
         timestamp: new Date(),
       },
     ]);
@@ -32,6 +33,18 @@ export default function Message() {
       ]);
       setInputValue('');
     
+    function chatRoom (event) {
+        event.preventDefault();
+        axios.get("http://localhost:8080/minting", selectedUser)
+        .then((res)=> {
+            console.log(res.data);
+        })
+    }
+
+
+
+
+
     // server 연결하면 알림 API 사용 가능
     if (Notification.permission === 'granted') {
         new Notification(`New message from ${selectedUser}: ${inputValue}`);
@@ -63,7 +76,7 @@ export default function Message() {
                 value={selectedUser}
                 onChange={(event) => setSelectedUser(event.target.value)}
               >
-                <option value="User 2">상대방 유저</option> 
+                <option value={selectedUser}></option> 
               </select>
             </div>
           </div>

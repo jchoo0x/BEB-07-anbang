@@ -11,19 +11,20 @@ import "../assets/css/main.css";
 
 export default function Mypage() {
 
-    const [NFTInfo, setNFTInfo] = useState([])
+    const [NFTInfo, setNFTInfo] = useState({
+        // 
+    })
     const [contractStatus, setContractStatus] = useState(false);
 
-    // useEffect(() => {
-    //     axios
-    //       .get("http://localhost:8080")
-    //       .then((result) => {
-    //         // setNFTInfo([...]);
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, []);
+    useEffect(() => {
+        axios
+          .get("http://localhost:8080/minting", NFTInfo)
+          .then((result) => {
+            setNFTInfo([...result.data])
+          })
+          .catch((err) => console.log(err));
+      }, []);
     
-    // 추후에 DB에서 데이터 받아서 map 으로 호출
 
     return(
 
