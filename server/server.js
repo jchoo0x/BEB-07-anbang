@@ -55,11 +55,14 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(express.static(path.join(__dirname, `../client/build`)));
 
 // app.use('/', apiRouter);
+
 app.use('/dev', devRouter);
 app.use('/user', router.userRouter);
 app.use('/estate', router.estateRouter);
 app.use('/dm',router.dmRouter);
-
+app.use('/', (req, res) => {
+  res.send('hello');
+})
 
 webSocket(http, app);
 // console.log("1" + webSocket.toString())
