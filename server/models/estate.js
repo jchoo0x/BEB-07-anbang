@@ -33,8 +33,8 @@ class Estate extends Sequelize.Model{
             },
             IsSelling :  {
                 type:Sequelize.BOOLEAN,
-                defaultValue : true
-            }
+                defaultValue : true,
+            }   
             }, 
             {
                 sequelize,

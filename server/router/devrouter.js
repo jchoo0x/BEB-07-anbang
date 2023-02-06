@@ -198,7 +198,7 @@ devRouter.post('/register', async(req,res,next)=>{
                 rental,
                 description,
                 owner : data.id,
-                isSelling
+                isSelling :true,
 
             })
         return res.status(200).json(newEstate);
