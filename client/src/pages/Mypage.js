@@ -11,16 +11,16 @@ import "../assets/css/main.css";
 
 export default function Mypage() {
 
-    const [NFTInfo, setNFTInfo] = useState({
+    const [MyNFTInfo, setMyNFTInfo] = useState({
         // 
     })
     const [contractStatus, setContractStatus] = useState(false);
 
     useEffect(() => {
         axios
-          .get("http://localhost:8080/minting", NFTInfo)
+          .get("http://localhost:8080/minting", MyNFTInfo)
           .then((result) => {
-            setNFTInfo([...result.data])
+            setMyNFTInfo([...result.data])
           })
           .catch((err) => console.log(err));
       }, []);

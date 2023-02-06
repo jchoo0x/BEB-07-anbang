@@ -11,35 +11,32 @@ import "../assets/css/main.css";
 export default function Message() {
 
     const [selectedUser, setSelectedUser] = useState('나');
-    const [messages, setMessages] = useState([
-      
-      {
-        user: '',
-        message: '',
-        timestamp: new Date(),
-      },
-    ]);
+    const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
   
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      setMessages([
-        ...messages,
-        {
-          user: selectedUser,
-          message: inputValue,
-          timestamp: new Date(),
-        },
-      ]);
-      setInputValue('');
-    
-    function chatRoom (event) {
+    function handleSubmit(event) {
         event.preventDefault();
-        axios.get("http://localhost:8080/minting", selectedUser)
-        .then((res)=> {
+        const message = {
+          user: selectedUser,
+          text: inputValue,
+          timestamp: new Date(),
+        };
+        axios
+          .post('http://localhost:8080/send', message)
+          .then((res) => {
             console.log(res.data);
-        })
-    }
+            setMessages([...messages, res.data]);
+          });
+      }
+
+      function chatRoom(event) {
+        event.preventDefault();
+        axios.get(`http://localhost:8080/chat/inbox/${selectedUser}`).then((res) => {
+          console.log(res.data);
+          setMessages(res.data);
+        });
+      }
+    
 
 
 
@@ -57,7 +54,7 @@ export default function Message() {
           }
         });
       }
-    };
+    
 
     return (
         <div className="flex h-screen bg-gray-100">
@@ -76,7 +73,7 @@ export default function Message() {
                 value={selectedUser}
                 onChange={(event) => setSelectedUser(event.target.value)}
               >
-                <option value={selectedUser}></option> 
+                <option value=''></option> 
               </select>
             </div>
           </div>
@@ -90,7 +87,7 @@ export default function Message() {
                   <strong className="text-gray-700 font-medium">
                     {message.user}
                   </strong>
-                  : {message.message}{' '}
+                  : {message.text}{' '}
                   <em className="text-gray-500">
                     ({message.timestamp.toLocaleString()})
                   </em>
@@ -105,6 +102,7 @@ export default function Message() {
                 onChange={(event) => setInputValue(event.target.value)}
                 />
                 <button
+                onSubmit={handleSubmit}                
                   type="submit"
                   className="block mt-4 appearance-none w-full bg-indigo-500 text-white font-medium border border-transparent hover:bg-indigo-600 rounded px-4 py-2 shadow-md focus:outline-none focus:shadow-outline"
                 >
