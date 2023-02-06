@@ -34,12 +34,12 @@ app.use(
 
 //
 sequelize
-  .sync({force :false})
+  .sync({force :true})
   .then((body)=>{
     console.log('connected')
   })
   .catch((err)=>{
-    console.log('error')
+    console.log(err)
   })
 
 app.use(express.json());
@@ -60,6 +60,8 @@ app.use('/dev', devRouter);
 app.use('/user', router.userRouter);
 app.use('/estate', router.estateRouter);
 app.use('/dm',router.dmRouter);
+app.use('/contract',router.contractRouter);
+app.use('/mypage', router.mypageRouter);
 app.use('/', (req, res) => {
   res.send('hello');
 })

@@ -30,6 +30,7 @@ class Estate extends Sequelize.Model{
             },
             tokenId : {
                 type: Sequelize.STRING,
+                unique:true,
             },
             IsSelling :  {
                 type:Sequelize.BOOLEAN,
@@ -52,6 +53,8 @@ class Estate extends Sequelize.Model{
         db.Estate.belongsTo(db.User, {foreignKey:"owner", targetKey : 'id'})
         db.Estate.hasOne(db.Dmroom, {foreignKey : 'estateId', sourceKey : 'id'})
         db.Estate.hasMany(db.Report, {foreignKey : 'reportId', sourceKey : 'id'})
+        db.Estate.hasMany(db.OwnerAgreement, {foreignKey:'ownerestateId', sourceKey:'tokenId'})
+        db.Estate.hasOne(db.TenantAgreement, {foreignKey:'tenantestateId', sourceKey: 'tokenId'})
     };
 }
 

@@ -23,7 +23,7 @@ module.exports = {
             const token = authorization.split(' ')[1];
             const data =jwt.verify(token,process.env.ACCESS_SECRET);
             if(data){
-                const {types, deposit, rental, description} = req.body;
+                const {types, deposit, rental, description, tokenId} = req.body;
             
                 if (!types || !deposit || !description) {
                     return res.status(400).json({ data: null, message: 'Invalid input' });
@@ -34,8 +34,9 @@ module.exports = {
                     deposit,
                     rental,
                     description,
-                    owner : data.id,
-                    isSelling : true
+                    isSelling : true,
+                    tokenId,
+                    owner : data.id
                 })
             return res.status(200).json(newEstate);
             }
