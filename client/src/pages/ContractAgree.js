@@ -67,36 +67,46 @@ function ContractAgree() {
       </div>
       <div className="mx-auto w-full rounded-lg px-10 py-8 ">
         <div className="mt-5 ml-10">
-          <p>계약자 정보</p>
+          계약자 정보
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>임대주택 유형</p>
+          임대주택 유형
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>계약기간</p>
+          계약기간
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>임대료</p>
+          임대료
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>개인정보 동의서</p>
+          개인정보 동의서
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>임대인 특약 조항</p>
+          임대인 특약조항
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>임차인 특약 조항</p>
+          임차인 특약조항
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
         <div className="mt-5 ml-10">
-          <p>주의사항</p>
+          주의사항
+          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
         </div>
       </div>
-      <a
-        target="_blank"
-        className="mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
-      >
-        계약합니다
-      </a>
+      <form>
+        <button
+          type="submit"
+          className="mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
+        >
+          계약합니다
+        </button>
+      </form>
     </div>
   );
 }
