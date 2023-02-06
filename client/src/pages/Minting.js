@@ -19,6 +19,12 @@ import "../assets/css/main.css";
 
 export default function Register() {
   // minting NFT
+  const [selectedButton, setSelectedButton] = useState(null);
+
+  const handleButtonClick = (button) => {
+    setSelectedButton(button);
+  };
+
   const [mintNFT, setMintNFT] = useState({
     nft_address: "", // 건물주소
     nft_imgURL: "",
@@ -201,6 +207,34 @@ export default function Register() {
           </div>
         </label>
       </div>
+      <div className="py-10 flex items-center justify-center">
+        <button
+          className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          onClick={() => handleButtonClick("전세")}
+        >
+          전세
+        </button>
+        <button
+          className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          onClick={() => handleButtonClick("월세")}
+        >
+          월세
+        </button>
+      </div>
+
+      <div className="mt-5 flex items-center justify-center">
+        보증금
+        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
+      </div>
+      <div className="mt-5 flex items-center justify-center">
+        월세
+        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
+      </div>
+      <div className="mt-5 flex items-center justify-center">
+        건물상태
+        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
+      </div>
+
       <div className="flex flex-col items-center">
         <button
           onSubmit={handleSubmit}
