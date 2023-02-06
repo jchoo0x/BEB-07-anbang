@@ -35,7 +35,7 @@ module.exports = {
                     rental,
                     description,
                     owner : data.id,
-                    isSelling
+                    isSelling : true
                 })
             return res.status(200).json(newEstate);
             }
