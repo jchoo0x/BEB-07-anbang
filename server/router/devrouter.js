@@ -19,9 +19,12 @@ devRouter.get('/', async(req,res)=>{
 })
 
 devRouter.post('/signUp', async(req,res,next) => {
-    console.log(req.body);
+    // console.log(req.body);
     const {email, password, nickname, name, phoneNumber, walletAddress, idNumber } = req.body;
-    
+    //null값 입력 방지
+    if(!email ||!password ||!nickname ||!name||!phoneNumber ||!walletAddress||!idNumber ){
+        return res.status(400).json({ data: null, message: 'Invalid input'})
+    }
     // 1. 중복email
         const usedEmail = await User.findOne({
             where : {email} 
@@ -52,7 +55,7 @@ devRouter.post('/signUp', async(req,res,next) => {
     if(usedWalletAddress){
         return res.json({errors : [{msg : 'This walletAddress already Exists'}] });
     }
-    //5. 중복 idNumber
+    //5. 중복 주민등록번호
     const usedIdNumber = await User.findOne({
         where : {idNumber} 
         })
@@ -61,10 +64,6 @@ devRouter.post('/signUp', async(req,res,next) => {
     }
 
         try{
-            //비밀번호 암호화
-            // const password = req.body.password;
-            
-            // const hashedPassword = await bcrypt.hash(password, salt);
             const newUser = await User.create({
                 email,
                 password, 
@@ -106,6 +105,7 @@ devRouter.post('/login', async(req,res,next)=>{
                 email : userData.email,
                 nickname : userData.nickname,
                 createdAt:userData.createAt,
+                id:userData.id,
                 iat : Math.floor(Date.now()/1000),
                 exp : Math.floor(Date.now() / 1000 )+ 60 *60,
              },
@@ -117,6 +117,7 @@ devRouter.post('/login', async(req,res,next)=>{
                 email : userData.email,
                 nickname : userData.nickname,
                 createdAt:userData.createAt,
+                id:userData.id,
                 iat : Math.floor(Date.now()/1000),
                 exp : Math.floor(Date.now() / 1000 )+ 60 *60,
             },
@@ -133,6 +134,7 @@ devRouter.post('/login', async(req,res,next)=>{
           res
           .status(200)
           .json({data: {accessToken : accessToken}, message : 'login complete'})
+          
         }
     }catch(err){
         console.error(err.message);
@@ -141,13 +143,21 @@ devRouter.post('/login', async(req,res,next)=>{
 })
 
 devRouter.post('/logout', async(req,res,next)=>{
+//    const refreshToken = req.headers['refreshToken'];
+   //console.log(req.headers)
+   const refreshToken = req.headers['refreshtoken'];
     try{
-        if(!req.cookies.refreshToken){
+        // console.log(refreshToken)
+        console.log(refreshToken)
+       
+        if(!refreshToken){
+            console.log("NRT")
+            console.log(req.refreshtoken)
             return res
-            .status(200)
+            .status(201)
             .json({messgage : 'no refresh token', status:'ok'});
         }
-        res.clearCookie('refeshToken', {
+        res.clearCookie('refreshToken', {
             sameSite :'none',
             secure: true,
             maxAge : 1,
@@ -159,6 +169,7 @@ devRouter.post('/logout', async(req,res,next)=>{
             status :'ok'
         })
     }catch(err){
+        // console.log(refreshToken)
         console.error(err);
         next(err);
     }
@@ -174,17 +185,21 @@ devRouter.post('/register', async(req,res,next)=>{
         const token = authorization.split(' ')[1];
         const data =jwt.verify(token,process.env.ACCESS_SECRET);
         if(data){
-            const {types, deposit, rental, conditions} = req.body;
+            const {types, deposit, rental, description} = req.body;
         
-            if (!types || !deposit || !rental || !conditions) {
+            if (!types || !deposit || !description) {
                 return res.status(400).json({ data: null, message: 'Invalid input' });
             }
             
             const newEstate = await Estate.create({
-                types, // 월세or 전세 종류
-                deposit, // 보증금
-                rental, // 월세
-                etc // 기타사항 (가구옵션 관리비 기타등등..?)
+
+                types,
+                deposit,
+                rental,
+                description,
+                owner : data.id,
+                isSelling
+
             })
         return res.status(200).json(newEstate);
         }
@@ -196,7 +211,7 @@ devRouter.post('/register', async(req,res,next)=>{
 
 devRouter.get('/estate', async(req,res,next)=> {
     try {
-        const estates = await Estate.find({}); // 
+        const estates = await Estate.findAll({}); // 
   
         res.json(estates);
       } catch (err) {
@@ -206,7 +221,7 @@ devRouter.get('/estate', async(req,res,next)=> {
 })
 
 //DM방 목록 가져오기
-devRouter.get('/dm/user/:userId',async(req,res,next)=>{
+devRouter.get('/dm/load/:userId',async(req,res,next)=>{
     
     const authorization = req.headers['authorization'];
     if (!authorization) {
@@ -286,7 +301,7 @@ devRouter.get('/dm/load/:dmroomId', async(req,res,next)=>{
 });
 
 //DM방 내에서 DM 보내기
-devRouter.post('/dm/send/:dmroomId', async (req,res,next) => {
+devRouter.post('/send/:dmroomId', async (req,res,next) => {
     const authorization = req.headers['authorization'];
     if (!authorization) {
         return res.status(400).json({ data: null, message: 'invalid access token' });
@@ -320,7 +335,7 @@ devRouter.post('/dm/send/:dmroomId', async (req,res,next) => {
 })
 
 //새로운 DM 발송
-devRouter.post('/newdm', async(req,res,next)=>{
+devRouter.post('/send/new', async(req,res,next)=>{
     const authorization = req.headers['authorization'];
     if (!authorization) {
         return res.status(400).json({ data: null, message: 'invalid access token' });
@@ -356,6 +371,7 @@ devRouter.post('/newdm', async(req,res,next)=>{
     }
 })
 
+//신고기능 => DB 저장 
 devRouter.post('/report', async(req,res,next)=>{
     const authorization = req.headers['authorization'];
     if (!authorization) {
@@ -366,14 +382,17 @@ devRouter.post('/report', async(req,res,next)=>{
         const token = authorization.split(' ')[1];
         const data = jwt.verify(token, process.env.ACCESS_SECRET);
 
+        //reportId, reporterId 들어갈 수 있게끔 조치
         if(data){
-            const {reason, } = req.body
+            const {reason} = req.body
             if (!reason){
                 return res.status(400).json({ data: null, message: 'Invalid input' });
             }
             const newReport = await Report.create({
                 reason,
-            })
+                reportId,
+                reporterId
+            }) 
         
         return res.status(200).json({data : newReport, messgae: 'report success'});
         }
@@ -384,5 +403,34 @@ devRouter.post('/report', async(req,res,next)=>{
         next(err)
     }
 })
-    
+
+//유효 검증
+devRouter.get('/valid', async(req,res,next)=>{
+    const authorization = req.headers['authorization'];
+    console.log(req)
+    if (!authorization) {
+      return res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+
+    try {
+      const token = authorization.split(' ')[1];
+      const data = jwt.verify(token, process.env.ACCESS_SECRET);
+
+      if(data){
+        return res.status(200).json({
+          data: {
+            email: data.email,
+            nickname: data.nickname,
+            createdAt: data.createdAt,
+          },
+          message: 'ok',
+        });
+      }
+      
+      return res.status(400).json({ data: null, message: 'invalid access token' });
+    } catch (err) {
+      res.status(400).json({ data: null, message: 'invalid access token' });
+    }
+})
+
 module.exports = devRouter;
