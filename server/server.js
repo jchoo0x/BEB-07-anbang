@@ -4,8 +4,8 @@ const cors = require('cors');
 const session = require('express-session');
 const {sequelize} =require('./models')
 
-const apiRouter = require('./router/api');
-const devRouter = require('./router/devrouter')
+const router = require('./router');
+const devRouter =require('./router/devrouter');
 const webSocket = require('./socket')
 
 const app = express();
@@ -34,8 +34,8 @@ app.use(
 
 //
 sequelize
-  .sync({force : true})
-  .then(()=>{
+  .sync({force :false})
+  .then((body)=>{
     console.log('connected')
   })
   .catch((err)=>{
@@ -54,11 +54,15 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use(express.static(path.join(__dirname, `../client/build`)));
 
-app.use('/', apiRouter);
+// app.use('/', apiRouter);
 app.use('/dev', devRouter);
+app.use('/user', router.userRouter);
+app.use('/estate', router.estateRouter);
+app.use('/dm',router.dmRouter);
 
 
 webSocket(http, app);
+// console.log("1" + webSocket.toString())
 
 // app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
