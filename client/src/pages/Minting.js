@@ -29,15 +29,15 @@ export default function Register() {
     nft_address: "", // 건물주소
     nft_imgURL: "",
     nft_type: "",
-    gov_info:"" // 등기부등본
+    gov_info: "", // 등기부등본
   });
   const [imgFile, setImgFile] = React.useState(null);
 
   const client = create({
     host: "ipfs.infura.io",
     port: 5001,
-    protocol:'https',
-    apiPath: '/api/v0',
+    protocol: "https",
+    apiPath: "/api/v0",
     headers: {
       //   authorization: auth
     },
@@ -207,32 +207,60 @@ export default function Register() {
           </div>
         </label>
       </div>
-      <div className="py-10 flex items-center justify-center">
-        <button
-          className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          onClick={() => handleButtonClick("전세")}
-        >
-          전세
-        </button>
-        <button
-          className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          onClick={() => handleButtonClick("월세")}
-        >
-          월세
-        </button>
-      </div>
 
-      <div className="mt-5 flex items-center justify-center">
-        보증금
-        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-      </div>
-      <div className="mt-5 flex items-center justify-center">
-        월세
-        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-      </div>
-      <div className="mt-5 flex items-center justify-center">
-        건물상태
-        <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
+      <div className="flex-auto justify-center lg:w-9/12 mx-auto">
+        <div className="bg-white p-10 flex flex-col w-full shadow-xl rounded-xl">
+          <div className="py-10 flex items-center justify-center">
+            <button
+              className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              onClick={() => handleButtonClick("전세")}
+            >
+              전세
+            </button>
+            <button
+              className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+              onClick={() => handleButtonClick("월세")}
+            >
+              월세
+            </button>
+          </div>
+          <form action="" class="w-full">
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                보증금
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                월세
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                건물상태
+              </label>
+              <input
+                type="text"
+                id="username"
+                placeholder="예시) 상, 중, 하"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="button" class="flex flex-col w-full my-5">
+              <div class="flex justify-evenly mt-5"></div>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div className="flex flex-col items-center">
