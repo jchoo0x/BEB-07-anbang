@@ -18,7 +18,7 @@ export default function Mypage() {
 
     useEffect(() => {
         axios
-          .get("http://localhost:8080/minting", MyNFTInfo)
+          .get("http://localhost:8080/mypage", MyNFTInfo)
           .then((result) => {
             setMyNFTInfo([...result.data])
           })
@@ -30,19 +30,19 @@ export default function Mypage() {
 
             <div className="flex flex-col items-center">
                 <div className="flex flex-row mt-20">
-                    <p className="flex items-center font-bold mr-5">보유 NFT 리스트</p>
+                    <div className="flex items-center font-bold mr-5">보유 NFT 리스트</div>
                 <NFT />
                 <NFT />
                 <NFT />
                 </div>
                 <div className="flex flex-row mt-20">
-                    <p className="flex items-center font-bold mr-5">진행중인 계약</p>
-                <NFT />
+                    <div className="flex items-center font-bold mr-5">진행중인 계약</div>
+                진행중인 계약 1 
                 </div>
 
-                <div className="mt-20">
-                    <p className="font-bold mr-5">심사중인 NFT 목록</p>
-                </div>
+                {/* <div className="mt-20">
+                    <div className="font-bold mr-5">심사중인 NFT 목록</div>
+                </div> */}
 
             </div>
     )
