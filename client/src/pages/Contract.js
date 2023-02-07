@@ -166,7 +166,7 @@ function Contract() {
         <Link to="/mypage" component={ContractAgree}>
           <button
             type="submit"
-            className="mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
+            className="mt-20 mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
           >
             계약합니다
           </button>
