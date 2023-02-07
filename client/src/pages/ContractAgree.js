@@ -127,7 +127,7 @@ function ContractAgree() {
             </div>
             <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-black mb-2">
-                임대인 특약조항
+                임차인 특약조항
               </label>
               <input
                 type="text"
@@ -138,12 +138,8 @@ function ContractAgree() {
             <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-black mb-2">
                 개인정보 동의서
+                <input type="checkbox" className="mx-1 "></input>
               </label>
-              <input
-                type="text"
-                id="username"
-                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-              />
             </div>
             <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-black mb-2">
