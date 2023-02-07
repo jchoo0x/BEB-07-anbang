@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function Contract() {
   const [agreement, setAgreement] = useState({
     extraOwnerContract: "", // 임대인 특약조항
+    extraTenantContract: "", // 임차인 특약조항
   });
 
   const navigate = useNavigate();
@@ -96,13 +97,13 @@ function Contract() {
         </div>
       </div>
 
-      <div className="flex-auto justify-center lg:w-9/12 mx-auto">
-        <div className="bg-white p-10 flex flex-col w-full shadow-xl rounded-xl">
-          <div className="flex items-center justify-center"></div>
+      <div className="mt-5 flex flex-col items-center justify-center w-full mx-auto">
+        <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
+          <div className="flex flex-col items-center justify-center"></div>
           <form action="" class="w-full">
-            <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col items-center w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
-                계약자 정보
+                계약자 ID
               </label>
               <input
                 type="text"
@@ -110,7 +111,7 @@ function Contract() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
               <label for="username" class="text-black mb-2">
                 임대주택 유형
               </label>
@@ -120,7 +121,7 @@ function Contract() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
               <label for="username" class="text-black mb-2">
                 계약기간
               </label>
@@ -130,7 +131,7 @@ function Contract() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
               <label for="username" class="text-black mb-2">
                 임대료
               </label>
@@ -141,7 +142,7 @@ function Contract() {
               />
             </div>
 
-            <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
               <label for="username" class="text-black mb-2">
                 특약조항, 주의사항
               </label>
@@ -153,7 +154,7 @@ function Contract() {
               />
             </div>
 
-            <label for="username" class="text-black mb-2">
+            <label for="username" class="text-black mb-2 flex flex-col justify-center items-center">
               개인정보 동의서
               <input type="checkbox" className="mx-1 "></input>
             </label>
