@@ -66,6 +66,19 @@ module.exports = {
         updatedAt
         // contractAddress : "0x5f3b5fB4234b3C3cC72e1c768Eda432c26674096"
       },
+      {
+        id : 6,
+        types : "월세",
+        deposit : "1000000000",
+        rental : "1000000",
+        description : "이사 바로가능, 남향, 풀옵션",
+        owner : 1,
+        tokenId:"0x050601244234b3C3cC72e1c768Eda432c2667f128",
+        createdAt,
+        updatedAt
+        // contractAddress : "0x9b7b5fB4234b3C3cC72e1c768Eda432c2667f256"
+        
+      },
 
     ])
   },
