@@ -1,9 +1,10 @@
 import React from "react";
 
 function ContractAgree() {
-
   const currentTime = new Date();
-  const TwoyearTime = new Date(currentTime.setFullYear(currentTime.getFullYear()+2)); // 2년 후 
+  const TwoyearTime = new Date(
+    currentTime.setFullYear(currentTime.getFullYear() + 2)
+  ); // 2년 후
   const realTime = new Date(); // 현재
 
   return (
@@ -19,8 +20,11 @@ function ContractAgree() {
             </p>
             <p>
               제 2조 (존속기간) 임대인은 위 부동산을 임대차 목적대로 사용,
-              수익할 수 있는 상태로 <div className="font-bold">{realTime.toString()}</div>일까지 임차인에게 인도하며, 임대차
-              기간은 인도일로부터 <div className="font-bold">{TwoyearTime.toString()}</div>일까지로 한다.
+              수익할 수 있는 상태로{" "}
+              <div className="font-bold">{realTime.toString()}</div>일까지
+              임차인에게 인도하며, 임대차 기간은 인도일로부터{" "}
+              <div className="font-bold">{TwoyearTime.toString()}</div>일까지로
+              한다.
             </p>
             <p>
               제 3조 (용도변경 및 전대 등) 임차인은 임대인의 동의없이 위
@@ -65,40 +69,92 @@ function ContractAgree() {
           </div>
         </div>
       </div>
-      <div className="mx-auto w-full rounded-lg px-10 py-8 ">
-        <div className="mt-5 ml-10">
-          계약자 정보
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          임대주택 유형
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          계약기간
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          임대료
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          개인정보 동의서
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          임대인 특약조항
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          임차인 특약조항
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
-        </div>
-        <div className="mt-5 ml-10">
-          주의사항
-          <input className="mx-10 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md" />
+
+      <div className="flex-auto justify-center lg:w-9/12 mx-auto">
+        <div className="bg-white p-10 flex flex-col w-full shadow-xl rounded-xl">
+          <div className="flex items-center justify-center"></div>
+          <form action="" class="w-full">
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                계약자 정보
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임대주택 유형
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                계약기간
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임대료
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임대인 특약조항
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임차인 특약조항
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                개인정보 동의서
+                <input type="checkbox" className="mx-1 "></input>
+              </label>
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                주의사항
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+          </form>
         </div>
       </div>
+
       <form>
         <button
           type="submit"

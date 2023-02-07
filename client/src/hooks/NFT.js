@@ -14,11 +14,19 @@ export default function Mypage(props) {
         nft_address: "", // 건물주소
         nft_imgURL: "",
         nft_type: "", // 건물 종류
+        deposit: "", // 보증금
+        rental: "" // 월세
     })
     const navigate = useNavigate();
 
     const NFTClick = () => {
-        navigate("/NFTdetail", { state: {} });
+        navigate("/NFTdetail", { state: {
+            type: NFTInfo.nft_type,
+            imgURL: NFTInfo.nft_imgURL,
+            address: NFTInfo.nft_address,
+            deposit: NFTInfo.deposit,
+            rental: NFTInfo.rental
+        }});
       };
 
     useEffect(() => {
