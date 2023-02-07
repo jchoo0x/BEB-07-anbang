@@ -17,6 +17,7 @@ module.exports= {
             const token = authorization.split(' ')[1];
             const data =jwt.verify(token,process.env.ACCESS_SECRET);
             if(data){
+                
                 const {tenantAgreement, tenantestateTokenId} = req.body;
                 
                     if (!tenantAgreement || !tenantestateTokenId) {
@@ -32,7 +33,7 @@ module.exports= {
                     await Estate.update({
                         contractor : data.id,
                     },{
-                        where : {id : newTenantAgreement.tenantestateTokenId}
+                        where : {tokenId : newTenantAgreement.tenantestateTokenId}
                     })
                 return res.status(200).json(newTenantAgreement);
             }
