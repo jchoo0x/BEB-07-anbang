@@ -95,34 +95,78 @@ function Contract() {
           </div>
         </div>
       </div>
-      <div className="mx-auto w-full rounded-lg px-10 py-8 ">
-        <div className="mt-5 ml-10">
-          <p>계약자 정보</p>
-        </div>
-        <div className="mt-5 ml-10">
-          <p>임대주택 유형</p>
-        </div>
-        <div className="mt-5 ml-10">
-          <p>계약기간</p>
-        </div>
-        <div className="mt-5 ml-10">
-          <p>임대료</p>
-        </div>
-        <div className="mt-5 ml-10">
-          <p>
-            개인정보 동의서
-            <input type="checkbox" className="mx-1 "></input>
-          </p>
-        </div>
 
-        <div className="mt-5 ml-10">
-          특약조항, 주의사항
-          <input
-            className="mx-5 text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-            onChange={handleInputValue("extraContract")}
-          />
+      <div className="flex-auto justify-center lg:w-9/12 mx-auto">
+        <div className="bg-white p-10 flex flex-col w-full shadow-xl rounded-xl">
+          <div className="flex items-center justify-center"></div>
+          <form action="" class="w-full">
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                계약자 정보
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임대주택 유형
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                계약기간
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임대료
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                특약조항, 주의사항
+              </label>
+              <input
+                onChange={handleInputValue("extraContract")}
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-black mb-2">
+                개인정보 동의서
+                <input type="checkbox" className="mx-1 "></input>
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+          </form>
         </div>
       </div>
+
       <form onSubmit={handleSubmit}>
         <Link to="/mypage" component={ContractAgree}>
           <button
