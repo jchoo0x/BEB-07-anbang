@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function Contract() {
   const [agreement, setAgreement] = useState({
-    extraContract: "",
+    extraOwnerContract: "", // 임대인 특약조항
   });
 
   const navigate = useNavigate();
@@ -124,7 +124,7 @@ function Contract() {
         </div>
       </div>
       <form onSubmit={handleSubmit}>
-        <Link to="/contractagree" component={ContractAgree}>
+        <Link to="/mypage" component={ContractAgree}>
           <button
             type="submit"
             className="mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"

@@ -15,9 +15,6 @@ import "../assets/css/main.css";
 export default function Token() {
 
 
-
-
-
     return(
         <div className="mx-8 flex flex-col items-center">
             <div className="">
