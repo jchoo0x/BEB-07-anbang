@@ -30,6 +30,9 @@ export default function Register() {
     nft_imgURL: "",
     nft_type: "",
     gov_info: "", // 등기부등본
+    deposit: "", // 보증금
+    monthly_payment: "", // 월세
+    building_condition: "", // 건물상태
   });
   const [imgFile, setImgFile] = React.useState(null);
 
