@@ -31,7 +31,7 @@ export default function Mypage(props) {
 
     useEffect(() => {
         axios
-          .get("http://localhost:8080/estate", NFTInfo)
+          .get("http://localhost:8080/estate/:id", NFTInfo)
           .then((result) => {
             setNFTInfo([...result.data])
           })
