@@ -1,23 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useContext, useState } from "react";
+import axios from "axios";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import Preview from "./pages/preview";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Main from "./pages/Main";
+import Token from "./pages/Token";
+import NFTdetail from "./pages/NFTdetail";
+import Mypage from "./pages/Mypage";
+import Message from "./pages/Message";
+import Minting from "./pages/Minting";
+import Contract from "./pages/Contract";
+import ContractAgree from "./pages/ContractAgree";
+import Report from "./hooks/Report";
+
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const navigation = useNavigate();
+
+  const loginHandler = async () => {
+    const dataToLogin = await axios.get("http://localhost:8080/login")
+    .then(result=>result.data)
+    .catch(err=>err)
+
+    const loginResult = await axios.post("http://localhost:8080/login", {dataToLogin}, {withCredentials: true})
+    .then(result=>{
+      return result.data;
+    })
+    .catch(console.log)
+
+    if(!loginResult) return;
+    setIsLogin(true);
+  }
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Preview />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        {/* { isLogin ? <Route path="/main" element={<Main isLogin={isLogin}/>} /> : <Route path="/login"/>} 로그인 되었을 때만 메인보이게 */}
+        <Route path="/main" element={<Main />} />
+        <Route path="/token" element={<Token />} />
+        <Route path="/NFTdetail" element={<NFTdetail />} />
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/message" element={<Message />} />
+        <Route path="/minting" element={<Minting />} />
+        <Route path="/contract" element={<Contract />} />
+        <Route path="/contractagree" element={<ContractAgree />} />
+        <Route path="/report" element={<Report />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
