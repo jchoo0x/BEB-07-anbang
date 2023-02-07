@@ -41,7 +41,7 @@ function handleSubmit(event){
       userInfo.phoneNumber &&
       userInfo.name
   ){
-      axios.post("http://localhost:8080/signUp", userInfo)
+      axios.post("http://localhost:8080/user/signUp", userInfo)
       .then((result)=>{
           console.log(result.data.status)
           result.data.status==="success"? isSigninSuccess=true : isSigninSuccess=false
@@ -109,9 +109,9 @@ function handleSubmit(event){
         <input
           type="text"
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
-          value={userInfo.walletAddress}
-          onChange={handleInputValue("walletAddress")}
-          placeholder="Metamask Address"
+          value={userInfo.idNumber}
+          onChange={handleInputValue("idNumber")}
+          placeholder="주민등록번호 ( - 없이 입력해주세요)"
         />
         <br />
         <button
