@@ -1,5 +1,6 @@
 const Estate = require('../models/estate');
 const jwt = require('jsonwebtoken');
+const {Op} =require('sequelize');
 
 module.exports ={
 
@@ -15,12 +16,17 @@ module.exports ={
           const data = jwt.verify(token, process.env.ACCESS_SECRET);
     
           if(data){
-            const userEstate = await Estate.findAll({
+            const ownedEstate = await Estate.findAll({
                 where :{
                     owner : data.id,
                 }
+            });
+            const contractingEstate = await Estate.findAll({
+              where : {
+                contractor
+              }
             })
-            return res.status(200).json({userEstate});
+            return res.status(200).json({ownedEstate},{contractingEstate});
           }
           
           return res.status(400).json({ data: null, message: 'invalid access token' });

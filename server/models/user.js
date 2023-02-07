@@ -72,6 +72,7 @@ class User extends Sequelize.Model{
     
     static associate(db){
         db.User.hasMany(db.Estate, {foreignKey : "owner", sourceKey: 'id'})
+        db.User.hasOne(db.Estate, {foreignKey :"contrator", sourceKey : 'id'})
         db.User.hasOne(db.Dmroom, {foreignkey : 'buyUserId', sourceKey : 'id'})
         db.User.hasOne(db.Dm, {foreignKey:'userId', sourceKey: 'id'})
         db.User.hasMany(db.Report, {foreignKey:'reporterId', sourceKey : 'id'})

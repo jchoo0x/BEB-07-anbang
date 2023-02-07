@@ -33,7 +33,7 @@ class OwnerAgreement extends Sequelize.Model{
     
     static associate(db){
         db.OwnerAgreement.belongsTo(db.User, {foreignKey : "ownerId", targetKey: 'id'})
-        db.OwnerAgreement.belongsTo(db.Estate, {foreignkey : 'ownerestateId', targetKey : 'tokenId'})
+        db.OwnerAgreement.belongsTo(db.Estate, {foreignkey : 'ownerestateTokenId', targetKey : 'tokenId'})
 
     };
 }

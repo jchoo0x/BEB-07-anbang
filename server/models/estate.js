@@ -3,7 +3,7 @@
 // 3. rental 월세
 // 4. description설명
 // 5. tokenId
-// 6. isSelling(매물여부)
+// 6. isSelling(판매중인가?)
 // 7. owner 소유주 - userId 외래키
 
 
@@ -32,10 +32,11 @@ class Estate extends Sequelize.Model{
                 type: Sequelize.STRING,
                 unique:true,
             },
-            IsSelling :  {
+            IsSelling :  { 
                 type:Sequelize.BOOLEAN,
                 defaultValue : true,
-            }   
+            
+            },
             }, 
             {
                 sequelize,
@@ -51,10 +52,11 @@ class Estate extends Sequelize.Model{
 
     static associate(db){
         db.Estate.belongsTo(db.User, {foreignKey : 'owner', targetKey : 'id'})
+        db.Estate.belongsTo(db.User, {foreignKey: 'contractor', targetKey :'id'})
         db.Estate.hasOne(db.Dmroom, {foreignKey : 'estateId', sourceKey : 'id'})
         db.Estate.hasMany(db.Report, {foreignKey : 'reportId', sourceKey : 'id'})
-        db.Estate.hasMany(db.OwnerAgreement, {foreignKey:'ownerestateId', sourceKey:'tokenId'})
-        db.Estate.hasOne(db.TenantAgreement, {foreignKey:'tenantestateId', sourceKey: 'tokenId'})
+        db.Estate.hasMany(db.OwnerAgreement, {foreignKey:'ownerestateTokenId', sourceKey:'tokenId'})
+        db.Estate.hasOne(db.TenantAgreement, {foreignKey:'tenantestateTokenId', sourceKey: 'tokenId'})
     };
 }
 
