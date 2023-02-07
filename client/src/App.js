@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Preview from "./pages/preview";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -18,27 +18,30 @@ import Report from "./hooks/Report";
 
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 
-
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const navigation = useNavigate();
 
   const loginHandler = async () => {
-    const dataToLogin = await axios.get("http://localhost:8080/login")
-    .then(result=>result.data)
-    .catch(err=>err)
+    const dataToLogin = await axios
+      .get("http://localhost:8080/login")
+      .then((result) => result.data)
+      .catch((err) => err);
 
-    const loginResult = await axios.post("http://localhost:8080/login", {dataToLogin}, {withCredentials: true})
-    .then(result=>{
-      return result.data;
-    })
-    .catch(console.log)
+    const loginResult = await axios
+      .post(
+        "http://localhost:8080/login",
+        { dataToLogin },
+        { withCredentials: true }
+      )
+      .then((result) => {
+        return result.data;
+      })
+      .catch(console.log);
 
-    if(!loginResult) return;
+    if (!loginResult) return;
     setIsLogin(true);
-  }
-
-
+  };
 
   return (
     <div className="app">
