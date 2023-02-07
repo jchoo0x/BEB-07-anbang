@@ -74,7 +74,10 @@ function ContractAgree() {
         <div className="bg-white p-10 flex flex-col w-full shadow-xl rounded-xl">
           <div className="flex items-center justify-center"></div>
           <form action="" class="w-full">
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 계약자 정보
               </label>
@@ -84,7 +87,10 @@ function ContractAgree() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 임대주택 유형
               </label>
@@ -94,7 +100,10 @@ function ContractAgree() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 계약기간
               </label>
@@ -104,7 +113,10 @@ function ContractAgree() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 임대료
               </label>
@@ -115,7 +127,10 @@ function ContractAgree() {
               />
             </div>
 
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 임대인 특약조항
               </label>
@@ -125,7 +140,10 @@ function ContractAgree() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 임차인 특약조항
               </label>
@@ -135,7 +153,10 @@ function ContractAgree() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+            <div
+              id="input"
+              class="flex flex-col justify-center items-center w-full my-5"
+            >
               <label for="username" class="text-black mb-2">
                 개인정보 동의서
                 <input type="checkbox" className="mx-1 "></input>
