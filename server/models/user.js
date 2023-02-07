@@ -11,6 +11,7 @@
 
 
 const Sequelize = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 class User extends Sequelize.Model{
     static initiate(sequelize){
@@ -22,20 +23,20 @@ class User extends Sequelize.Model{
                 unique : true,
             },
             password : {
-                type : Sequelize.STRING(20),
-                allowNull: false
+                type : Sequelize.STRING,
+                allowNull: false,
             },
             nickname : {
                 type : Sequelize.STRING(10),
-                allowNull:false
+                allowNull:false,
             },
             name : {
                 type : Sequelize.STRING(10),
-                allowNull : false
+                allowNull : false,
             },
             phoneNumber : {
-                type : Sequelize.INTEGER(11),
-                allowNull: false
+                type : Sequelize.STRING(20),
+                allowNull: false,
             },
             walletAddress:{
                 type: Sequelize.STRING(50),
@@ -43,7 +44,7 @@ class User extends Sequelize.Model{
                 unique : true,
             },
             idNumber:{
-                type:Sequelize.INTEGER(13),
+                type:Sequelize.STRING,
                 allowNull:false,
             }
             }, 
@@ -56,11 +57,27 @@ class User extends Sequelize.Model{
                     collate : 'utf8_general_ci'
             }
         );
-
+       
+        User.beforeCreate(async (user, options) => {
+     
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(user.password, salt);
+            const hashedIdNumber = await bcrypt.hash(user.idNumber, salt);
+            user.password = hashedPassword;
+            user.idNumber = hashedIdNumber;
+          })
     }
 
+    
+    
     static associate(db){
         db.User.hasMany(db.Estate, {foreignKey : "owner", sourceKey: 'id'})
+        db.User.hasOne(db.Estate, {foreignKey :"contractor", sourceKey : 'id'})
+        db.User.hasOne(db.Dmroom, {foreignkey : 'buyUserId', sourceKey : 'id'})
+        db.User.hasOne(db.Dm, {foreignKey:'userId', sourceKey: 'id'})
+        db.User.hasMany(db.Report, {foreignKey:'reporterId', sourceKey : 'id'})
+        db.User.hasMany(db.OwnerAgreement, {foreignKey:'ownerId', sourceKey:'id'})
+        db.User.hasOne(db.TenantAgreement, {foreignKey:'tenantId', sourceKey: 'id'})
     };
 }
 

@@ -1,76 +1,128 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
+import axios from "axios";
+
+//style
 import "../assets/css/main.css";
 
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+  const navigate = useNavigate();
+
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
+    passwordConfirm: "", // 비밀번호 확인
+    nickname: "", // 닉네임
+    name: "", // 이름
+    phoneNumber: "",  // 폰번호 
+    walletAddress: "", // 지갑주소
+    idNumber: "" // 주민등록번호
+  })
+
+  const handleInputValue=(key)=>(e)=>{
+    setUserInfo({...userInfo, [key]:e.target.value})
+}
+
+function validateForm(){
+  return userInfo.email>0 && userInfo.nickname>0 && userInfo.password.length>0 && userInfo.password===userInfo.passwordConfirm && userInfo.walletAddress>0 
+  && userInfo.idNumber>0 && userInfo.name>0 && userInfo.phoneNumber>0
+}
+
+function handleSubmit(event){
+  let isSigninSuccess = false
+  event.preventDefault();
+  if(
+      userInfo.email &&
+      userInfo.password &&
+      userInfo.nickname && 
+      userInfo.walletAddress &&
+      userInfo.idNumber &&
+      userInfo.phoneNumber &&
+      userInfo.name
+  ){
+      axios.post("http://localhost:8080/signUp", userInfo)
+      .then((result)=>{
+          console.log(result.data.status)
+          result.data.status==="success"? isSigninSuccess=true : isSigninSuccess=false
+      })
+      .then(()=>{
+          isSigninSuccess? navigate('/main') : alert("모든 정보를 입력해주세요")
+      }).catch((e)=>console.log(e))
+  }
+}
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div
+      className="mt-36"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="text"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.email}
+          onChange={handleInputValue("email")}
+          placeholder="이메일"
+        />
         <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
+        <input
+          type="password"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.password}
+          onChange={handleInputValue("password")}
+          placeholder="비밀번호"
+        />
         <br />
-        <label>
-          Username:
-          <input
-            type="text"
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)}
-          />
-        </label>
+        <input
+          type="password"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.passwordConfirm}
+          onChange={handleInputValue("passwordConfirm")}
+          placeholder="비밀번호 확인"
+        />
         <br />
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </label>
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.nickname}
+          onChange={handleInputValue("nickname")}
+          placeholder="닉네임"
+        />
         <br />
-        <label>
-          Phone Number:
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(event) => setPhoneNumber(event.target.value)}
-          />
-        </label>
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.name}
+          onChange={handleInputValue("name")}
+          placeholder="실명"
+        />
         <br />
-        <label>
-          Metamask Address:
-          <input
-            type="text"
-            value={address}
-            onChange={(event) => setAddress(event.target.value)}
-          />
-        </label>
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.phoneNumber}
+          onChange={handleInputValue("phoneNumber")}
+          placeholder="전화번호"
+        />
         <br />
-        <button type="submit">Register</button>
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.walletAddress}
+          onChange={handleInputValue("walletAddress")}
+          placeholder="Metamask Address"
+        />
+        <br />
+        <button
+          type="button"
+          className="inline-block px-6 py-2 border-2 border-black text-black font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+          data-mdb-ripple="true"
+          data-mdb-ripple-color="light"
+          disabled={!validateForm}
+        >
+          회원가입
+        </button>
       </form>
     </div>
   );
