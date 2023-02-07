@@ -88,11 +88,9 @@ export default function Register() {
     console.log(mintNFT);
 
     if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-      axios
-        .post("http://localhost:8080/minting", mintNFT)
-        .then((res) => {
-          console.log(res.data.status);
-        })
+      axios.post("http://localhost:8080/minting", mintNFT).then((res) => {
+        console.log(res.data.status);
+      });
     }
   }
 
@@ -130,21 +128,26 @@ export default function Register() {
   }
 
   // 매물관련 DB post
-  function postDB(event){
+  function postDB(event) {
     event.preventDefault();
     console.log(mintNFT);
-    
-    if(mintNFT.deposit && mintNFT.monthly_payment && mintNFT.building_condition ) {
-        axios.post("http://localhost:8080/register", mintNFT)
-        .then((res) =>{
-            console.log(res.data)
-            setMintNFT({
-                deposit: mintNFT.deposit ,
-                monthly_payment: mintNFT.monthly_payment,
-                building_condition: mintNFT.building_condition
-            })
+
+    if (
+      mintNFT.deposit &&
+      mintNFT.monthly_payment &&
+      mintNFT.building_condition
+    ) {
+      axios
+        .post("http://localhost:8080/register", mintNFT)
+        .then((res) => {
+          console.log(res.data);
+          setMintNFT({
+            deposit: mintNFT.deposit,
+            monthly_payment: mintNFT.monthly_payment,
+            building_condition: mintNFT.building_condition,
+          });
         })
-        .catch((e)=> console.log(e))
+        .catch((e) => console.log(e));
     }
   }
 
@@ -180,7 +183,7 @@ export default function Register() {
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit}/>}
+        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit} />}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
@@ -230,7 +233,12 @@ export default function Register() {
           </div>
           <form action="" class="flex flex-col items-center">
             <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2" value={mintNFT.deposit} onChange={handleInputValue}>
+              <label
+                for="username"
+                class="text-gray-500 mb-2"
+                value={mintNFT.deposit}
+                onChange={handleInputValue}
+              >
                 보증금
               </label>
               <input
@@ -240,7 +248,12 @@ export default function Register() {
               />
             </div>
             <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2" value={mintNFT.monthly_payment} onChange={handleInputValue}>
+              <label
+                for="username"
+                class="text-gray-500 mb-2"
+                value={mintNFT.monthly_payment}
+                onChange={handleInputValue}
+              >
                 월세
               </label>
               <input
@@ -262,7 +275,12 @@ export default function Register() {
               />
             </div>
             <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2" value={mintNFT.building_condition} onChange={handleInputValue}>
+              <label
+                for="username"
+                class="text-gray-500 mb-2"
+                value={mintNFT.building_condition}
+                onChange={handleInputValue}
+              >
                 건물 부가 설명
               </label>
               <input

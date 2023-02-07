@@ -1,42 +1,46 @@
-import React, { useState,useContext } from "react";
-import {useNavigate} from "react-router-dom"
-import axios from "axios"
-
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
   const [account, setAccount] = useState({
-    email:"",
-    password:""
-  })
+    email: "",
+    password: "",
+  });
 
   const handleInputValue = (key) => (e) => {
-    setAccount({...account, [key]: e.target.value})
-}
+    setAccount({ ...account, [key]: e.target.value });
+  };
 
-function validateForm(){
-  return account.email>0 && account.password>0
-}
-
-function handleSubmit(event){
-  event.preventDefault();
-  if(account.email && account.password){
-      axios.post("http://localhost:8080/login", account)
-      .then((result) => {
-          console.log(result.data.status)
-          if(result.data.status==="success") {
-              setAccount({email: account.email, password: account.password, isConnected: "true"})}
-              navigate("/main", { state: { account } })
-
-      })
-      .then(() => {
-          if(account.isConnected === "true"){
-              console.log(account.isConnected)
-          }})
-      .catch((e)=>console.log(e))
-      
+  function validateForm() {
+    return account.email > 0 && account.password > 0;
   }
-}
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (account.email && account.password) {
+      axios
+        .post("http://localhost:8080/login", account)
+        .then((result) => {
+          console.log(result.data.status);
+          if (result.data.status === "success") {
+            setAccount({
+              email: account.email,
+              password: account.password,
+              isConnected: "true",
+            });
+          }
+          navigate("/main", { state: { account } });
+        })
+        .then(() => {
+          if (account.isConnected === "true") {
+            console.log(account.isConnected);
+          }
+        })
+        .catch((e) => console.log(e));
+    }
+  }
 
   return (
     <div
@@ -49,7 +53,7 @@ function handleSubmit(event){
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
           value={account.email}
           onChange={handleInputValue("email")}
-          placeholder="Email"
+          placeholder="이메일"
         />
 
         <br />
@@ -58,7 +62,7 @@ function handleSubmit(event){
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
           value={account.password}
           onChange={handleInputValue("password")}
-          placeholder="Password"
+          placeholder="비밀번호"
         />
         <br />
         <button
@@ -68,7 +72,7 @@ function handleSubmit(event){
           data-mdb-ripple-color="light"
           disabled={!validateForm}
         >
-          Login
+          로그인
         </button>
       </form>
     </div>
