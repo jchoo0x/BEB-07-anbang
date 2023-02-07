@@ -50,7 +50,7 @@ class Estate extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Estate.belongsTo(db.User, {foreignKey:"owner", targetKey : 'id'})
+        db.Estate.belongsTo(db.User, {foreignKey : 'owner', targetKey : 'id'})
         db.Estate.hasOne(db.Dmroom, {foreignKey : 'estateId', sourceKey : 'id'})
         db.Estate.hasMany(db.Report, {foreignKey : 'reportId', sourceKey : 'id'})
         db.Estate.hasMany(db.OwnerAgreement, {foreignKey:'ownerestateId', sourceKey:'tokenId'})
