@@ -28,6 +28,7 @@ export default function Register() {
     deposit: "", // 보증금
     rental: "", // 월세
     conditions: "", // 건물상태
+    description: "" // 부가설명
   });
   const [imgFile, setImgFile] = React.useState(null);
 
@@ -90,20 +91,6 @@ export default function Register() {
     console.log(mintNFT);
   };
 
-  function handleSubmit(event) {
-    let isMintSuccess = false;
-    event.preventDefault();
-    handleClickCreate();
-    console.log(mintNFT);
-
-    if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-      axios
-        .post("http://localhost:8080/estate/report", mintNFT)
-        .then((res) => {
-          console.log(res.data.status);
-        })
-    }
-  }
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
@@ -260,7 +247,7 @@ export default function Register() {
               />
             </div>
             <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2">
+              <label for="username" className="text-gray-500 mb-2" value={mintNFT.conditions} onChange={handleInputValue}>
                 건물상태
               </label>
               <input
@@ -271,7 +258,7 @@ export default function Register() {
               />
             </div>
             <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2" value={mintNFT.conditions} onChange={handleInputValue}>
+              <label for="username" className="text-gray-500 mb-2" value={mintNFT.description} onChange={handleInputValue}>
                 건물 부가 설명
               </label>
               <input
@@ -290,7 +277,7 @@ export default function Register() {
 
       <div className="flex flex-col items-center">
         <button
-          onSubmit={postDB}
+          onClick={postDB}
           className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
         >
