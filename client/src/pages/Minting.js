@@ -51,6 +51,7 @@ export default function Register() {
   const makingContract = new ethers.Contract(NFT_contractAddress, erc721_ABI, provider);
 
   // ipfs 메타데이터 생성 함수들
+  // submitImage console에서 url 뜨는지 확인하면 됌
   const submitImage = async () => {
     if (!imgFile) return false;
     // console.log(imgFile);
@@ -59,7 +60,7 @@ export default function Register() {
         progress: (prog) => console.log(`received: ${prog}`),
       });
     //   console.log(added);
-      const url = `https://making.infura-ipfs.io/ipfs/${added.path}`;
+      const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
       console.log(url);
       setMintNFT({
         nft_address: mintNFT.nft_address,
@@ -136,7 +137,8 @@ export default function Register() {
         .get("http://localhost:8080/doublecheck", mintNFT)
         .then((res) => {
           console.log(res);
-          mintNFT.gov_info === mintNFT.nft_address
+          mintNFT.gov_info === mintNFT
+          // mintNFT.gov_info.주민번호가 어떤식으로?
             ? (isCheckSuccess = true)
             : (isCheckSuccess = false);
         })
