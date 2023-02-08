@@ -59,7 +59,7 @@ export default function Register() {
         progress: (prog) => console.log(`received: ${prog}`),
       });
     //   console.log(added);
-      const url = `https://making.infura-ipfs.io/ipfs/${added.path}`;
+      const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
       console.log(url);
       setMintNFT({
         nft_address: mintNFT.nft_address,
