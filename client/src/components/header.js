@@ -33,7 +33,7 @@ return (
   <div className="flex md:order-2">
   <ul className="flex md:auto">
         <li className="px-10">
-            <div onClick={toggleModal}>
+            <div>
             <FontAwesomeIcon icon={faBell} className="fa-lg text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0" />
             </div>
         </li>

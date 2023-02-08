@@ -14,22 +14,37 @@ const useMetamask = () => {
                 alert("메타마스크만 지원합니다.");
                 return;
             }
+            
+            // Check if the Klaytn network is already added to Metamask
+            const networks = await window.ethereum.request({ method: "wallet_getEthereumNetworks" });
+            const isKlaytnAdded = networks.find((network) => network.chainId === "0x39");
 
-            // Check if the Klaytn network is already set as the default network in Metamask
-            const currentChainId = await window.ethereum.request({ method: "eth_chainId" });
-            if (currentChainId !== "0x39") {
+            // If the Klaytn network is not added, add it to Metamask
+            if (!isKlaytnAdded) {
                 await window.ethereum.request({
-                    method: "eth_chainId",
-                    params: ["0x39"],
+                    method: "wallet_addEthereumChain",
+                    params: [
+                        {
+                            chainId: "0x39",
+                            name: "Klaytn",
+                            rpcUrl: "https://baobab.klaytn.net:8651",
+                        },
+                    ],
                 });
             }
 
+            // Switch to the Klaytn Baobab network
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: "0x39" }],
+            });
+
+            // Set the Metamask object
             setMetamask(window.ethereum);
         })();
     }, []);
 
     return metamask;
 };
-    
-    export default useMetamask;
-    
+
+export default useMetamask;
