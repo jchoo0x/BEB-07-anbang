@@ -28,6 +28,7 @@ export default function Register() {
     deposit: "", // 보증금
     rental: "", // 월세
     conditions: "", // 건물상태
+    description: "" // 부가설명
   });
   const [imgFile, setImgFile] = React.useState(null);
 
@@ -90,20 +91,6 @@ export default function Register() {
     console.log(mintNFT);
   };
 
-  function handleSubmit(event) {
-    let isMintSuccess = false;
-    event.preventDefault();
-    handleClickCreate();
-    console.log(mintNFT);
-
-    if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-      axios
-        .post("http://localhost:8080/estate/report", mintNFT)
-        .then((res) => {
-          console.log(res.data.status);
-        })
-    }
-  }
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
@@ -229,13 +216,18 @@ export default function Register() {
 
       <div className="flex flex-col items-center justify-center  mx-auto">
         <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
-          <div className="py-10 flex items-center justify-center">
-            <button className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-              전세
-            </button>
-            <button className=" text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-              월세
-            </button>
+          <div className=" flex items-center justify-center">
+          <div id="input" className="flex flex-col w-full my-5">
+              <label for="username" className="text-gray-500 mb-2" value={mintNFT.types} onChange={handleInputValue}>
+                부동산 종류
+              </label>
+              <input
+                type="text"
+                id="username"
+                placeholder="전세or월세 를 입력해주시면 됩니다"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
           </div>
           <form action="" className="flex flex-col items-center">
             <div id="input" className="flex flex-col w-full my-5">
@@ -259,8 +251,8 @@ export default function Register() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2">
+            {/* <div id="input" className="flex flex-col w-full my-5">
+              <label for="username" className="text-gray-500 mb-2" value={mintNFT.conditions} onChange={handleInputValue}>
                 건물상태
               </label>
               <input
@@ -269,9 +261,9 @@ export default function Register() {
                 placeholder="예시) 상, 중, 하"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
-            </div>
+            </div> */}
             <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2" value={mintNFT.conditions} onChange={handleInputValue}>
+              <label for="username" className="text-gray-500 mb-2" value={mintNFT.description} onChange={handleInputValue}>
                 건물 부가 설명
               </label>
               <input
@@ -290,7 +282,7 @@ export default function Register() {
 
       <div className="flex flex-col items-center">
         <button
-          onSubmit={postDB}
+          onClick={postDB}
           className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
         >
