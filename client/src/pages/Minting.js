@@ -315,6 +315,7 @@ export default function Register() {
 
       <div className="flex flex-col items-center">
         <button
+        type="submit"
           onClick={postDB}
           className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
