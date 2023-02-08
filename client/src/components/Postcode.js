@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
+import axios from "axios";
 
 const Postcode = (props) => {
   const [addressValue, setAddressValue] = useState("");
@@ -23,6 +24,12 @@ const Postcode = (props) => {
 
     setAddressValue(fullAddress);
     setZipCodeValue(zipCode);
+
+    axios
+      .post("http://localhost:8080/estate/register", fullAddress)
+      .then((result) => {
+        console.log(result);
+      });
   };
 
   return (
