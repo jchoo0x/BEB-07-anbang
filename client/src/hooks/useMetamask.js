@@ -20,9 +20,9 @@ const useMetamask = ()=>{
             }
             
             const chaindId = await window.ethereum.request({method:"eth_chainId"});
-            if(chaindId !== "0x5"){
+            if(chaindId !== "0x52"){
                 const isChange = await window.ethereum
-                .request({method:"wallet_switchEthereumChain", params:[{chainId:"0x5"}]})
+                .request({method:"wallet_switchEthereumChain", params:[{chainId:"0x52"}]})
                 .catch(err=>err);
 
                 if(!isChange) return;
@@ -30,7 +30,7 @@ const useMetamask = ()=>{
 
             window.ethereum.on("chainChanged", async(_chaindId)=>{
                 const isChange = await window.ethereum
-                .request({method:"wallet_switchEthereumChain", params:[{chainId:"0x5"}]})
+                .request({method:"wallet_switchEthereumChain", params:[{chainId:"0x52"}]})
                 .catch(err=>err);
             
                 if(!isChange) metamask = null;
