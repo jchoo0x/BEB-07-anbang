@@ -41,6 +41,7 @@ export default function Register() {
   });
 
   // ipfs 메타데이터 생성 함수들
+  // submitImage console에서 url 뜨는지 확인하면 됌
   const submitImage = async () => {
     if (!imgFile) return false;
     // console.log(imgFile);
@@ -111,7 +112,8 @@ export default function Register() {
         .get("http://localhost:8080/doublecheck", mintNFT)
         .then((res) => {
           console.log(res);
-          mintNFT.gov_info === mintNFT.nft_address
+          mintNFT.gov_info === mintNFT
+          // mintNFT.gov_info.주민번호가 어떤식으로?
             ? (isCheckSuccess = true)
             : (isCheckSuccess = false);
         })
@@ -123,7 +125,7 @@ export default function Register() {
     }
   }
 
-  // 매물관련 DB post
+  // NFT minting
   function postDB(event){
     event.preventDefault();
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
@@ -143,7 +145,7 @@ export default function Register() {
   console.log(mintNFT)
 
   return (
-    <form >
+    <form onSubmit={postDB}>
             <div className="mb-6 pt-4 mt-20">
       <div className="w-full py-10 px-4 bg-white flex flex-col items-center">
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-1 gap-8">
