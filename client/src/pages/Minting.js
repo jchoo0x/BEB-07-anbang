@@ -126,9 +126,7 @@ export default function Register() {
   // 매물관련 DB post
   function postDB(event){
     event.preventDefault();
-    console.log(mintNFT);
-    
-    if(mintNFT.deposit && mintNFT.rental && mintNFT.conditions ) {
+    if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
         axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
             console.log(res.data)
@@ -139,12 +137,14 @@ export default function Register() {
                 types: mintNFT.types
             })
         })
-        .catch((e)=> console.log(e))
+        .catch((error)=> console.log(error))
     }
   }
+  console.log(mintNFT)
 
   return (
-    <div className="mb-6 pt-4 mt-20">
+    <form >
+            <div className="mb-6 pt-4 mt-20">
       <div className="w-full py-10 px-4 bg-white flex flex-col items-center">
         <div className="max-w-[1240px] mx-auto grid md:grid-cols-1 gap-8">
           <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300">
@@ -284,7 +284,9 @@ export default function Register() {
       </div>
 
       <div className="flex flex-col items-center">
+
         <button
+          type="submit"
           onClick={postDB}
           className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
@@ -293,5 +295,7 @@ export default function Register() {
         </button>
       </div>
     </div>
+    </form>
+
   );
 }
