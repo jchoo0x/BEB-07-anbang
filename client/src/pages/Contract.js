@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 
 function Contract() {
   const [agreement, setAgreement] = useState({
-    extraOwnerContract: "", // 임대인 특약조항
-    extraTenantContract: "", // 임차인 특약조항
+    ownerAgreement: "", // 임대인 특약조항
+    tenantAgreement: "", // 임차인 특약조항
   });
 
   const navigate = useNavigate();
@@ -15,10 +15,10 @@ function Contract() {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/contract/check", agreement)
+      .post("http://localhost:8080/contract/tenantcheck", agreement)
       .then((result) => {
         console.log(result);
-        setAgreement({ extraContract: agreement.extraContract });
+        setAgreement({ tenantAgreement: agreement.tenantAgreement });
         navigate("/mypage");
       })
       .catch((e) => console.log(e));
@@ -159,7 +159,7 @@ function Contract() {
                 특약조항, 주의사항
               </label>
               <input
-                onChange={handleInputValue("extraContract")}
+                onChange={handleInputValue("tenantAgreement")}
                 type="text"
                 id="username"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"

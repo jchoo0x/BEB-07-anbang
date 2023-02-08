@@ -43,7 +43,7 @@ const Postcode = (props) => {
       <input
         className="mx-auto flex items-center justify-between text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
         value={zipCodeValue}
-        onchange={zipCodeValue}
+        onChange={zipCodeValue}
       />
       <DaumPostcodeEmbed onComplete={handleComplete} {...props} />
     </form>

@@ -13,33 +13,27 @@ function Login() {
     setAccount({ ...account, [key]: e.target.value });
   };
 
-  function validateForm() {
-    return account.email > 0 && account.password > 0;
-  }
+function validateForm(){
+  return account.email>0 && account.password>0
+}
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    if (account.email && account.password) {
-      axios
-        .post("http://localhost:8080/login", account)
-        .then((result) => {
-          console.log(result.data.status);
-          if (result.data.status === "success") {
-            setAccount({
-              email: account.email,
-              password: account.password,
-              isConnected: "true",
-            });
-          }
-          navigate("/main", { state: { account } });
-        })
-        .then(() => {
-          if (account.isConnected === "true") {
-            console.log(account.isConnected);
-          }
-        })
-        .catch((e) => console.log(e));
-    }
+function handleSubmit(event){
+  event.preventDefault();
+  if(account.email && account.password){
+      axios.post("http://localhost:8080/user/login", account)
+      .then((result) => {
+          console.log(result.data.status)
+          if(result.data.status==="success") {
+              setAccount({email: account.email, password: account.password, isConnected: "true"})}
+              navigate("/main", { state: { account } })
+
+      })
+      .then(() => {
+          if(account.isConnected === "true"){
+              console.log(account.isConnected)
+          }})
+      .catch((e)=>console.log(e))
+      
   }
 
   return (
@@ -66,6 +60,7 @@ function Login() {
         />
         <br />
         <button
+          onClick={handleSubmit}
           type="button"
           className="inline-block px-6 py-2 border-2 border-black text-black font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           data-mdb-ripple="true"

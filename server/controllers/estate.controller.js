@@ -13,6 +13,19 @@ module.exports = {
             next(err);
           }
     },
+    getEstateDetail : async(req,res,next)=>{
+        try {
+            const estate = await Estate.findOne({
+                where : {
+                    id : req.params.id
+                }
+            })
+            res.json(estate)
+        }catch(err){
+            console.error(err)
+            next(err)
+        }
+    },
     register :  async(req,res,next)=>{
         //로그인 검증
         const authorization = req.headers['authorization'];
