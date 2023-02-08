@@ -42,12 +42,12 @@ const useMetamask = () => {
             const klaytnBaobabMetaData = {
                 chainId : "0x3e9",
                 chainName : "Klaytn Baobab Network",
-                rpcUrls : ['https://api.baobab.klaytn.net:8561'],
+                rpcUrls : ['https://api.baobab.klaytn.net:8651'],
                 blockExplorerUrls : ["https://baobab.scope.klaytn.com"],
                 nativeCurrency : {
-                    name : "KLAYTN",
+                    name : "Klaytn",
                     decimals : 18,
-                    symbol : "KLAYTN" 
+                    symbol : "KLAY" 
                 },
             };
 
