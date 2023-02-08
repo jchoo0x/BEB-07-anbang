@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Preview from "./pages/preview";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
