@@ -67,64 +67,65 @@ module.exports ={
     },
     
     login: async(req,res,next)=>{
-        try {
-            const { email, password } = req.body;
-            if (!email || !password) {
-              return res.status(400).json({ data: null, message: 'Invalid input' });
-            }
-            const userData = await User.findOne({
-              where: {
-                email
-              },
-            });
-            if (!userData) {
-              return res.status(400).send({ data: null, message: 'no user' });
-            }
+        // try {
+        //     const { email, password } = req.body;
+        //     if (!email || !password) {
+        //       return res.status(400).json({ data: null, message: 'Invalid input' });
+        //     }
+        //     const userData = await User.findOne({
+        //       where: {
+        //         email
+        //       },
+        //     });
+        //     if (!userData) {
+        //       return res.status(400).send({ data: null, message: 'no user' });
+        //     }
     
-            const match = await bcrypt.compare(password, userData.password);
-            if (!match) {
-              return res.status(400).send('user password invalid');
-            }else{
-                const accessToken = jwt.sign(
-                 {
-                    email : userData.email,
-                    nickname : userData.nickname,
-                    createdAt:userData.createAt,
-                    id:userData.id,
-                    iat : Math.floor(Date.now()/1000),
-                    exp : Math.floor(Date.now() / 1000 )+ 60 *60,
-                 },
-                    process.env.ACCESS_SECRET
-            );
+        //     const match = await bcrypt.compare(password, userData.password);
+        //     if (!match) {
+        //       return res.status(400).send('user password invalid');
+        //     }else{
+        //         const accessToken = jwt.sign(
+        //          {
+        //             email : userData.email,
+        //             nickname : userData.nickname,
+        //             createdAt:userData.createAt,
+        //             id:userData.id,
+        //             iat : Math.floor(Date.now()/1000),
+        //             exp : Math.floor(Date.now() / 1000 )+ 60 *60,
+        //          },
+        //             process.env.ACCESS_SECRET
+        //     );
     
-            const refreshToken = jwt.sign(
-                {
-                    email : userData.email,
-                    nickname : userData.nickname,
-                    createdAt:userData.createAt,
-                    id:userData.id,
-                    iat : Math.floor(Date.now()/1000),
-                    exp : Math.floor(Date.now() / 1000 )+ 60 *60,
-                },
-                process.env.REFRESH_SECRET
-            );
+        //     const refreshToken = jwt.sign(
+        //         {
+        //             email : userData.email,
+        //             nickname : userData.nickname,
+        //             createdAt:userData.createAt,
+        //             id:userData.id,
+        //             iat : Math.floor(Date.now()/1000),
+        //             exp : Math.floor(Date.now() / 1000 )+ 60 *60,
+        //         },
+        //         process.env.REFRESH_SECRET
+        //     );
     
-            res.cookie('refreshToken', refreshToken, {
-                maxAge: 10000,
-                sameSite: true,
-                secure: true,
-                httpOnly: true,
-              });
+        //     res.cookie('refreshToken', refreshToken, {
+        //         maxAge: 10000,
+        //         sameSite: true,
+        //         secure: true,
+        //         httpOnly: true,
+        //       });
     
-              res
-              .status(200)
-              .json({data: {accessToken : accessToken}, message : 'login complete'})
+        //       res
+        //       .status(200)
+        //       .json({data: {accessToken : accessToken}, message : 'login complete'})
               
-            }
-        }catch(err){
-            console.error(err.message);
-            next(err);
-        }
+        //     }
+        // }catch(err){
+        //     console.error(err.message);
+        //     next(err);
+        // }
+        res.status(200).json({message : 'login complete'})
     },
     
     logout: async(req,res,next)=>{
