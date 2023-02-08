@@ -17,8 +17,6 @@ const projectSecret = '3e422f75dcf17f979f829ea39b13d5bc';  // <---------- your I
 const auth = 'Basic ' + btoa(projectId + ':' + projectSecret);
 
 export default function Register() {
-  // minting NFT
-  const [selectedButton, setSelectedButton] = useState(null);
 
   const [mintNFT, setMintNFT] = useState({
     nft_address: "", // 건물주소
@@ -88,7 +86,7 @@ export default function Register() {
 
   const handleInputValue = (key) => (e) => {
     setMintNFT({ ...mintNFT, [key]: e.target.value });
-    console.log(mintNFT);
+    // console.log(mintNFT);
   };
 
 
@@ -196,7 +194,7 @@ export default function Register() {
           주소 등록
         </label>
       </div>
-      <Postcode />
+      {/* <Postcode /> */}
       <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
         등기부 등본 등록
       </label>
@@ -208,7 +206,7 @@ export default function Register() {
               name="file"
               id="file"
               accept="application/pdf"
-              onChange={handleInputValue}
+              onChange={handleInputValue('gov_info')}
               onSubmit={doublecheck}
             />
           </div>
@@ -219,36 +217,39 @@ export default function Register() {
         <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
           <div className=" flex items-center justify-center">
           <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2" value={mintNFT.types} onChange={handleInputValue}>
+              <label for="username" className="text-gray-500 mb-2">
                 부동산 종류
               </label>
               <input
                 type="text"
                 id="username"
                 placeholder="전세or월세 를 입력해주시면 됩니다"
+                value={mintNFT.types} onChange={handleInputValue("types")}
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
           </div>
           <form action="" className="flex flex-col items-center">
             <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2" value={mintNFT.deposit} onChange={handleInputValue}>
+              <label for="username" className="text-gray-500 mb-2">
                 보증금
               </label>
               <input
                 type="text"
                 id="username"
+                value={mintNFT.deposit} onChange={handleInputValue("deposit")}
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
             <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2" value={mintNFT.rental} onChange={handleInputValue}>
+              <label for="username" className="text-gray-500 mb-2">
                 월세
               </label>
               <input
                 type="text"
                 id="username"
                 placeholder="전세의 경우 0을 입력해주시면 됩니다"
+                value={mintNFT.rental} onChange={handleInputValue("rental")}
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
@@ -264,13 +265,14 @@ export default function Register() {
               />
             </div> */}
             <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2" value={mintNFT.description} onChange={handleInputValue}>
+              <label for="username" className="text-gray-500 mb-2">
                 건물 부가 설명
               </label>
               <input
                 type="text"
                 id="username"
                 placeholder="예시) 가구 옵션, 관리비 여부"
+                value={mintNFT.description} onChange={handleInputValue("description")}
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
