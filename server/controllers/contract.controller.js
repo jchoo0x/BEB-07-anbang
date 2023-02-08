@@ -17,24 +17,23 @@ module.exports= {
             const token = authorization.split(' ')[1];
             const data =jwt.verify(token,process.env.ACCESS_SECRET);
             if(data){
-                const {tenantAgreement} = req.body;
                 
-                    if (!tenantAgreement) {
+                const {tenantAgreement, tenantestateTokenId} = req.body;
+                
+                    if (!tenantAgreement || !tenantestateTokenId) {
                         return res.status(400).json({ data: null, message: 'Invalid input' });
                     }
-                    const tenantestatetokenId = await Estate.findOne({
-                        where // : 계약하고자 하는 부동산의 토큰 아이디를 불러올 것.
-                    })
+    
                     const newTenantAgreement = await TenantAgreement.create({
                         tenantAgreement,
                         tenantId : data.id,
-                        tenantestateTokenId : tenantestatetokenId,
+                        tenantestateTokenId,
                     })
                     // 부동산에 임차인 계약요청으로 업데이트
                     await Estate.update({
                         contractor : data.id,
                     },{
-                        where : {id : newTenantAgreement.tenantestateTokenId}
+                        where : {tokenId : newTenantAgreement.tenantestateTokenId}
                     })
                 return res.status(200).json(newTenantAgreement);
             }
@@ -54,16 +53,16 @@ module.exports= {
         const token = authorization.split(' ')[1];
         const data =jwt.verify(token,process.env.ACCESS_SECRET);
         if(data){
-            const {ownerAgreement} = req.body;
+            const {ownerAgreement, ownerestateTokenId} = req.body;
       
-                if (!ownerAgreement) {
+                if (!ownerAgreement || !ownerestateTokenId) {
                     return res.status(400).json({ data: null, message: 'Invalid input' });
                 }
                 
                 const newOwnerAgreement = await OwnerAgreement.create({
                     ownerAgreement,
                     ownerId : data.id,
-                    // ownerestateId : ownerestateId,
+                    ownerestateTokenId
                 })
             return res.status(200).json(newOwnerAgreement);
         }

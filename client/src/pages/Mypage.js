@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import { BrowserRouter, Route, Routes, Switch} from 'react-router-dom';
-import NFT from "../hooks/NFT";
+import MyNFT from "../hooks/MyNFT";
 
 // stylesheet
 import "../assets/css/main.css";
@@ -12,13 +12,12 @@ import "../assets/css/main.css";
 export default function Mypage() {
 
     const [MyNFTInfo, setMyNFTInfo] = useState({
-        // 
+        authorization: ""
     })
-    const [contractStatus, setContractStatus] = useState(false);
 
     useEffect(() => {
         axios
-          .get("http://localhost:8080/mypage", MyNFTInfo)
+          .get("http://localhost:8080/mypage/:id", MyNFTInfo)
           .then((result) => {
             setMyNFTInfo([...result.data])
           })
@@ -31,13 +30,13 @@ export default function Mypage() {
             <div className="flex flex-col items-center">
                 <div className="flex flex-row mt-20">
                     <div className="flex items-center font-bold mr-5">보유 NFT 리스트</div>
-                <NFT />
-                <NFT />
-                <NFT />
+                <MyNFT />
+                <MyNFT />
+                <MyNFT />
                 </div>
                 <div className="flex flex-row mt-20">
                     <div className="flex items-center font-bold mr-5">진행중인 계약</div>
-                진행중인 계약 1 
+                <p value={MyNFTInfo.authorization}>진행중인 계약 1 </p>
                 </div>
 
                 {/* <div className="mt-20">
