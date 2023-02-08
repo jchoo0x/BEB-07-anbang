@@ -6,6 +6,7 @@ const {sequelize} =require('./models')
 
 const router = require('./router');
 const devRouter =require('./router/devrouter');
+const api = require('./router/api')
 const webSocket = require('./socket')
 
 const app = express();
@@ -56,6 +57,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // app.use('/', apiRouter);
 
+app.use('/', api);
 app.use('/dev', devRouter);
 app.use('/user', router.userRouter);
 app.use('/estate', router.estateRouter);

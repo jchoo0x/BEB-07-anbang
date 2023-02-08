@@ -28,15 +28,15 @@ module.exports = {
     },
     register :  async(req,res,next)=>{
         //로그인 검증
-        const authorization = req.headers['authorization'];
-        if (!authorization) {
-            return res.status(400).json({ data: null, message: 'invalid access token' });
-        }
+        // const authorization = req.headers['authorization'];
+        // if (!authorization) {
+        //     return res.status(400).json({ data: null, message: 'invalid access token' });
+        // }
         try{
-            const token = authorization.split(' ')[1];
-            const data =jwt.verify(token,process.env.ACCESS_SECRET);
-            if(data){
-                const {types, deposit, rental, description, tokenId} = req.body;
+            // const token = authorization.split(' ')[1];
+            // const data =jwt.verify(token,process.env.ACCESS_SECRET);
+            // if(data){
+            //     const {types, deposit, rental, description, tokenId} = req.body;
             
                 if (!types || !deposit || !description) {
                     return res.status(400).json({ data: null, message: 'Invalid input' });
@@ -52,7 +52,7 @@ module.exports = {
                     owner : data.id
                 })
             return res.status(200).json(newEstate);
-            }
+            // }
         }catch(err){
             console.error(err.message);
             next(err);
