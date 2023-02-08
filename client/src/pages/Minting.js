@@ -137,7 +137,8 @@ export default function Register() {
             setMintNFT({
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
-                conditions: mintNFT.conditions
+                description: mintNFT.description,
+                types: mintNFT.types
             })
         })
         .catch((e)=> console.log(e))
