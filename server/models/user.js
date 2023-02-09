@@ -40,7 +40,6 @@ class User extends Sequelize.Model{
             },
             walletAddress:{
                 type: Sequelize.STRING(50),
-                allowNull : false,
                 unique : true,
             },
             idNumber:{
