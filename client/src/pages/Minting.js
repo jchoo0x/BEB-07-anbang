@@ -57,7 +57,11 @@ export default function Register() {
     // console.log(imgFile);
     try {
       let added = await client.add(imgFile, {
-        progress: (prog) => console.log(`received: ${prog}`),
+        progress: (prog) => {
+          if (prog < 1) {
+            console.log(`received: ${prog}`);
+          }
+        },
       });
       //   console.log(added);
       const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
@@ -85,7 +89,13 @@ export default function Register() {
   };
 
   const handleClickCreate = async () => {
-    if (mintNFT.types == "" || imgFile == null) {
+    if (
+      mintNFT.types == "" ||
+      mintNFT.deposit == "" ||
+      mintNFT.rental == "" ||
+      mintNFT.rental == "" ||
+      imgFile == null
+    ) {
       console.log("빈 칸이 있으면 안됩니다");
       return false;
     }
@@ -150,7 +160,7 @@ export default function Register() {
   async function postDB(event) {
     event.preventDefault();
     console.log(mintNFT);
-    console.log(mintNFT.nft_imgURL);
+    handleClickCreate();
     const ContractWithSigner = await provider
       .send("eth_requestAccounts", [])
       .then((_) => provider.getSigner())
@@ -161,7 +171,7 @@ export default function Register() {
       mintNFT.nft_imgURL
     );
 
-    console.log(TokenId);
+    console.log(mintNFT.nft_imgURL);
 
     if (mintNFT.deposit && mintNFT.rental && mintNFT.description) {
       axios
@@ -173,9 +183,10 @@ export default function Register() {
             rental: mintNFT.rental,
             description: mintNFT.description,
             types: mintNFT.types,
+            address: mintNFT.nft_address,
           });
         })
-        .catch((e) => console.log(e));
+        .catch((error) => console.log(error));
     }
   }
 
@@ -218,13 +229,11 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="mb-5 pt-10 grid justify-center items-center text-xl font-semibold text-[#07074D]">
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && (
-          <img src={preview} alt="preview" onSubmit={handleImgPreview} />
-        )}
+        {preview && <img src={preview} alt="preview" />}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
@@ -235,104 +244,127 @@ export default function Register() {
               id="file"
               accept="image/*"
               onChange={handleImgChange}
+              onSubmit={submitImage}
             />
           </div>
         </label>
       </div>
-      <div className="py-10">
+      {/* <div className="py-10">
         <label class="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
           주소 등록
+          <input
+                type="text"
+                id="username"
+                placeholder="서울특별시 강남구 테헤란로114길 11"
+                value={mintNFT.nft_address} onChange={handleInputValue("nft_address")}
+                className="flex flex-col items-center text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
         </label>
-        <div className="mb-8">
-          {preview && (
-            <img src={preview} alt="preview" onSubmit={handleImgPreview} />
-          )}
-        </div>
+      </div> */}
+      {/* <Postcode /> */}
+      <label className="mb-5 grid justify-center items-center pt-10 text-xl font-semibold text-[#07074D]">
+        등기부 등본 등록
+      </label>
+      <div className="">
+        <label className="mb-10 relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+          <div>
+            <input
+              type="file"
+              name="file"
+              id="file"
+              accept="application/pdf"
+              onChange={handleInputValue("gov_info")}
+              onSubmit={doublecheck}
+            />
+          </div>
+        </label>
+      </div>
 
-        <div className="flex flex-col items-center justify-center  mx-auto">
-          <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
-            <div className=" flex items-center justify-center">
-              <div id="input" className="flex flex-col w-full my-5">
-                <label for="username" className="text-gray-500 mb-2">
-                  부동산 종류
-                </label>
-                <input
-                  type="file"
-                  multiple
-                  name="file"
-                  id="file"
-                  accept="image/*"
-                  onChange={handleImgChange}
-                />
-              </div>
-            </div>
-            <form action="" class="flex flex-col items-center">
-              <div id="input" class="flex flex-col w-full my-5">
-                <label for="username" class="text-gray-500 mb-2">
-                  보증금
-                </label>
-                <input
-                  value={mintNFT.deposit}
-                  onChange={handleInputValue("deposit")}
-                  type="text"
-                  id="username"
-                  className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-                />
-              </div>
-              <div id="input" class="flex flex-col w-full my-5">
-                <label for="username" class="text-gray-500 mb-2">
-                  월세
-                </label>
-                <input
-                  value={mintNFT.rental}
-                  onChange={handleInputValue("rental")}
-                  type="text"
-                  id="username"
-                  placeholder="전세의 경우 0을 입력해주시면 됩니다"
-                  className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-                />
-              </div>
-              {/* <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2">
-                건물상태
+      <div className="flex flex-col items-center justify-center  mx-auto">
+        <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
+          <div className=" flex items-center justify-center">
+            <div id="input" className="flex flex-col w-full my-5">
+              <label for="username" className="text-gray-500 mb-2">
+                부동산 종류
               </label>
               <input
                 type="text"
                 id="username"
-                placeholder="예시) 상, 중, 하"
+                placeholder="전세or월세 를 입력해주시면 됩니다"
+                value={mintNFT.types}
+                onChange={handleInputValue("types")}
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
-            </div> */}
-              <div id="input" class="flex flex-col w-full my-5">
-                <label for="username" class="text-gray-500 mb-2">
-                  건물 부가 설명
-                </label>
-                <input
-                  value={mintNFT.description}
-                  onChange={handleInputValue("description")}
-                  type="text"
-                  id="username"
-                  placeholder="예시) 가구 옵션, 관리비 여부"
-                  className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-                />
-              </div>
-              <div id="button" class="flex flex-col w-full my-5">
-                <div class="flex justify-evenly mt-5"></div>
-              </div>
-            </form>
+            </div>
           </div>
+          <form action="" class="flex flex-col items-center">
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                보증금
+              </label>
+              <input
+                value={mintNFT.deposit}
+                onChange={handleInputValue("deposit")}
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                월세
+              </label>
+              <input
+                value={mintNFT.rental}
+                onChange={handleInputValue("rental")}
+                type="text"
+                id="username"
+                placeholder="전세의 경우 0을 입력해주시면 됩니다"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                건물주소
+              </label>
+              <input
+                type="text"
+                value={mintNFT.nft_address}
+                onChange={handleInputValue("nft_address")}
+                id="username"
+                placeholder="서울특별시 강남구"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col w-full my-5">
+              <label for="username" class="text-gray-500 mb-2">
+                건물 부가 설명
+              </label>
+              <input
+                value={mintNFT.description}
+                onChange={handleInputValue("description")}
+                type="text"
+                id="username"
+                placeholder="예시) 가구 옵션, 관리비 여부"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="button" class="flex flex-col w-full my-5">
+              <div class="flex justify-evenly mt-5"></div>
+            </div>
+          </form>
         </div>
+      </div>
 
-        <div className="flex flex-col items-center">
-          <button
-            type="submit"
-            onClick={postDB}
-            className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
+      <div className="flex flex-col items-center">
+        <button
+          type="submit"
+          onClick={postDB}
+          className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-          >
-            매물 등록하기
-          </button>
-        </div>
+        >
+          매물 등록하기
+        </button>
       </div>
     </div>
   );
