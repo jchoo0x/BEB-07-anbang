@@ -26,6 +26,7 @@ function handleSubmit(event){
           console.log(result.data.status)
           if(result.data.status==="success") {
               setAccount({email: account.email, password: account.password, isConnected: "true"})}
+              localStorage.setItem("account", JSON.stringify(account)); // account state 저장
               navigate("/main", { state: { account } })
 
       })

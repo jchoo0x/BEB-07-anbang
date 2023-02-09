@@ -23,6 +23,12 @@ export default function Mypage() {
           })
           .catch((err) => console.log(err));
       }, []);
+
+      useEffect(()=>{
+        if(localStorage.getItem('account') === null) {
+            window.location.replace('http://localhost:3000/login')
+        }
+      }, []);
     
 
     return(
