@@ -83,7 +83,7 @@ export default function Register() {
 
   const handleClickCreate = async () => {
     if (
-      mintNFT.nft_address == "" ||
+      
       mintNFT.types == "" ||
       imgFile == null
     ) {
@@ -98,20 +98,20 @@ export default function Register() {
     // console.log(mintNFT);
   };
 
-  function handleSubmit(event) {
-    let isMintSuccess = false;
-    event.preventDefault();
-    handleClickCreate();
-    console.log(mintNFT);
+//   function handleSubmit(event) {
+//     let isMintSuccess = false;
+//     event.preventDefault();
+//     handleClickCreate();
+//     console.log(mintNFT);
 
-    if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-      axios
-        .post("http://localhost:8080/minting", mintNFT)
-        .then((res) => {
-          console.log(res.data.status);
-        })
-    }
-  }
+//     if (mintNFT.nft_imgURL && mintNFT.nft_name) {
+//       axios
+//         .post("http://localhost:8080/minting", mintNFT)
+//         .then((res) => {
+//           console.log(res.data.status);
+//         })
+//     }
+//   }
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
@@ -160,13 +160,14 @@ export default function Register() {
     console.log(TokenId);
 
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
-        axios.post("http://localhost:8080/register", mintNFT)
+        axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
             console.log(res.data)
             setMintNFT({
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
-                description: mintNFT.description
+                description: mintNFT.description,
+                types: mintNFT.types
             })
         })
         .catch((e)=> console.log(e))
@@ -205,16 +206,16 @@ export default function Register() {
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit}/>}
+        {preview && <img src={preview} alt="preview" onSubmit={handleImgPreview}/>}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
             <input
-              type="file"
+              type="file" multiple
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgPreview}
+              onChange={handleImgChange}
             />
           </div>
         </label>
