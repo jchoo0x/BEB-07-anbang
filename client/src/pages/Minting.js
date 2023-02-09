@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+import { Buffer } from "buffer";
 
 import axios from "axios";
 import { create } from "ipfs-http-client";
@@ -20,6 +21,13 @@ const projectSecret = '3e422f75dcf17f979f829ea39b13d5bc';  // <---------- your I
 const auth = 'Basic ' + btoa(projectId + ':' + projectSecret);
 
 export default function Register() {
+
+    // useEffect(()=>{
+    //     if(localStorage.getItem('account') === null) {
+    //         window.location.replace('http://localhost:3000/login')
+    //     }
+    //   }, []);
+
   // minting NFT
   const [mintNFT, setMintNFT] = useState({
     nft_address: "", // 건물주소
@@ -48,28 +56,43 @@ export default function Register() {
   const makingContract = new ethers.Contract(NFT_contractAddress, erc721_ABI, provider);
 
   // ipfs 메타데이터 생성 함수들
-  // submitImage console에서 url 뜨는지 확인하면 됌
   const submitImage = async () => {
     if (!imgFile) return false;
-    // console.log(imgFile);
+  
+    const data = {
+      imgFile,
+      nft_address: mintNFT.nft_address,
+      types: mintNFT.types
+    };
+  
+    const dataString = JSON.stringify(data);
+  
     try {
-      let added = await client.add(imgFile, {
-        progress: (prog) => console.log(`received: ${prog}`),
+
+      let added = await client.add(Buffer.from(dataString), {
+        progress: (prog) => {
+          if (prog < 1) {
+            console.log(`received: ${prog}`);
+          }
+        }
       });
-    //   console.log(added);
+
       const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
       console.log(url);
       setMintNFT({
         nft_address: mintNFT.nft_address,
         nft_imgURL: url,
         types: mintNFT.types,
+        description: mintNFT.description,
+        types: mintNFT.types
       });
-
+  
       return url;
     } catch (e) {
       console.log(e);
     }
   };
+
 
   const handleImgChange = (e)=>{
     const curImgFile = e.target.files[0];
@@ -97,21 +120,7 @@ export default function Register() {
     setMintNFT({ ...mintNFT, [key]: e.target.value });
     // console.log(mintNFT);
   };
-
-  function handleSubmit(event) {
-    let isMintSuccess = false;
-    event.preventDefault();
-    handleClickCreate();
-    console.log(mintNFT);
-
-    if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-      axios
-        .post("http://localhost:8080/minting", mintNFT)
-        .then((res) => {
-          console.log(res.data.status);
-        })
-    }
-  }
+  
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
@@ -149,36 +158,41 @@ export default function Register() {
   }
 
   // 매물관련 DB post
-  // const postDB = async (event)=>{
+
   async function postDB (event){
     event.preventDefault();
     // console.log(mintNFT);
-    console.log(makingContract.events);
+    handleClickCreate();
+    console.log(makingContract);
     const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>
       makingContract.connect(signer)
     );
     
     await ContractWithSigner.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
-    const TokenId = await ContractWithSigner.viewLastTokenID()
+    let TokenId = await ContractWithSigner.viewLastTokenID()
     TokenId = Number(TokenId)+1;
-    setMintNFT({
+    setMintNFT({...mintNFT,
       tokenid: TokenId,
     })
   
-    
+    console.log(mintNFT)
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
-        axios.post("http://localhost:8080/register", mintNFT)
+        axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
             console.log(res.data)
+            
             setMintNFT({
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
-                description: mintNFT.description
+                description: mintNFT.description,
+                types: mintNFT.types,
+                address: mintNFT.nft_address
             })
         })
         .catch((e)=> console.log(e))
     }
   }
+
 
   return (
     <div className="mb-6 pt-4 mt-20">
@@ -208,31 +222,28 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="grid justify-center items-center mb-5 pt-10 px-10 text-xl font-semibold text-[#07074D]">
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit}/>}
+        {preview && <img src={preview} alt="preview" />}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
             <input
-              type="file"
+              type="file" multiple
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgPreview}
+              onChange={handleImgChange}
+              onSubmit={submitImage}
             />
           </div>
         </label>
       </div>
-      <div className="py-10">
-        <label class="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
-          주소 등록
-        </label>
-      </div>
+
       {/* <Postcode /> */}
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="grid justify-center items-center pt-10 mb-10 px-10 text-xl font-semibold text-[#07074D]">
         등기부 등본 등록
       </label>
       <div className="">
@@ -290,17 +301,18 @@ export default function Register() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            {/* <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
-                건물상태
+                건물주소
               </label>
               <input
                 type="text"
+                value={mintNFT.nft_address} onChange={handleInputValue("nft_address")}
                 id="username"
-                placeholder="예시) 상, 중, 하"
+                placeholder="서울특별시 강남구"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
-            </div> */}
+            </div>
             <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
                 건물 부가 설명
