@@ -25,31 +25,32 @@ function Register() {
 }
 
 function validateForm(){
-  return userInfo.email>0 && userInfo.nickname>0 && userInfo.password.length>0 && userInfo.password===userInfo.passwordConfirm && userInfo.walletAddress>0 
-  && userInfo.idNumber>0 && userInfo.name>0 && userInfo.phoneNumber>0
+  return userInfo.email>0 && userInfo.nickname>0 && userInfo.password.length>0 && 
+  userInfo.password===userInfo.passwordConfirm && userInfo.idNumber>0 
+  && userInfo.name>0 && userInfo.phoneNumber>0
 }
 
 function handleSubmit(event){
   let isSigninSuccess = false
   event.preventDefault();
-  if(
+  if( 
       userInfo.email &&
       userInfo.password &&
       userInfo.nickname && 
-      userInfo.walletAddress &&
       userInfo.idNumber &&
       userInfo.phoneNumber &&
-      userInfo.name
+      userInfo.name &&
+      userInfo.walletAddress
   ){
       axios.post("http://localhost:8080/user/signUp", userInfo)
       .then((result)=>{
-          console.log(result.data.status)
-          result.data.status==="success"? isSigninSuccess=true : isSigninSuccess=false
-      })
-      .then(()=>{
-          isSigninSuccess? navigate('/main') : alert("모든 정보를 입력해주세요")
-      }).catch((e)=>console.log(e))
-  }
+        console.log(result.data.status)
+        result.data.status==="success"? isSigninSuccess=true : isSigninSuccess=false
+    })
+    .then(()=>{
+        isSigninSuccess? navigate('/main') : alert("failed")
+    }).catch((e)=>console.log(e))
+}
 }
 
   return (
@@ -57,7 +58,7 @@ function handleSubmit(event){
       className="mt-36"
       style={{ display: "flex", justifyContent: "center" }}
     >
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="text"
           className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
@@ -114,8 +115,17 @@ function handleSubmit(event){
           placeholder="주민등록번호 ( - 없이 입력해주세요)"
         />
         <br />
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.walletAddress}
+          onChange={handleInputValue("walletAddress")}
+          placeholder="MetaMask 지갑 주소"
+        />
+        <br />
         <button
-          type="button"
+          type="submit"
+          onClick={handleSubmit}
           className="inline-block px-6 py-2 border-2 border-black text-black font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           data-mdb-ripple="true"
           data-mdb-ripple-color="light"
