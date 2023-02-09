@@ -1,5 +1,5 @@
 // modules
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
@@ -14,6 +14,13 @@ import ContractAgree from "./ContractAgree";
 import "../assets/css/main.css";
 
 export default function Main() {
+
+    useEffect(()=>{
+        if(localStorage.getItem('account') === null) {
+            window.location.replace('http://localhost:3000/login')
+        }
+      }, []);
+
   return (
     <div className="mx-8 position: relative justify-center h-min">
       <div className="grid place-items-center">

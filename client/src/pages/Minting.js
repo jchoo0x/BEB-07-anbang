@@ -1,5 +1,5 @@
 // modules
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
@@ -21,7 +21,14 @@ const projectSecret = '3e422f75dcf17f979f829ea39b13d5bc';  // <---------- your I
 const auth = 'Basic ' + btoa(projectId + ':' + projectSecret);
 
 export default function Register() {
-  // minting NFT
+  
+  useEffect(()=>{
+    if(localStorage.getItem('account') === null) {
+        window.location.replace('http://localhost:3000/login')
+    }
+  }, []);
+  
+    // minting NFT
   const [mintNFT, setMintNFT] = useState({
     nft_address: "", // 건물주소
     nft_imgURL: "", // 이미지 url
