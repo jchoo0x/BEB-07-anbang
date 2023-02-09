@@ -21,6 +21,13 @@ const projectSecret = '3e422f75dcf17f979f829ea39b13d5bc';  // <---------- your I
 const auth = 'Basic ' + btoa(projectId + ':' + projectSecret);
 
 export default function Register() {
+
+    // useEffect(()=>{
+    //     if(localStorage.getItem('account') === null) {
+    //         window.location.replace('http://localhost:3000/login')
+    //     }
+    //   }, []);
+
   // minting NFT
   const [mintNFT, setMintNFT] = useState({
     nft_address: "", // 건물주소
@@ -211,7 +218,7 @@ export default function Register() {
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit}/>}
+        {preview && <img src={preview} alt="preview"/>}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
