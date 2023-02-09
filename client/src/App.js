@@ -24,11 +24,11 @@ function App() {
   const navigation = useNavigate();
 
   const loginHandler = async () => {
-    const dataToLogin = await axios.get("http://localhost:8080/login")
+    const dataToLogin = await axios.get("http://localhost:8080/user/login")
     .then(result=>result.data)
     .catch(err=>err)
 
-    const loginResult = await axios.post("http://localhost:8080/login", {dataToLogin}, {withCredentials: true})
+    const loginResult = await axios.post("http://localhost:8080/user/login", {dataToLogin}, {withCredentials: true})
     .then(result=>{
       return result.data;
     })

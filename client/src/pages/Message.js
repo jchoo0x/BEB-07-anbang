@@ -1,5 +1,5 @@
 // modules
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Routes, Switch} from 'react-router-dom';
@@ -9,6 +9,12 @@ import axios from "axios";
 import "../assets/css/main.css";
 
 export default function Message() {
+
+    useEffect(()=>{
+        if(localStorage.getItem('account') === null) {
+            window.location.replace('http://localhost:3000/login')
+        }
+      }, []);
 
     const [selectedUser, setSelectedUser] = useState('나');
     const [messages, setMessages] = useState([]);
