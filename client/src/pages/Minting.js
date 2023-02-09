@@ -23,11 +23,11 @@ const auth = 'Basic ' + btoa(projectId + ':' + projectSecret);
 
 export default function Register() {
   
-//   useEffect(()=>{
-//     if(localStorage.getItem('account') === null) {
-//         window.location.replace('http://localhost:3000/login')
-//     }
-//   }, []);
+  useEffect(()=>{
+    if(localStorage.getItem('account') === null) {
+        window.location.replace('http://localhost:3000/login')
+    }
+  }, []);
   
     // minting NFT
   const [mintNFT, setMintNFT] = useState({
