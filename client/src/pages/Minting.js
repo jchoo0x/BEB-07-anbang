@@ -83,6 +83,8 @@ export default function Register() {
         nft_address: mintNFT.nft_address,
         nft_imgURL: url,
         types: mintNFT.types,
+        description: mintNFT.description,
+        types: mintNFT.types
       });
   
       return url;
@@ -156,7 +158,7 @@ export default function Register() {
   }
 
   // 매물관련 DB post
-  // const postDB = async (event)=>{
+
   async function postDB (event){
     event.preventDefault();
     // console.log(mintNFT);
@@ -179,12 +181,15 @@ export default function Register() {
             setMintNFT({
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
-                description: mintNFT.description
+                description: mintNFT.description,
+                types: mintNFT.types,
+                address: mintNFT.nft_address
             })
         })
         .catch((e)=> console.log(e))
     }
   }
+
 
   return (
     <div className="mb-6 pt-4 mt-20">
@@ -214,31 +219,28 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="grid justify-center items-center mb-5 pt-10 px-10 text-xl font-semibold text-[#07074D]">
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview"/>}
+        {preview && <img src={preview} alt="preview" />}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
             <input
-              type="file"
+              type="file" multiple
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgPreview}
+              onChange={handleImgChange}
+              onSubmit={submitImage}
             />
           </div>
         </label>
       </div>
-      <div className="py-10">
-        <label class="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
-          주소 등록
-        </label>
-      </div>
+
       {/* <Postcode /> */}
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="grid justify-center items-center pt-10 mb-10 px-10 text-xl font-semibold text-[#07074D]">
         등기부 등본 등록
       </label>
       <div className="">
@@ -296,17 +298,18 @@ export default function Register() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            {/* <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
-                건물상태
+                건물주소
               </label>
               <input
                 type="text"
+                value={mintNFT.nft_address} onChange={handleInputValue("nft_address")}
                 id="username"
-                placeholder="예시) 상, 중, 하"
+                placeholder="서울특별시 강남구"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
-            </div> */}
+            </div>
             <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
                 건물 부가 설명
