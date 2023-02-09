@@ -28,8 +28,8 @@ export default function Register() {
     gov_info: "", // 등기부등본
     deposit: "", // 보증금
     rental: "", // 월세
-    description: "" // 부가설명
-
+    description: "", // 부가설명
+    tokenid: ""
   });
   const [imgFile, setImgFile] = React.useState(null);
 
@@ -161,7 +161,9 @@ export default function Register() {
     await ContractWithSigner.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
     const TokenId = await ContractWithSigner.viewLastTokenID()
     TokenId = Number(TokenId)+1;
-  
+    setMintNFT({
+      tokenid: TokenId
+    })
     
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
         axios.post("http://localhost:8080/register", mintNFT)
