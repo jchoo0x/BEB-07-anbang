@@ -53,9 +53,13 @@ export default function Register() {
     if (!imgFile) return false;
     // console.log(imgFile);
     try {
-      let added = await client.add(imgFile, {
-        progress: (prog) => console.log(`received: ${prog}`),
-      });
+        let added = await client.add(imgFile, {
+            progress: (prog) => {
+                if (prog < 1) {
+                    console.log(`received: ${prog}`);
+                }
+            }
+        });
     //   console.log(added);
       const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
       console.log(url);
@@ -84,7 +88,7 @@ export default function Register() {
   const handleClickCreate = async () => {
     if (
       
-      mintNFT.types == "" ||
+      mintNFT.types == "" || mintNFT.deposit == "" || mintNFT.rental == "" || mintNFT.rental == "" ||
       imgFile == null
     ) {
       console.log("빈 칸이 있으면 안됩니다");
@@ -151,13 +155,13 @@ export default function Register() {
   // 매물관련 DB post
   async function postDB(event){
     event.preventDefault();
-    console.log(mintNFT);
-    console.log(mintNFT.nft_imgURL);
+    console.log(mintNFT)
+    handleClickCreate();
     const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>makingContract.connect(signer));
     
     const TokenId = await ContractWithSigner.functions.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
 
-    console.log(TokenId);
+    console.log(mintNFT.nft_imgURL);
 
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
         axios.post("http://localhost:8080/estate/register", mintNFT)
@@ -167,10 +171,11 @@ export default function Register() {
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
                 description: mintNFT.description,
-                types: mintNFT.types
+                types: mintNFT.types,
+                address: mintNFT.nft_address
             })
         })
-        .catch((e)=> console.log(e))
+        .catch((error)=> console.log(error))
     }
   }
 
@@ -202,11 +207,11 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="mb-5 pt-10 grid justify-center items-center text-xl font-semibold text-[#07074D]">
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleImgPreview}/>}
+        {preview && <img src={preview} alt="preview" />}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
@@ -216,21 +221,29 @@ export default function Register() {
               id="file"
               accept="image/*"
               onChange={handleImgChange}
+              onSubmit={submitImage}
             />
           </div>
         </label>
       </div>
-      <div className="py-10">
+      {/* <div className="py-10">
         <label class="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
           주소 등록
+          <input
+                type="text"
+                id="username"
+                placeholder="서울특별시 강남구 테헤란로114길 11"
+                value={mintNFT.nft_address} onChange={handleInputValue("nft_address")}
+                className="flex flex-col items-center text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
         </label>
-      </div>
+      </div> */}
       {/* <Postcode /> */}
-      <label className="mb-5 pt-10 px-10 block text-xl font-semibold text-[#07074D]">
+      <label className="mb-5 grid justify-center items-center pt-10 text-xl font-semibold text-[#07074D]">
         등기부 등본 등록
       </label>
       <div className="">
-        <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+        <label className="mb-10 relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
             <input
               type="file"
@@ -284,17 +297,18 @@ export default function Register() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div>
-            {/* <div id="input" class="flex flex-col w-full my-5">
+            <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
-                건물상태
+                건물주소
               </label>
               <input
                 type="text"
+                value={mintNFT.nft_address} onChange={handleInputValue("nft_address")}
                 id="username"
-                placeholder="예시) 상, 중, 하"
+                placeholder="서울특별시 강남구"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
-            </div> */}
+            </div>
             <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
                 건물 부가 설명
