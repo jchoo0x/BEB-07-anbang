@@ -28,7 +28,7 @@ export default function Register() {
     gov_info: "", // 등기부등본
     deposit: "", // 보증금
     rental: "", // 월세
-    description: "", // 부가설명
+    description: "",// 부가설명
     tokenid: ""
   });
   const [imgFile, setImgFile] = React.useState(null);
@@ -164,6 +164,7 @@ export default function Register() {
     setMintNFT({
       tokenid: TokenId,
     })
+  
     
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
         axios.post("http://localhost:8080/register", mintNFT)
