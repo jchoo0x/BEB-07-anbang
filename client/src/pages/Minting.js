@@ -168,7 +168,7 @@ export default function Register() {
     );
     
     await ContractWithSigner.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
-    const TokenId = await ContractWithSigner.viewLastTokenID()
+    let TokenId = await ContractWithSigner.viewLastTokenID()
     TokenId = Number(TokenId)+1;
     setMintNFT({
       tokenid: TokenId,
