@@ -211,7 +211,7 @@ export default function Register() {
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit}/>}
+        {preview && <img src={preview} alt="preview" />}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
@@ -220,7 +220,8 @@ export default function Register() {
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgPreview}
+              onChange={handleImgChange}
+              onSubmit={submitImage}
             />
           </div>
         </label>
