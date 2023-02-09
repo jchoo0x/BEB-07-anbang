@@ -16,7 +16,7 @@ function Register() {
     nickname: "", // 닉네임
     name: "", // 이름
     phoneNumber: "",  // 폰번호 
-    // walletAddress: "", // 지갑주소
+    walletAddress: "", // 지갑주소
     idNumber: "" // 주민등록번호
   })
 
@@ -39,7 +39,8 @@ function handleSubmit(event){
       userInfo.nickname && 
       userInfo.idNumber &&
       userInfo.phoneNumber &&
-      userInfo.name
+      userInfo.name &&
+      userInfo.walletAddress
   ){
       axios.post("http://localhost:8080/user/signUp", userInfo)
       .then((result)=>{
@@ -112,6 +113,14 @@ function handleSubmit(event){
           value={userInfo.idNumber}
           onChange={handleInputValue("idNumber")}
           placeholder="주민등록번호 ( - 없이 입력해주세요)"
+        />
+        <br />
+        <input
+          type="text"
+          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+          value={userInfo.walletAddress}
+          onChange={handleInputValue("walletAddress")}
+          placeholder="MetaMask 지갑 주소"
         />
         <br />
         <button
