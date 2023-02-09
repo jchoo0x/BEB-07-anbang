@@ -33,10 +33,10 @@ module.exports = {
         //     return res.status(400).json({ data: null, message: 'invalid access token' });
         // }
         try{
-            const token = authorization.split(' ')[1];
-            const data =jwt.verify(token,process.env.ACCESS_SECRET);
-            if(data)
-            {
+            // const token = authorization.split(' ')[1];
+            // const data =jwt.verify(token,process.env.ACCESS_SECRET);
+            // if(data)
+            // {
                 const {types, deposit, rental, description, tokenId} = req.body;
             
                 if (!types || !deposit || !description) {
@@ -53,7 +53,7 @@ module.exports = {
                     // owner : data.id
                 })
             return res.status(200).json(newEstate);
-            }
+            // }
         }catch(err){
             console.error(err.message);
             next(err);

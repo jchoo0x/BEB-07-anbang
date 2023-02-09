@@ -24,13 +24,13 @@ function App() {
 
   const loginHandler = async () => {
     const dataToLogin = await axios
-      .get("http://localhost:8080/login")
+      .get("http://localhost:8080/user/login")
       .then((result) => result.data)
       .catch((err) => err);
 
     const loginResult = await axios
       .post(
-        "http://localhost:8080/login",
+        "http://localhost:8080/user/login",
         { dataToLogin },
         { withCredentials: true }
       )
