@@ -99,6 +99,19 @@ const erc721_ABI = [
 		"type": "event"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newTokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenID",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -479,9 +492,22 @@ const erc721_ABI = [
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "viewLastTokenID",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
-const NFT_contractAddress = 0x63c2b6625dA172860Aa79b528AA06D125821d029
+const NFT_contractAddress = '0x6c475B4cb1E8cdEdf69706cB2b88B75b764D482f'
 
 module.exports = {erc721_ABI, NFT_contractAddress };
