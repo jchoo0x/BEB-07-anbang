@@ -8,13 +8,12 @@ import axios from "axios";
 import { create } from "ipfs-http-client";
 
 import Postcode from "../components/Postcode";
-
+import web3 from "web3";
 import {erc721_ABI, NFT_contractAddress} from '../contract/NFT_ABI';
 
 // stylesheet
 import "../assets/css/main.css";
 import {ethers} from "ethers"
-
 
 const projectId = '2LPkziQCCo7eL21iSYVGrg5Dqtu';   // <---------- your Infura Project ID
 const projectSecret = '3e422f75dcf17f979f829ea39b13d5bc';  // <---------- your Infura Secret
@@ -160,16 +159,21 @@ export default function Register() {
   }
 
   // 매물관련 DB post
-  async function postDB(event){
+  // const postDB = async (event)=>{
+  async function postDB (event){
     event.preventDefault();
-    console.log(mintNFT)
-    handleClickCreate();
-    const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>makingContract.connect(signer));
+
+    // console.log(mintNFT);
+    console.log(makingContract.events);
+    const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>
+      makingContract.connect(signer)
+    );
     
-    const TokenId = await ContractWithSigner.functions.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
-
-    console.log(mintNFT.nft_imgURL);
-
+    await ContractWithSigner.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
+    const TokenId = await ContractWithSigner.viewLastTokenID()
+    TokenId = Number(TokenId)+1;
+  
+   
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
         axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
