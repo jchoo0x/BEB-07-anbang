@@ -28,7 +28,8 @@ export default function Register() {
     gov_info: "", // 등기부등본
     deposit: "", // 보증금
     rental: "", // 월세
-    description: "" // 부가설명
+    description: "",// 부가설명
+    tokenid: ""
   });
   const [imgFile, setImgFile] = React.useState(null);
 
@@ -156,13 +157,13 @@ export default function Register() {
     const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>
       makingContract.connect(signer)
     );
-    let block = 0;
     
     await ContractWithSigner.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
     const TokenId = await ContractWithSigner.viewLastTokenID()
     TokenId = Number(TokenId)+1;
-    // console.log(web3.eth.getBlockTransactionCount(0xbd7b0730cdee09e77294cdd02bb1d75bede0e95c84f76b8c90ef93b89999a150))
-    // web3.eth.subscribe("logs", { address: ethereum.selectedAddress }).on("data", console.log);
+    setMintNFT({
+      tokenid: TokenId,
+    })
   
     
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
