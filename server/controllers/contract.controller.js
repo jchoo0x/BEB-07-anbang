@@ -17,13 +17,13 @@ module.exports= {
             const token = authorization.split(' ')[1];
             const data =jwt.verify(token,process.env.ACCESS_SECRET);
             if(data){
-                
+                //특약 , 계약할 부동산 토큰 아이디 입력
                 const {tenantAgreement, tenantestateTokenId} = req.body;
                 
                     if (!tenantAgreement || !tenantestateTokenId) {
                         return res.status(400).json({ data: null, message: 'Invalid input' });
                     }
-    
+                    //임차인 특약사항 작성
                     const newTenantAgreement = await TenantAgreement.create({
                         tenantAgreement,
                         tenantId : data.id,

@@ -55,21 +55,10 @@ const useMetamask = () => {
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
           params: [klaytnBaobabMetaData],
-          // {
-          //     chainId: "0x39",
-          //     name: "Klaytn",
-          //     rpcUrl: "https://baobab.klaytn.net:8651",
-          // },
         });
       } catch (err) {
         console.error(err.message);
       }
-
-      // Switch to the Klaytn Baobab network
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x39" }],
-      });
 
       // Set the Metamask object
       setMetamask(window.ethereum);
