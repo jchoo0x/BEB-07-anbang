@@ -9,12 +9,11 @@ import { create } from "ipfs-http-client";
 
 import Postcode from "../components/Postcode";
 
-import {erc721_ABI, NFT_contractAddress} from '../contract/NFT_ABI';
+import { erc721_ABI, NFT_contractAddress } from "../contract/NFT_ABI";
 
 // stylesheet
 import "../assets/css/main.css";
-import {ethers} from "ethers"
-
+import { ethers } from "ethers";
 
 const projectId = "2LPkziQCCo7eL21iSYVGrg5Dqtu"; // <---------- your Infura Project ID
 const projectSecret = "3e422f75dcf17f979f829ea39b13d5bc"; // <---------- your Infura Secret
@@ -29,7 +28,7 @@ export default function Register() {
     gov_info: "", // 등기부등본
     deposit: "", // 보증금
     rental: "", // 월세
-    description: "" // 부가설명
+    description: "", // 부가설명
   });
   const [imgFile, setImgFile] = React.useState(null);
 
@@ -44,8 +43,12 @@ export default function Register() {
   });
 
   const ethereum = window.ethereum;
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const makingContract = new ethers.Contract(NFT_contractAddress, erc721_ABI, provider);
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const makingContract = new ethers.Contract(
+    NFT_contractAddress,
+    erc721_ABI,
+    provider
+  );
 
   // ipfs 메타데이터 생성 함수들
   // submitImage console에서 url 뜨는지 확인하면 됌
@@ -56,7 +59,7 @@ export default function Register() {
       let added = await client.add(imgFile, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
-    //   console.log(added);
+      //   console.log(added);
       const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
       console.log(url);
       setMintNFT({
@@ -82,7 +85,7 @@ export default function Register() {
   };
 
   const handleClickCreate = async () => {
-    if (mintNFT.nft_address == "" || mintNFT.types == "" || imgFile == null) {
+    if (mintNFT.types == "" || imgFile == null) {
       console.log("빈 칸이 있으면 안됩니다");
       return false;
     }
@@ -94,20 +97,20 @@ export default function Register() {
     // console.log(mintNFT);
   };
 
-  function handleSubmit(event) {
-    let isMintSuccess = false;
-    event.preventDefault();
-    handleClickCreate();
-    console.log(mintNFT);
+  //   function handleSubmit(event) {
+  //     let isMintSuccess = false;
+  //     event.preventDefault();
+  //     handleClickCreate();
+  //     console.log(mintNFT);
 
-    if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-      axios
-        .post("http://localhost:8080/minting", mintNFT)
-        .then((res) => {
-          console.log(res.data.status);
-        })
-    }
-  }
+  //     if (mintNFT.nft_imgURL && mintNFT.nft_name) {
+  //       axios
+  //         .post("http://localhost:8080/minting", mintNFT)
+  //         .then((res) => {
+  //           console.log(res.data.status);
+  //         })
+  //     }
+  //   }
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
@@ -131,12 +134,11 @@ export default function Register() {
         .then((res) => {
           console.log(res);
           mintNFT.gov_info === mintNFT
-          // mintNFT.gov_info.주민번호가 어떤식으로?
-            ? (isCheckSuccess = true)
+            ? // mintNFT.gov_info.주민번호가 어떤식으로?
+              (isCheckSuccess = true)
             : (isCheckSuccess = false);
         })
         .then(() => {
-
           isCheckSuccess
             ? alert("등기부 등본을 등록했습니다")
             : alert("등기부 등본 등록에 실패했습니다");
@@ -145,27 +147,35 @@ export default function Register() {
   }
 
   // 매물관련 DB post
-  async function postDB(event){
+  async function postDB(event) {
     event.preventDefault();
     console.log(mintNFT);
     console.log(mintNFT.nft_imgURL);
-    const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>makingContract.connect(signer));
-    
-    const TokenId = await ContractWithSigner.functions.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
+    const ContractWithSigner = await provider
+      .send("eth_requestAccounts", [])
+      .then((_) => provider.getSigner())
+      .then((signer) => makingContract.connect(signer));
+
+    const TokenId = await ContractWithSigner.functions.mintNFT(
+      ethereum.selectedAddress,
+      mintNFT.nft_imgURL
+    );
 
     console.log(TokenId);
 
-    if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
-        axios.post("http://localhost:8080/register", mintNFT)
-        .then((res) =>{
-            console.log(res.data)
-            setMintNFT({
-                deposit: mintNFT.deposit ,
-                rental: mintNFT.rental,
-                description: mintNFT.description
-            })
+    if (mintNFT.deposit && mintNFT.rental && mintNFT.description) {
+      axios
+        .post("http://localhost:8080/estate/register", mintNFT)
+        .then((res) => {
+          console.log(res.data);
+          setMintNFT({
+            deposit: mintNFT.deposit,
+            rental: mintNFT.rental,
+            description: mintNFT.description,
+            types: mintNFT.types,
+          });
         })
-        .catch((e)=> console.log(e))
+        .catch((e) => console.log(e));
     }
   }
 
@@ -212,16 +222,19 @@ export default function Register() {
         사진 등록
       </label>
       <div className="mb-8">
-        {preview && <img src={preview} alt="preview" onSubmit={handleSubmit}/>}
+        {preview && (
+          <img src={preview} alt="preview" onSubmit={handleImgPreview} />
+        )}
 
         <label className="relative flex min-h-[200px] items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
           <div>
             <input
               type="file"
+              multiple
               name="file"
               id="file"
               accept="image/*"
-              onChange={handleImgPreview}
+              onChange={handleImgChange}
             />
           </div>
         </label>
@@ -234,49 +247,52 @@ export default function Register() {
           {preview && (
             <img src={preview} alt="preview" onSubmit={handleImgPreview} />
           )}
+        </div>
 
-      <div className="flex flex-col items-center justify-center  mx-auto">
-        <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
-        <div className=" flex items-center justify-center">
-          <div id="input" className="flex flex-col w-full my-5">
-              <label for="username" className="text-gray-500 mb-2">
-                부동산 종류
-              </label>
-              <input
-                type="file"
-                multiple
-                name="file"
-                id="file"
-                accept="image/*"
-                onChange={handleImgChange}
-              />
+        <div className="flex flex-col items-center justify-center  mx-auto">
+          <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
+            <div className=" flex items-center justify-center">
+              <div id="input" className="flex flex-col w-full my-5">
+                <label for="username" className="text-gray-500 mb-2">
+                  부동산 종류
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  name="file"
+                  id="file"
+                  accept="image/*"
+                  onChange={handleImgChange}
+                />
+              </div>
             </div>
-          </div>
-          <form action="" class="flex flex-col items-center">
-            <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2">
-                보증금
-              </label>
-              <input
-                value={mintNFT.deposit} onChange={handleInputValue('deposit')}
-                type="text"
-                id="username"
-                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-              />
-            </div>
-            <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2">
-                월세
-              </label>
-              <input
-                value={mintNFT.rental} onChange={handleInputValue('rental')}
-                type="text"
-                id="username"
-                placeholder="전세의 경우 0을 입력해주시면 됩니다"
-                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-              />
-            </div>
-            {/* <div id="input" class="flex flex-col w-full my-5">
+            <form action="" class="flex flex-col items-center">
+              <div id="input" class="flex flex-col w-full my-5">
+                <label for="username" class="text-gray-500 mb-2">
+                  보증금
+                </label>
+                <input
+                  value={mintNFT.deposit}
+                  onChange={handleInputValue("deposit")}
+                  type="text"
+                  id="username"
+                  className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+                />
+              </div>
+              <div id="input" class="flex flex-col w-full my-5">
+                <label for="username" class="text-gray-500 mb-2">
+                  월세
+                </label>
+                <input
+                  value={mintNFT.rental}
+                  onChange={handleInputValue("rental")}
+                  type="text"
+                  id="username"
+                  placeholder="전세의 경우 0을 입력해주시면 됩니다"
+                  className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+                />
+              </div>
+              {/* <div id="input" class="flex flex-col w-full my-5">
               <label for="username" class="text-gray-500 mb-2">
                 건물상태
               </label>
@@ -287,34 +303,36 @@ export default function Register() {
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
               />
             </div> */}
-            <div id="input" class="flex flex-col w-full my-5">
-              <label for="username" class="text-gray-500 mb-2">
-                건물 부가 설명
-              </label>
-              <input
-                value={mintNFT.description} onChange={handleInputValue('description')}
-                type="text"
-                id="username"
-                placeholder="예시) 가구 옵션, 관리비 여부"
-                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
-              />
-            </div>
-            <div id="button" class="flex flex-col w-full my-5">
-              <div class="flex justify-evenly mt-5"></div>
-            </div>
-          </form>
+              <div id="input" class="flex flex-col w-full my-5">
+                <label for="username" class="text-gray-500 mb-2">
+                  건물 부가 설명
+                </label>
+                <input
+                  value={mintNFT.description}
+                  onChange={handleInputValue("description")}
+                  type="text"
+                  id="username"
+                  placeholder="예시) 가구 옵션, 관리비 여부"
+                  className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+                />
+              </div>
+              <div id="button" class="flex flex-col w-full my-5">
+                <div class="flex justify-evenly mt-5"></div>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
 
-      <div className="flex flex-col items-center">
-        <button
-        type="submit"
-          onClick={postDB}
-          className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
+        <div className="flex flex-col items-center">
+          <button
+            type="submit"
+            onClick={postDB}
+            className="mt-20 mx-4 flex justify-center items-center text-white bg-indigo-500 
         border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-        >
-          매물 등록하기
-        </button>
+          >
+            매물 등록하기
+          </button>
+        </div>
       </div>
     </div>
   );
