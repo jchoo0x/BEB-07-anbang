@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
+import { Buffer } from "buffer";
 
 import axios from "axios";
 import { create } from "ipfs-http-client";
@@ -22,11 +23,11 @@ const auth = 'Basic ' + btoa(projectId + ':' + projectSecret);
 
 export default function Register() {
   
-  useEffect(()=>{
-    if(localStorage.getItem('account') === null) {
-        window.location.replace('http://localhost:3000/login')
-    }
-  }, []);
+//   useEffect(()=>{
+//     if(localStorage.getItem('account') === null) {
+//         window.location.replace('http://localhost:3000/login')
+//     }
+//   }, []);
   
     // minting NFT
   const [mintNFT, setMintNFT] = useState({
@@ -55,19 +56,25 @@ export default function Register() {
   const makingContract = new ethers.Contract(NFT_contractAddress, erc721_ABI, provider);
 
   // ipfs 메타데이터 생성 함수들
-  // submitImage console에서 url 뜨는지 확인하면 됌
   const submitImage = async () => {
     if (!imgFile) return false;
-    // console.log(imgFile);
+  
+    const data = {
+      imgFile,
+      nft_address: mintNFT.nft_address,
+      types: mintNFT.types
+    };
+  
+    const dataString = JSON.stringify(data);
+  
     try {
-        let added = await client.add(imgFile, {
-            progress: (prog) => {
-                if (prog < 1) {
-                    console.log(`received: ${prog}`);
-                }
-            }
-        });
-    //   console.log(added);
+      let added = await client.add(Buffer.from(dataString), {
+        progress: (prog) => {
+          if (prog < 1) {
+            console.log(`received: ${prog}`);
+          }
+        }
+      });
       const url = `http://making.infura-ipfs.io/ipfs/${added.path}`;
       console.log(url);
       setMintNFT({
@@ -75,12 +82,13 @@ export default function Register() {
         nft_imgURL: url,
         types: mintNFT.types,
       });
-
+  
       return url;
     } catch (e) {
       console.log(e);
     }
   };
+
 
   const handleImgChange = (e)=>{
     const curImgFile = e.target.files[0];
@@ -109,20 +117,6 @@ export default function Register() {
     // console.log(mintNFT);
   };
 
-//   function handleSubmit(event) {
-//     let isMintSuccess = false;
-//     event.preventDefault();
-//     handleClickCreate();
-//     console.log(mintNFT);
-
-//     if (mintNFT.nft_imgURL && mintNFT.nft_name) {
-//       axios
-//         .post("http://localhost:8080/minting", mintNFT)
-//         .then((res) => {
-//           console.log(res.data.status);
-//         })
-//     }
-//   }
 
   // 이미지 미리보기
   const [imgChange, setimgChange] = useState(null);
