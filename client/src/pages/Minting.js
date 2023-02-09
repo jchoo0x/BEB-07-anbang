@@ -162,7 +162,7 @@ export default function Register() {
     const TokenId = await ContractWithSigner.viewLastTokenID()
     TokenId = Number(TokenId)+1;
     setMintNFT({
-      tokenid: TokenId
+      tokenid: TokenId,
     })
     
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
