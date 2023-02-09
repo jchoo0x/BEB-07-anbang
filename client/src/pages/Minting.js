@@ -162,7 +162,8 @@ export default function Register() {
   async function postDB (event){
     event.preventDefault();
     // console.log(mintNFT);
-    console.log(makingContract.events);
+    handleClickCreate();
+    console.log(makingContract);
     const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>
       makingContract.connect(signer)
     );
@@ -176,9 +177,10 @@ export default function Register() {
   
     
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
-        axios.post("http://localhost:8080/register", mintNFT)
+        axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
             console.log(res.data)
+            
             setMintNFT({
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
