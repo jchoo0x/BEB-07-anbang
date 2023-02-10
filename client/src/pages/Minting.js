@@ -161,13 +161,15 @@ export default function Register() {
 
   async function postDB (event){
     event.preventDefault();
+    // console.log(mintNFT);
     handleClickCreate();
+    console.log(makingContract);
     const ContractWithSigner = await provider.send("eth_requestAccounts", []).then( _=>provider.getSigner()).then(signer=>
       makingContract.connect(signer)
     );
     
     await ContractWithSigner.mintNFT(ethereum.selectedAddress, mintNFT.nft_imgURL);
-    const TokenId = await ContractWithSigner.viewLastTokenID()
+    let TokenId = await ContractWithSigner.viewLastTokenID()
     TokenId = Number(TokenId)+1;
     setMintNFT({
       tokenid: TokenId,
@@ -177,13 +179,13 @@ export default function Register() {
         axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
             console.log(res.data)
-
+            
             setMintNFT({
                 deposit: mintNFT.deposit ,
                 rental: mintNFT.rental,
                 description: mintNFT.description,
                 types: mintNFT.types,
-                address: mintNFT.nft_address,
+                address: mintNFT.nft_address
             })
         })
         .catch((e)=> console.log(e))

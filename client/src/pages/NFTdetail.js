@@ -30,9 +30,9 @@ export default function NFTdetail() {
         <div>
             <div className="flex flex-col mt-20 items-center max-w-[1240px] mx-auto">
                 <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300">
-                    <img  className="w-full mx-auto mt-[-3rem]" src="https://news.samsungdisplay.com/wp-content/uploads/2022/03/IT_tc00480001633_final-1024x449.jpg"></img>
+                    <img  className="w-full mx-auto mt-[-3rem]" src={image}></img>
                     <div id="userId">{address}</div>
-                    <div id="cost">{`월세 or 관리비 ${cost}`}</div>
+                    <div id="cost">{`월세 ${cost}`}</div>
                     <div id="deposit">{`보증금 : ${deposit}`}</div>
                     <div id="description">{`${description}`}</div>
                     <div id="rentKinds">{`임대 종류 : ${rentKinds}`}</div>
