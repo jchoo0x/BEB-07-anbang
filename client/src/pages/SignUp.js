@@ -44,12 +44,13 @@ function handleSubmit(event){
   ){
       axios.post("http://localhost:8080/user/signUp", userInfo)
       .then((result)=>{
-        console.log(result.data.status)
-        result.data.status==="success"? isSigninSuccess=true : isSigninSuccess=false
+        console.log(result.statusText)
+        result.statusText==="OK"? isSigninSuccess=true : isSigninSuccess=false
     })
     .then(()=>{
-        isSigninSuccess? navigate('/main') : alert("failed")
-    }).catch((e)=>console.log(e))
+        isSigninSuccess? navigate('/login') : alert("failed")
+    })
+    .catch((e)=>console.log(e))
 }
 }
 

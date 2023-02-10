@@ -9,7 +9,7 @@ const TenantAgreement = require('./tenantagreement');
 const OwnerAgreement = require('./owneragreement');
 
 const env = process.env.NODE_ENV || 'development';
-const config = require('../config/config')[env];
+const config= require(__dirname + '/../config/config.js')[env]
 const db = {};
 
 const sequelize = new Sequelize(
