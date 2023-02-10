@@ -168,10 +168,16 @@ export default function Register() {
       ethereum.selectedAddress,
       mintNFT.nft_imgURL
     );
+
+    await ContractWithSigner.mintNFT(
+      ethereum.selectedAddress,
+      mintNFT.nft_imgURL
+    );
     let TokenId = await ContractWithSigner.viewLastTokenID();
     TokenId = Number(TokenId) + 1;
     setMintNFT({ ...mintNFT, tokenid: TokenId });
-
+    mintNFT.tokenid = TokenId;
+    console.log(TokenId);
     console.log(mintNFT);
     if (mintNFT.deposit && mintNFT.rental && mintNFT.description) {
       axios

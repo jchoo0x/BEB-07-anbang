@@ -6,12 +6,29 @@ import { Link } from "react-router-dom";
 
 function Contract() {
   const [agreement, setAgreement] = useState({
-    ownerAgreement: "", // 임대인 특약조항
+    // ownerAgreement: "", // 임대인 특약조항
     tenantAgreement: "", // 임차인 특약조항
+    contractPeriod: "", // 계약기간
   });
+
+  const [NFTInfo, setNFTInfo] = useState([])
 
   const navigate = useNavigate();
 
+  // 매물정보 가져오기 
+  function getInfo(e){
+    e.preventDefault();
+    axios
+    .get("http://localhost:8080/estate/:id", NFTInfo)
+    .then((res)=>{
+      console.log(res);
+      setNFTInfo([...res.data]);
+    })
+    .catch((e) => console.log(e))
+  }
+
+
+  // 특약사항 post
   function handleSubmit(e) {
     e.preventDefault();
     axios
@@ -29,9 +46,7 @@ function Contract() {
   };
 
   const currentTime = new Date();
-  const TwoyearTime = new Date(
-    currentTime.setFullYear(currentTime.getFullYear() + 2)
-  ); // 2년 후
+  const TwoyearTime = new Date(currentTime.setFullYear(currentTime.getFullYear() + 2)); // 2년 후
   const realTime = new Date(); // 현재
 
   return (
@@ -96,7 +111,7 @@ function Contract() {
           </div>
         </div>
       </div>
-
+      {NFTInfo && NFTInfo.map((post)=> ( 
       <div className="mt-5 flex flex-col items-center justify-center w-full mx-auto">
         <div className="bg-white p-10 flex flex-col items-center justify-center w-full shadow-xl rounded-xl">
           <div className="flex flex-col items-center justify-center"></div>
@@ -116,9 +131,22 @@ function Contract() {
               class="flex flex-col justify-center items-center w-full my-5"
             >
               <label for="username" class="text-black mb-2">
-                임대주택 유형
+                주소 : {post.address}
               </label>
               <input
+                onChange={getInfo}
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+              <label for="username" class="text-black mb-2">
+                임대주택 유형 : {post.types}
+              </label>
+              <input
+                onChange={getInfo}
+                value={post.types}
                 type="text"
                 id="username"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
@@ -132,6 +160,8 @@ function Contract() {
                 계약기간
               </label>
               <input
+                value={agreement.contractPeriod}
+                onChange={handleInputValue("contractPeriod")}
                 type="text"
                 id="username"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
@@ -142,9 +172,22 @@ function Contract() {
               class="flex flex-col justify-center items-center w-full my-5"
             >
               <label for="username" class="text-black mb-2">
-                임대료
+                보증금 : {post.deposit}
               </label>
               <input
+                onChange={getInfo}
+                type="text"
+                id="username"
+                className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
+              />
+            </div>
+
+            <div id="input" class="flex flex-col justify-center items-center w-full my-5">
+              <label for="username" class="text-black mb-2">
+                월세 : {post.rental}
+              </label>
+              <input
+                onChange={getInfo}
                 type="text"
                 id="username"
                 className="text-black border border-blue-700 bg-white max-w-sm font-mono text-sm py-3 px-4 w-[500px] rounded-md"
@@ -159,6 +202,7 @@ function Contract() {
                 특약조항, 주의사항
               </label>
               <input
+                value={agreement.tenantAgreement}
                 onChange={handleInputValue("tenantAgreement")}
                 type="text"
                 id="username"
@@ -176,17 +220,19 @@ function Contract() {
           </form>
         </div>
       </div>
-
+    ))}
       <form onSubmit={handleSubmit}>
         <Link to="/mypage" component={ContractAgree}>
           <button
             type="submit"
+            onClick={handleSubmit}
             className="mt-20 mx-auto block w-1/4 translate-x-full translate-y-1/2 rounded-md bg-black px-4 py-2 text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-gray-500 focus:outline-none"
           >
             계약합니다
           </button>
         </Link>
       </form>
+
     </div>
   );
 }
