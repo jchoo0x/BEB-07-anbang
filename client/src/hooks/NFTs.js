@@ -12,14 +12,6 @@ export default function NFTList() {
     return(
         <div className="flex flex-wrap max-w-7xl justify-evenly mt-10">
             <NFT />
-            <NFT />
-            <NFT />
-            <NFT />
-            <NFT />
-            <NFT />
-            <NFT />
-            <NFT />
-            <NFT />
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
-import NFTList from "../hooks/NFTs";
+import NFTs from "../hooks/NFTs";
 import Minting from "./Minting";
 import Mypage from "./Mypage";
 import Message from "./Message";
@@ -15,11 +15,11 @@ import "../assets/css/main.css";
 
 export default function Main() {
 
-    useEffect(()=>{
-        if(localStorage.getItem('account') === null) {
-            window.location.replace('http://localhost:3000/login')
-        }
-      }, []);
+    // useEffect(()=>{
+    //     if(localStorage.getItem('account') === null) {
+    //         window.location.replace('http://localhost:3000/login')
+    //     }
+    //   }, []);
 
   return (
     <div className="mx-8 position: relative justify-center h-min">
@@ -66,7 +66,7 @@ export default function Main() {
           </div>
         </div>
         <Hero />
-        <NFTList />
+        <NFTs />
       </div>
     </div>
   );
