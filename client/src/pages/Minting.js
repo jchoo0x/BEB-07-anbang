@@ -174,8 +174,9 @@ export default function Register() {
     setMintNFT({...mintNFT,
       tokenid: TokenId,
     })
-  
-    console.log(mintNFT)
+    mintNFT.tokenid = TokenId;
+    console.log(TokenId);
+    console.log(mintNFT);
     if(mintNFT.deposit && mintNFT.rental && mintNFT.description ) {
         axios.post("http://localhost:8080/estate/register", mintNFT)
         .then((res) =>{
